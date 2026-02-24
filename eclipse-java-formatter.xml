@@ -18,7 +18,7 @@
         <!-- One indent level = 4 spaces -->
         <setting id="org.eclipse.jdt.core.formatter.indentation.size" value="4"/>
         <!-- Wrapped lines indent = 8 spaces -->
-        <setting id="org.eclipse.jdt.core.formatter.continuation_indentation" value="8"/>
+        <setting id="org.eclipse.jdt.core.formatter.continuation_indentation" value="2"/>
 
         <!-- Add newline (\n) to end of file -->
         <setting id="org.eclipse.jdt.core.formatter.insert_new_line_at_end_of_file_if_missing" value="true"/>

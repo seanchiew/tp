@@ -10,10 +10,8 @@ public class Remark {
     public final String value;
 
     /**
-     * Constructs a {@code Remark} with the specified remark text.
-     *
-     * @param remark The remark text for the person.
-     * @throws NullPointerException if {@code remark} is {@code null}.
+     * Contructor for a Remark object
+     * @param remark
      */
     public Remark(String remark) {
         requireNonNull(remark);
