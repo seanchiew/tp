@@ -19,15 +19,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 * Role: Student
 
-### Jane Doe
+### Huang Jianwei
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/jweiii03.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/jweiii03)]
 
-* Role: Team Lead
-* Responsibilities: UI
+* Role: Code quality
+* Responsibilities: Looks after code quality, ensures adherence to coding standards, etc.
 
 ### Tan Shao Hng Sherman
 
