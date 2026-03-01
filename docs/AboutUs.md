@@ -11,13 +11,14 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### Kevin
+### Kevin Antonio Dedrick
 
 <img src="images/kevin-129.png" width="200px">
 
 [[github](https://github.com/Kevin-129)]
 
-* Role: Student
+* Role: Documentation
+* Responsibilities: Quality of various project documents
 
 ### Jane Doe
 
