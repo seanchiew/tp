@@ -26,4 +26,7 @@ src/test/data/sandbox/
 docs/_site/
 docs/_markbind/logs/
 
-/bin
+# Ignore compiled binaries
+/bin/
+
+/.vscode/*
