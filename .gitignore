@@ -3,6 +3,9 @@
 /build/
 src/main/resources/docs/
 
+# VS Code
+/.vscode/
+
 # IDEA files
 /.idea/
 /out/
@@ -26,6 +29,4 @@ docs/_markbind/logs/
 # Ignore compiled binaries
 /bin/
 
-#Ignore VS Code local state, but track the shared settings
 /.vscode/*
-!/.vscode/settings.json
