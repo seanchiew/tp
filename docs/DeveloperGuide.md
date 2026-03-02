@@ -371,7 +371,7 @@ Preconditions: At least one record exists.
 
 **MSS**
 
-1.  User requests to <u>list opportunity records (UC3).<u/>
+1.  User requests to <u>list opportunity records (UC3).</u>
 2.  System shows the list of opportunity records.
 3.  User requests to update the status/stage of a specified record.
 4.  System validates the new status value.
@@ -399,7 +399,7 @@ Preconditions: At least one record exists.
 
 **MSS**
 
-1.  User requests to <u>list opportunity records (UC3).<u/>
+1.  User requests to <u>list opportunity records (UC3).</u>
 2.  System shows the list of opportunity records.
 3.  User requests to set or update the deadline for a specified record
 4.  System validates the deadline value.
