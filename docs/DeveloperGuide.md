@@ -332,8 +332,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. **Distribution:** The app must be distributable as a single executable JAR without an installer.
 3. **Offline-first:** All core functions must work fully offline and must not require any remote server or external API.
 4. **Local storage format:** Data must be stored locally in a human-editable text file (e.g., JSON) and must not use a DBMS.
-5. **Response time:** With up to 500 opportunity records, typical commands (add, delete, list, find, update) must complete within 500 ms, excluding application startup.
-6. **Startup time:** With up to 500 records, the application should be usable within 2 seconds after launch on a typical modern laptop.
+5. **Response time:** With up to **500** opportunity records, typical commands (add, delete, list, find, update) must complete within **500 ms**, excluding application startup.
+6. **Startup time:** With up to **500** records, the application should be usable within **2 seconds** after launch on a typical modern laptop.
 7. **Autosave reliability:** The app must automatically save after every state-changing operation (e.g., add, remove, update).
 8. **Graceful storage failure:** If reading or writing the storage file fails, the app must not crash and must show a clear error message.
 9. **CLI-first usability:** All core functions must be operable using keyboard-only input; the GUI is for visualization and must not be required to complete core tasks.
