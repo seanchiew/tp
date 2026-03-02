@@ -287,20 +287,67 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
+| Priority | As a …​                                    | I want to …​                 | So that I …​             |
 |----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
 | `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
 | `* * *`  | user                                       | add a new person             |                                                                        |
 | `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
 | `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
 | `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
+| `*` |  undergraduate applicant | tag / classify opportunities          |  can separate different application types quickly |
+| `*` |  undergraduate applicant | store a short note for an opportunity |  can remember context like referrals or required documents |
+| `*` |  undergraduate applicant | record milestone dates  |  can reconstruct my timeline when needed |
+| `*` |  busy applicant juggling many applications  |  see which deadlines are within the next N days | can plan my week |
+| `*` |  busy applicant juggling many applications  |  flag an opportunity as high priority  |  stands out among many entries |
+| `*` |  busy applicant juggling many applications  |  be warned about potential duplicates  |  don’t track the same application twice  |
+| `*` |  busy applicant juggling many applications  |  merge duplicate records  |  ensure my history stays consistent  |
+| `*` |  frequent user  |  maintain consistent status labels  |  ensure my filtering and reviewing reamins reliable over time  |
+| `*` |  busy applicant juggling many applications  |  extract key contact info from selected opportunities  |  can paste it into my email client quickly  |
+| `*` |  busy applicant juggling many applications  |  see summary counts by status |  can gauge progress at a glance  |
+| `*` |  end-of-cycle user  |  review outcomes for a cycle  |  can improve my strategy next time  |
+| `*` |  end-of-cycle user  |  record reasons for rejection / withdrawal  |  can learn patterns over time  |
+| `*` |  busy applicant juggling many applications  |  recover from accidental destructive actions  |  do not wipe a whole cycle when I make one mistake  |
+| `*` |  frequent user  |  keep my data in a human-editable local file  |  can make bulk edits when needed  |
+| `*` |  frequent user  |  make bulk-update statuses |  can process large batches efficiently  |
+| `*` |  end-of-cycle user  |  archive an old cycle  |  can keep my current list concise without losing history  |
+| `*` |  end-of-cycle user  |  start a new cycle while keeping past cycles accessible  |  can compare outcomes year to year  |
+| `*` |  frequent user  |  search within notes  |  can quickly retrieve context like "referral" or "via required"  |
+| `*` |  frequent user  |  view opportunities grouped by category / tag  |  focus on one track at a time  |
+| `*` |  frequent user  |  mark opportunities that require follow-up  |  don't forget to chase responses  |
 
 *{More to be added}*
 
 ### Use cases
 
 (For all use cases below, the **System** is the `InternTrack` and the **Actor** is the `user`, unless specified otherwise)
+
+**Use case: UC01 - Add an opportunity record**
+
+**MSS**
+
+1. User requests to add a new opportunity record.
+2. System validates the provided details.
+3. System creates the new opportunity record.
+4. System reflects the newly added record.
+
+   Use case ends.
+
+**Extensions**
+* 2a. Required details are missing (Company or Role).
+    * 2a1. System shows an error message indicating missing required details.
+
+        Use case resumes from step 1.
+
+* 2b. Provided deadline format is invalid
+    * 2b1. System shows an error message indicating the accepted deadline format.
+
+        Use case resumes from step 1.
+
+* 2c. Duplicate detected (same Company and Role already exists).
+    * 2c1. System informs the user that a duplicate exists.
+
+        Use case ends.
+
 
 **Use case: UC04 — Update status/stage of an opportunity**
 
@@ -337,10 +384,10 @@ Preconditions: At least one record exists.
 **MSS**
 
 1.  User requests to <u>list opportunity records (UC3).<u/>
-2.  System shows the list of opportunity records. 
-3.  User requests to set or update the deadline for a specified record 
-4.  System validates the deadline value. 
-5.  System updates the record 
+2.  System shows the list of opportunity records.
+3.  User requests to set or update the deadline for a specified record
+4.  System validates the deadline value.
+5.  System updates the record
 6.  System reflects the update.
 
     Use case ends.
@@ -367,7 +414,7 @@ Preconditions: At least one record exists.
 
 **MSS**
 
-1.  User requests to search opportunity records matching a keyword. 
+1.  User requests to search opportunity records matching a keyword.
 2.  System shows all records that match the keyword.
 
     Use case ends.
