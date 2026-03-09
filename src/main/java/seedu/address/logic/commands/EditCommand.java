@@ -8,12 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_OPPORTUNITIES;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -21,12 +17,9 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.opportunity.Address;
-import seedu.address.model.opportunity.Email;
-import seedu.address.model.opportunity.Name;
+import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.Opportunity;
-import seedu.address.model.opportunity.Phone;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.opportunity.Role;
 
 /**
  * Edits the details of an existing opportunity in the address book.
@@ -50,7 +43,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_OPPORTUNITY_SUCCESS = "Edited Opportunity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_OPPORTUNITY = "This opportunity already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_OPPORTUNITY = "This opportunity already exists in the tracker.";
 
     private final Index index;
     private final EditOpportunityDescriptor editOpportunityDescriptor;
@@ -96,13 +89,10 @@ public class EditCommand extends Command {
             EditOpportunityDescriptor editOpportunityDescriptor) {
         assert opportunityToEdit != null;
 
-        Name updatedName = editOpportunityDescriptor.getName().orElse(opportunityToEdit.getName());
-        Phone updatedPhone = editOpportunityDescriptor.getPhone().orElse(opportunityToEdit.getPhone());
-        Email updatedEmail = editOpportunityDescriptor.getEmail().orElse(opportunityToEdit.getEmail());
-        Address updatedAddress = editOpportunityDescriptor.getAddress().orElse(opportunityToEdit.getAddress());
-        Set<Tag> updatedTags = editOpportunityDescriptor.getTags().orElse(opportunityToEdit.getTags());
+        Company updatedCompany = editOpportunityDescriptor.getCompany().orElse(opportunityToEdit.getCompany());
+        Role updatedRole = editOpportunityDescriptor.getRole().orElse(opportunityToEdit.getRole());
 
-        return new Opportunity(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+        return new Opportunity(updatedCompany, updatedRole);
     }
 
     @Override
@@ -134,11 +124,8 @@ public class EditCommand extends Command {
      * corresponding field value of the opportunity.
      */
     public static class EditOpportunityDescriptor {
-        private Name name;
-        private Phone phone;
-        private Email email;
-        private Address address;
-        private Set<Tag> tags;
+        private Company company;
+        private Role role;
 
         public EditOpportunityDescriptor() {}
 
@@ -147,68 +134,33 @@ public class EditCommand extends Command {
          * A defensive copy of {@code tags} is used internally.
          */
         public EditOpportunityDescriptor(EditOpportunityDescriptor toCopy) {
-            setName(toCopy.name);
-            setPhone(toCopy.phone);
-            setEmail(toCopy.email);
-            setAddress(toCopy.address);
-            setTags(toCopy.tags);
+            setCompany(toCopy.company);
+            setRole(toCopy.role);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, email, address, tags);
+            return CollectionUtil.isAnyNonNull(company, role);
         }
 
-        public void setName(Name name) {
-            this.name = name;
+        public void setCompany(Company company) {
+            this.company = company;
         }
 
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
+        public Optional<Company> getCompany() {
+            return Optional.ofNullable(company);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setRole(Role role) {
+            this.role = role;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Role> getRole() {
+            return Optional.ofNullable(role);
         }
 
-        public void setEmail(Email email) {
-            this.email = email;
-        }
-
-        public Optional<Email> getEmail() {
-            return Optional.ofNullable(email);
-        }
-
-        public void setAddress(Address address) {
-            this.address = address;
-        }
-
-        public Optional<Address> getAddress() {
-            return Optional.ofNullable(address);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
 
         @Override
         public boolean equals(Object other) {
@@ -222,21 +174,15 @@ public class EditCommand extends Command {
             }
 
             EditOpportunityDescriptor otherEditOpportunityDescriptor = (EditOpportunityDescriptor) other;
-            return Objects.equals(name, otherEditOpportunityDescriptor.name)
-                    && Objects.equals(phone, otherEditOpportunityDescriptor.phone)
-                    && Objects.equals(email, otherEditOpportunityDescriptor.email)
-                    && Objects.equals(address, otherEditOpportunityDescriptor.address)
-                    && Objects.equals(tags, otherEditOpportunityDescriptor.tags);
+            return getCompany().equals(otherEditOpportunityDescriptor.getCompany())
+                && getRole().equals(otherEditOpportunityDescriptor.getRole());
         }
 
         @Override
         public String toString() {
             return new ToStringBuilder(this)
-                    .add("name", name)
-                    .add("phone", phone)
-                    .add("email", email)
-                    .add("address", address)
-                    .add("tags", tags)
+                    .add("company", company)
+                    .add("role", role)
                     .toString();
         }
     }

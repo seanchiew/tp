@@ -3,8 +3,6 @@ package seedu.address.model.opportunity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import static seedu.address.testutil.TypicalOpportunities.BOB;
@@ -42,8 +40,8 @@ public class UniqueOpportunityListTest {
     @Test
     public void contains_opportunityWithSameIdentityFieldsInList_returnsTrue() {
         uniqueOpportunityList.add(ALICE);
-        Opportunity editedAlice = new OpportunityBuilder(ALICE)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
+                                        .withRole(ALICE.getRole().roleName).build();
         assertTrue(uniqueOpportunityList.contains(editedAlice));
     }
 
@@ -85,8 +83,8 @@ public class UniqueOpportunityListTest {
     @Test
     public void setOpportunity_editedOpportunityHasSameIdentity_success() {
         uniqueOpportunityList.add(ALICE);
-        Opportunity editedAlice = new OpportunityBuilder(ALICE)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
+                                        .withRole(ALICE.getRole().roleName).build();
         uniqueOpportunityList.setOpportunity(ALICE, editedAlice);
         UniqueOpportunityList expectedUniqueOpportunityList = new UniqueOpportunityList();
         expectedUniqueOpportunityList.add(editedAlice);

@@ -1,15 +1,9 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,39 +17,34 @@ import seedu.address.model.opportunity.Opportunity;
  */
 public class TypicalOpportunities {
 
-    public static final Opportunity ALICE = new OpportunityBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
-            .withTags("friends").build();
-    public static final Opportunity BENSON = new OpportunityBuilder().withName("Benson Meier")
-            .withAddress("311, Clementi Ave 2, #02-25")
-            .withEmail("johnd@example.com").withPhone("98765432")
-            .withTags("owesMoney", "friends").build();
-    public static final Opportunity CARL = new OpportunityBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").build();
-    public static final Opportunity DANIEL = new OpportunityBuilder().withName("Daniel Meier").withPhone("87652533")
-            .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Opportunity ELLE = new OpportunityBuilder().withName("Elle Meyer").withPhone("9482224")
-            .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Opportunity FIONA = new OpportunityBuilder().withName("Fiona Kunz").withPhone("9482427")
-            .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Opportunity GEORGE = new OpportunityBuilder().withName("George Best").withPhone("9482442")
-            .withEmail("anna@example.com").withAddress("4th street").build();
+    public static final Opportunity ALICE = new OpportunityBuilder().withCompany("Stripe")
+                .withRole("SWE Intern").build();
+    public static final Opportunity BENSON = new OpportunityBuilder().withCompany("Tiktok")
+                .withRole("Backend Engineer").build();
+    public static final Opportunity CARL = new OpportunityBuilder().withCompany("Apple")
+                .withRole("iOS Engineer").build();
+    public static final Opportunity DANIEL = new OpportunityBuilder().withCompany("Google")
+                .withRole("Cloud Engineer").build();
+    public static final Opportunity ELLE = new OpportunityBuilder().withCompany("Netflix")
+                .withRole("Data Scientist").build();
+    public static final Opportunity FIONA = new OpportunityBuilder().withCompany("Amazon")
+                .withRole("Network Engineer").build();
+    public static final Opportunity GEORGE = new OpportunityBuilder().withCompany("Meta")
+                .withRole("Operations Intern").build();
 
     // Manually added
-    public static final Opportunity HOON = new OpportunityBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Opportunity IDA = new OpportunityBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").build();
+    public static final Opportunity HOON = new OpportunityBuilder().withCompany("Grab")
+                .withRole("Frontend Intern").build();
+    public static final Opportunity IDA = new OpportunityBuilder().withCompany("Shopee")
+                .withRole("Data Analyst").build();
 
     // Manually added - Opportunity's details found in {@code CommandTestUtil}
-    public static final Opportunity AMY = new OpportunityBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-    public static final Opportunity BOB = new OpportunityBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
-            .build();
+    public static final Opportunity AMY = new OpportunityBuilder().withCompany(VALID_COMPANY_AMY)
+                .withRole(VALID_ROLE_AMY).build();
+    public static final Opportunity BOB = new OpportunityBuilder().withCompany(VALID_COMPANY_BOB)
+                .withRole(VALID_ROLE_BOB).build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+    public static final String KEYWORD_MATCHING_MEIER = "Stripe"; // Update matching keyword
 
     private TypicalOpportunities() {} // prevents instantiation
 

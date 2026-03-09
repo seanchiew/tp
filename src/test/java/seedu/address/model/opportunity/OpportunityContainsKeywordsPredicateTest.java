@@ -43,41 +43,39 @@ public class OpportunityContainsKeywordsPredicateTest {
     }
 
     @Test
-    public void test_nameContainsKeywords_returnsTrue() {
+    public void test_companyContainsKeywords_returnsTrue() {
         // One keyword
-        OpportunityContainsKeywordsPredicate predicate =
-                new OpportunityContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new OpportunityBuilder().withName("Alice Bob").build()));
+        OpportunityContainsKeywordsPredicate predicate = new OpportunityContainsKeywordsPredicate(
+                                        Collections.singletonList("Stripe"));
+        assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe").build()));
 
         // Multiple keywords
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Alice", "Bob"));
-        assertTrue(predicate.test(new OpportunityBuilder().withName("Alice Bob").build()));
+        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Stripe", "Google"));
+        assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
 
         // Only one matching keyword
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
-        assertTrue(predicate.test(new OpportunityBuilder().withName("Alice Carol").build()));
+        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Stripe", "Tiktok"));
+        assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
 
         // Mixed-case keywords
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
-        assertTrue(predicate.test(new OpportunityBuilder().withName("Alice Bob").build()));
+        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("sTrIpE", "gOoGlE"));
+        assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
     }
 
     @Test
-    public void test_nameDoesNotContainKeywords_returnsFalse() {
+    public void test_companyDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        OpportunityContainsKeywordsPredicate predicate =
-                new OpportunityContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new OpportunityBuilder().withName("Alice").build()));
+        OpportunityContainsKeywordsPredicate predicate = new OpportunityContainsKeywordsPredicate(
+                                        Collections.emptyList());
+        assertFalse(predicate.test(new OpportunityBuilder().withCompany("Stripe").build()));
 
         // Non-matching keyword
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Carol"));
-        assertFalse(predicate.test(new OpportunityBuilder().withName("Alice Bob").build()));
+        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Tiktok"));
+        assertFalse(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
 
-        // Keywords match phone, email and address, but does not match name
-        predicate = new OpportunityContainsKeywordsPredicate(
-                Arrays.asList("12345", "alice@email.com", "Main", "Street"));
-        assertFalse(predicate.test(new OpportunityBuilder().withName("Alice").withPhone("12345")
-                .withEmail("alice@email.com").withAddress("Main Street").build()));
+        // Keywords match role, but does not match company
+        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("SWE"));
+        assertFalse(predicate.test(new OpportunityBuilder().withCompany("Stripe").withRole("SWE Intern").build()));
     }
 
     @Test

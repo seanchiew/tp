@@ -28,7 +28,10 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_newOpportunity_success() {
-        Opportunity validOpportunity = new OpportunityBuilder().build();
+        Opportunity validOpportunity = new OpportunityBuilder()
+                .withCompany("New Startup")
+                .withRole("Data Analyst")
+                .build();
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addOpportunity(validOpportunity);

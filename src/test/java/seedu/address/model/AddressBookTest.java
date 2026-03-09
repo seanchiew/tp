@@ -3,8 +3,6 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalAddressBook;
@@ -45,9 +43,8 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateOpportunities_throwsDuplicateOpportunityException() {
-        // Two opportunities with the same identity fields
-        Opportunity editedAlice = new OpportunityBuilder(ALICE)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
+                                        .withRole(ALICE.getRole().roleName).build();
         List<Opportunity> newOpportunities = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newOpportunities);
 
@@ -73,8 +70,8 @@ public class AddressBookTest {
     @Test
     public void hasOpportunity_opportunityWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addOpportunity(ALICE);
-        Opportunity editedAlice = new OpportunityBuilder(ALICE)
-                .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
+                                        .withRole(ALICE.getRole().roleName).build();
         assertTrue(addressBook.hasOpportunity(editedAlice));
     }
 

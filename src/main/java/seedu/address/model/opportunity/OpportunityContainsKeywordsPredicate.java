@@ -19,7 +19,7 @@ public class OpportunityContainsKeywordsPredicate implements Predicate<Opportuni
     @Override
     public boolean test(Opportunity opportunity) {
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(opportunity.getName().fullName, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(opportunity.getCompany().companyName, keyword));
     }
 
     @Override

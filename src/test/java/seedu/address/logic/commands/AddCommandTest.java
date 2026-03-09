@@ -56,8 +56,8 @@ public class AddCommandTest {
 
     @Test
     public void equals() {
-        Opportunity alice = new OpportunityBuilder().withName("Alice").build();
-        Opportunity bob = new OpportunityBuilder().withName("Bob").build();
+        Opportunity alice = new OpportunityBuilder().withCompany("Stripe").withRole("SWE").build();
+        Opportunity bob = new OpportunityBuilder().withCompany("Tiktok").withRole("Data").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 

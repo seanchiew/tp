@@ -1,7 +1,5 @@
 package seedu.address.ui;
 
-import java.util.Comparator;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -48,12 +46,7 @@ public class OpportunityCard extends UiPart<Region> {
         super(FXML);
         this.opportunity = opportunity;
         id.setText(displayedIndex + ". ");
-        name.setText(opportunity.getName().fullName);
-        phone.setText(opportunity.getPhone().value);
-        address.setText(opportunity.getAddress().value);
-        email.setText(opportunity.getEmail().value);
-        opportunity.getTags().stream()
-                .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        name.setText(opportunity.getCompany().companyName);
+        phone.setText(opportunity.getRole().roleName);
     }
 }

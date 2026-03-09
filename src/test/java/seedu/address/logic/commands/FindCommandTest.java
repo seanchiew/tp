@@ -67,7 +67,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleOpportunitiesFound() {
         String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 3);
-        OpportunityContainsKeywordsPredicate predicate = preparePredicate("Kurz Elle Kunz");
+        OpportunityContainsKeywordsPredicate predicate = preparePredicate("Apple Netflix Amazon");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredOpportunityList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);

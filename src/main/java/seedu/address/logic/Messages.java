@@ -37,15 +37,11 @@ public class Messages {
      */
     public static String format(Opportunity opportunity) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(opportunity.getName())
-                .append("; Phone: ")
-                .append(opportunity.getPhone())
-                .append("; Email: ")
-                .append(opportunity.getEmail())
-                .append("; Address: ")
-                .append(opportunity.getAddress())
-                .append("; Tags: ");
-        opportunity.getTags().forEach(builder::append);
+        builder.append("Company: ")
+                .append(opportunity.getCompany().companyName)
+                .append(" | Role: ")
+                .append(opportunity.getRole().roleName)
+                .append(" | ");
         return builder.toString();
     }
 
