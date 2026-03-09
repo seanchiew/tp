@@ -15,9 +15,11 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.opportunity.Address;
+import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Phone;
+import seedu.address.model.opportunity.Role;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -26,6 +28,8 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_COMPANY = " "; // Blank strings violate your 1-60 char spec
+    private static final String INVALID_ROLE = " "; // Blank strings violate your 1-80 char spec
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -33,6 +37,8 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_COMPANY = "Stripe";
+    private static final String VALID_ROLE = "SWE Intern";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -193,4 +199,51 @@ public class ParserUtilTest {
 
         assertEquals(expectedTagSet, actualTagSet);
     }
+
+    @Test
+    public void parseCompany_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCompany(null));
+    }
+
+    @Test
+    public void parseCompany_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCompany(INVALID_COMPANY));
+    }
+
+    @Test
+    public void parseCompany_validValueWithoutWhitespace_returnsCompany() throws Exception {
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(VALID_COMPANY));
+    }
+
+    @Test
+    public void parseCompany_validValueWithWhitespace_returnsTrimmedCompany() throws Exception {
+        String companyWithWhitespace = WHITESPACE + VALID_COMPANY + WHITESPACE;
+        Company expectedCompany = new Company(VALID_COMPANY);
+        assertEquals(expectedCompany, ParserUtil.parseCompany(companyWithWhitespace));
+    }
+
+    @Test
+    public void parseRole_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseRole(null));
+    }
+
+    @Test
+    public void parseRole_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRole(INVALID_ROLE));
+    }
+
+    @Test
+    public void parseRole_validValueWithoutWhitespace_returnsRole() throws Exception {
+        Role expectedRole = new Role(VALID_ROLE);
+        assertEquals(expectedRole, ParserUtil.parseRole(VALID_ROLE));
+    }
+
+    @Test
+    public void parseRole_validValueWithWhitespace_returnsTrimmedRole() throws Exception {
+        String roleWithWhitespace = WHITESPACE + VALID_ROLE + WHITESPACE;
+        Role expectedRole = new Role(VALID_ROLE);
+        assertEquals(expectedRole, ParserUtil.parseRole(roleWithWhitespace));
+    }
+
 }

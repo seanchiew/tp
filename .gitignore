@@ -30,3 +30,4 @@ docs/_markbind/logs/
 /bin/
 
 /.vscode/*
+*codebase.txt
