@@ -19,17 +19,17 @@ public class OpportunityContainsKeywordsPredicateTest {
         List<String> firstPredicateKeywordList = Collections.singletonList("first");
         List<String> secondPredicateKeywordList = Arrays.asList("first", "second");
 
-        OpportunityContainsKeywordsPredicate firstPredicate =
-                new OpportunityContainsKeywordsPredicate(firstPredicateKeywordList);
-        OpportunityContainsKeywordsPredicate secondPredicate =
-                new OpportunityContainsKeywordsPredicate(secondPredicateKeywordList);
+        OpportunityContainsSubstringPredicate firstPredicate =
+                new OpportunityContainsSubstringPredicate(firstPredicateKeywordList);
+        OpportunityContainsSubstringPredicate secondPredicate =
+                new OpportunityContainsSubstringPredicate(secondPredicateKeywordList);
 
         // same object -> returns true
         assertTrue(firstPredicate.equals(firstPredicate));
 
         // same values -> returns true
-        OpportunityContainsKeywordsPredicate firstPredicateCopy =
-                new OpportunityContainsKeywordsPredicate(firstPredicateKeywordList);
+        OpportunityContainsSubstringPredicate firstPredicateCopy =
+                new OpportunityContainsSubstringPredicate(firstPredicateKeywordList);
         assertTrue(firstPredicate.equals(firstPredicateCopy));
 
         // different types -> returns false
@@ -45,45 +45,50 @@ public class OpportunityContainsKeywordsPredicateTest {
     @Test
     public void test_companyContainsKeywords_returnsTrue() {
         // One keyword
-        OpportunityContainsKeywordsPredicate predicate = new OpportunityContainsKeywordsPredicate(
+        OpportunityContainsSubstringPredicate predicate = new OpportunityContainsSubstringPredicate(
                                         Collections.singletonList("Stripe"));
         assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe").build()));
 
+        // Partial keyword
+        predicate = new OpportunityContainsSubstringPredicate(Collections.singletonList("str"));
+        assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe").build()));
+
         // Multiple keywords
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Stripe", "Google"));
+        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("Stripe", "Google"));
         assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
 
         // Only one matching keyword
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Stripe", "Tiktok"));
+        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("Stripe", "Tiktok"));
         assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
 
         // Mixed-case keywords
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("sTrIpE", "gOoGlE"));
+        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("sTrIpE", "gOoGlE"));
         assertTrue(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
     }
 
     @Test
     public void test_companyDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        OpportunityContainsKeywordsPredicate predicate = new OpportunityContainsKeywordsPredicate(
+        OpportunityContainsSubstringPredicate predicate = new OpportunityContainsSubstringPredicate(
                                         Collections.emptyList());
         assertFalse(predicate.test(new OpportunityBuilder().withCompany("Stripe").build()));
 
         // Non-matching keyword
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("Tiktok"));
+        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("Tiktok"));
         assertFalse(predicate.test(new OpportunityBuilder().withCompany("Stripe Google").build()));
 
         // Keywords match role, but does not match company
-        predicate = new OpportunityContainsKeywordsPredicate(Arrays.asList("SWE"));
+        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("SWE"));
         assertFalse(predicate.test(new OpportunityBuilder().withCompany("Stripe").withRole("SWE Intern").build()));
     }
 
     @Test
     public void toStringMethod() {
         List<String> keywords = List.of("keyword1", "keyword2");
-        OpportunityContainsKeywordsPredicate predicate = new OpportunityContainsKeywordsPredicate(keywords);
+        OpportunityContainsSubstringPredicate predicate = new OpportunityContainsSubstringPredicate(keywords);
 
-        String expected = OpportunityContainsKeywordsPredicate.class.getCanonicalName() + "{keywords=" + keywords + "}";
+        String expected = OpportunityContainsSubstringPredicate.class.getCanonicalName()
+                + "{keywords=" + keywords + "}";
         assertEquals(expected, predicate.toString());
     }
 }

@@ -123,6 +123,50 @@ public class StringUtilTest {
         assertTrue(StringUtil.containsWordIgnoreCase("AAA bBb ccc  bbb", "bbB"));
     }
 
+    //---------------- Tests for containsSubstringIgnoreCase --------------------------------------
+
+    @Test
+    public void containsSubstringIgnoreCase_nullWord_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () ->
+                StringUtil.containsSubstringIgnoreCase("typical sentence", null));
+    }
+
+    @Test
+    public void containsSubstringIgnoreCase_emptyWord_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
+            -> StringUtil.containsSubstringIgnoreCase("typical sentence", "  "));
+    }
+
+    @Test
+    public void containsSubstringIgnoreCase_multipleWords_throwsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", ()
+            -> StringUtil.containsSubstringIgnoreCase("typical sentence", "aaa BBB"));
+    }
+
+    @Test
+    public void containsSubstringIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil.containsSubstringIgnoreCase(null, "abc"));
+    }
+
+    @Test
+    public void containsSubstringIgnoreCase_validInputs_correctResult() {
+
+        // Empty sentence
+        assertFalse(StringUtil.containsSubstringIgnoreCase("", "abc"));
+        assertFalse(StringUtil.containsSubstringIgnoreCase("    ", "123"));
+
+        // Partial word matching
+        assertTrue(StringUtil.containsSubstringIgnoreCase("aaa bbb ccc", "bb"));
+        assertFalse(StringUtil.containsSubstringIgnoreCase("aaa bbb ccc", "bbbb"));
+
+        // Case-insensitive matching
+        assertTrue(StringUtil.containsSubstringIgnoreCase("Stripe", "str"));
+        assertTrue(StringUtil.containsSubstringIgnoreCase("NETFLIX", "flix"));
+
+        // Leading/trailing spaces in query
+        assertTrue(StringUtil.containsSubstringIgnoreCase("google", "  oog  "));
+    }
+
     //---------------- Tests for getDetails --------------------------------------
 
     /*

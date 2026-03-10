@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import static seedu.address.testutil.TypicalOpportunities.CARL;
 import static seedu.address.testutil.TypicalOpportunities.ELLE;
 import static seedu.address.testutil.TypicalOpportunities.FIONA;
@@ -18,7 +19,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.opportunity.OpportunityContainsKeywordsPredicate;
+import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -29,10 +30,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        OpportunityContainsKeywordsPredicate firstPredicate =
-                new OpportunityContainsKeywordsPredicate(Collections.singletonList("first"));
-        OpportunityContainsKeywordsPredicate secondPredicate =
-                new OpportunityContainsKeywordsPredicate(Collections.singletonList("second"));
+        OpportunityContainsSubstringPredicate firstPredicate =
+                new OpportunityContainsSubstringPredicate(Collections.singletonList("first"));
+        OpportunityContainsSubstringPredicate secondPredicate =
+                new OpportunityContainsSubstringPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -57,7 +58,7 @@ public class FindCommandTest {
     @Test
     public void execute_zeroKeywords_noOpportunityFound() {
         String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 0);
-        OpportunityContainsKeywordsPredicate predicate = preparePredicate(" ");
+        OpportunityContainsSubstringPredicate predicate = preparePredicate(" ");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredOpportunityList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -67,7 +68,7 @@ public class FindCommandTest {
     @Test
     public void execute_multipleKeywords_multipleOpportunitiesFound() {
         String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 3);
-        OpportunityContainsKeywordsPredicate predicate = preparePredicate("Apple Netflix Amazon");
+        OpportunityContainsSubstringPredicate predicate = preparePredicate("Apple Netflix Amazon");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredOpportunityList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -75,9 +76,19 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_partialKeyword_opportunityFound() {
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1);
+        OpportunityContainsSubstringPredicate predicate = preparePredicate("str");
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredOpportunityList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.singletonList(ALICE), model.getFilteredOpportunityList());
+    }
+
+    @Test
     public void toStringMethod() {
-        OpportunityContainsKeywordsPredicate predicate =
-                new OpportunityContainsKeywordsPredicate(Arrays.asList("keyword"));
+        OpportunityContainsSubstringPredicate predicate =
+                new OpportunityContainsSubstringPredicate(Arrays.asList("keyword"));
         FindCommand findCommand = new FindCommand(predicate);
         String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
         assertEquals(expected, findCommand.toString());
@@ -86,7 +97,7 @@ public class FindCommandTest {
     /**
      * Parses {@code userInput} into a {@code OpportunityContainsKeywordsPredicate}.
      */
-    private OpportunityContainsKeywordsPredicate preparePredicate(String userInput) {
-        return new OpportunityContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+")));
+    private OpportunityContainsSubstringPredicate preparePredicate(String userInput) {
+        return new OpportunityContainsSubstringPredicate(Arrays.asList(userInput.split("\\s+")));
     }
 }

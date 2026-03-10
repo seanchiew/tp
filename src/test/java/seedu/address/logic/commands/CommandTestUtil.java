@@ -15,7 +15,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.opportunity.Opportunity;
-import seedu.address.model.opportunity.OpportunityContainsKeywordsPredicate;
+import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 import seedu.address.testutil.EditOpportunityDescriptorBuilder;
 
 /**
@@ -101,7 +101,7 @@ public class CommandTestUtil {
 
         Opportunity opportunity = model.getFilteredOpportunityList().get(targetIndex.getZeroBased());
         final String[] splitName = opportunity.getCompany().companyName.split("\\s+");
-        model.updateFilteredOpportunityList(new OpportunityContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        model.updateFilteredOpportunityList(new OpportunityContainsSubstringPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredOpportunityList().size());
     }
