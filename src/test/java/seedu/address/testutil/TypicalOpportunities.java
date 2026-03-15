@@ -2,8 +2,17 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_ROLE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_ROLE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,34 +26,102 @@ import seedu.address.model.opportunity.Opportunity;
  */
 public class TypicalOpportunities {
 
-    public static final Opportunity ALICE = new OpportunityBuilder().withCompany("Stripe")
-                .withRole("SWE Intern").build();
-    public static final Opportunity BENSON = new OpportunityBuilder().withCompany("Tiktok")
-                .withRole("Backend Engineer").build();
-    public static final Opportunity CARL = new OpportunityBuilder().withCompany("Apple")
-                .withRole("iOS Engineer").build();
-    public static final Opportunity DANIEL = new OpportunityBuilder().withCompany("Google")
-                .withRole("Cloud Engineer").build();
-    public static final Opportunity ELLE = new OpportunityBuilder().withCompany("Netflix")
-                .withRole("Data Scientist").build();
-    public static final Opportunity FIONA = new OpportunityBuilder().withCompany("Amazon")
-                .withRole("Network Engineer").build();
-    public static final Opportunity GEORGE = new OpportunityBuilder().withCompany("Meta")
-                .withRole("Operations Intern").build();
+    public static final Opportunity ALICE = new OpportunityBuilder()
+            .withName("Alice Tan")
+            .withEmail("alice@stripe.com")
+            .withContactRole("recruiter")
+            .withCompany("Stripe")
+            .withRole("SWE Intern")
+            .withStatus("APPLIED")
+            .build();
+    public static final Opportunity BENSON = new OpportunityBuilder()
+            .withName("Benson Yeo")
+            .withEmail("benson@tiktok.com")
+            .withContactRole("hiring manager")
+            .withCompany("Tiktok")
+            .withRole("Backend Engineer")
+            .withStatus("INTERVIEW")
+            .withPhone("91234567")
+            .build();
+    public static final Opportunity CARL = new OpportunityBuilder()
+            .withName("Carl Ng")
+            .withEmail("carl@apple.com")
+            .withContactRole("recruiter")
+            .withCompany("Apple")
+            .withRole("iOS Engineer")
+            .withStatus("OA")
+            .build();
+    public static final Opportunity DANIEL = new OpportunityBuilder()
+            .withName("Daniel Goh")
+            .withEmail("daniel@google.com")
+            .withContactRole("interviewer")
+            .withCompany("Google")
+            .withRole("Cloud Engineer")
+            .withStatus("SAVED")
+            .build();
+    public static final Opportunity ELLE = new OpportunityBuilder()
+            .withName("Elle Wong")
+            .withEmail("elle@netflix.com")
+            .withContactRole("recruiter")
+            .withCompany("Netflix")
+            .withRole("Data Scientist")
+            .withStatus("OFFER")
+            .build();
+    public static final Opportunity FIONA = new OpportunityBuilder()
+            .withName("Fiona Lim")
+            .withEmail("fiona@amazon.com")
+            .withContactRole("referrer")
+            .withCompany("Amazon")
+            .withRole("Network Engineer")
+            .withStatus("REJECTED")
+            .build();
+    public static final Opportunity GEORGE = new OpportunityBuilder()
+            .withName("George Koh")
+            .withEmail("george@meta.com")
+            .withContactRole("recruiter")
+            .withCompany("Meta")
+            .withRole("Operations Intern")
+            .withStatus("WITHDRAWN")
+            .build();
 
     // Manually added
-    public static final Opportunity HOON = new OpportunityBuilder().withCompany("Grab")
-                .withRole("Frontend Intern").build();
-    public static final Opportunity IDA = new OpportunityBuilder().withCompany("Shopee")
-                .withRole("Data Analyst").build();
+    public static final Opportunity HOON = new OpportunityBuilder()
+            .withName("Hoon Meier")
+            .withEmail("hoon@grab.com")
+            .withContactRole("recruiter")
+            .withCompany("Grab")
+            .withRole("Frontend Intern")
+            .withStatus("APPLIED")
+            .build();
+    public static final Opportunity IDA = new OpportunityBuilder()
+            .withName("Ida Mueller")
+            .withEmail("ida@shopee.com")
+            .withContactRole("hiring manager")
+            .withCompany("Shopee")
+            .withRole("Data Analyst")
+            .withStatus("SAVED")
+            .build();
 
     // Manually added - Opportunity's details found in {@code CommandTestUtil}
-    public static final Opportunity AMY = new OpportunityBuilder().withCompany(VALID_COMPANY_AMY)
-                .withRole(VALID_ROLE_AMY).build();
-    public static final Opportunity BOB = new OpportunityBuilder().withCompany(VALID_COMPANY_BOB)
-                .withRole(VALID_ROLE_BOB).build();
+    public static final Opportunity AMY = new OpportunityBuilder()
+            .withName(VALID_NAME_AMY)
+            .withEmail(VALID_EMAIL_AMY)
+            .withContactRole(VALID_CONTACT_ROLE_AMY)
+            .withCompany(VALID_COMPANY_AMY)
+            .withRole(VALID_ROLE_AMY)
+            .withStatus(VALID_STATUS_AMY)
+            .withPhone(VALID_PHONE_AMY)
+            .build();
+    public static final Opportunity BOB = new OpportunityBuilder()
+            .withName(VALID_NAME_BOB)
+            .withEmail(VALID_EMAIL_BOB)
+            .withContactRole(VALID_CONTACT_ROLE_BOB)
+            .withCompany(VALID_COMPANY_BOB)
+            .withRole(VALID_ROLE_BOB)
+            .withStatus(VALID_STATUS_BOB)
+            .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Stripe"; // Update matching keyword
+    public static final String KEYWORD_MATCHING_MEIER = "Stripe"; // A keyword that matches the company of ALICE
 
     private TypicalOpportunities() {} // prevents instantiation
 

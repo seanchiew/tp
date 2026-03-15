@@ -3,7 +3,12 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -23,18 +28,40 @@ import seedu.address.testutil.EditOpportunityDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    public static final String VALID_NAME_AMY = "Amy Bee";
+    public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_EMAIL_AMY = "amy@stripe.com";
+    public static final String VALID_EMAIL_BOB = "bob@google.com";
+    public static final String VALID_CONTACT_ROLE_AMY = "recruiter";
+    public static final String VALID_CONTACT_ROLE_BOB = "hiring manager";
     public static final String VALID_COMPANY_AMY = "Stripe";
     public static final String VALID_COMPANY_BOB = "Google";
     public static final String VALID_ROLE_AMY = "SWE Intern";
     public static final String VALID_ROLE_BOB = "Backend Intern";
+    public static final String VALID_STATUS_AMY = "APPLIED";
+    public static final String VALID_STATUS_BOB = "INTERVIEW";
+    public static final String VALID_PHONE_AMY = "91234567";
 
+    public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
+    public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
+    public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
+    public static final String CONTACT_ROLE_DESC_AMY = " " + PREFIX_CONTACT_ROLE + VALID_CONTACT_ROLE_AMY;
+    public static final String CONTACT_ROLE_DESC_BOB = " " + PREFIX_CONTACT_ROLE + VALID_CONTACT_ROLE_BOB;
     public static final String COMPANY_DESC_AMY = " " + PREFIX_COMPANY + VALID_COMPANY_AMY;
     public static final String COMPANY_DESC_BOB = " " + PREFIX_COMPANY + VALID_COMPANY_BOB;
     public static final String ROLE_DESC_AMY = " " + PREFIX_ROLE + VALID_ROLE_AMY;
     public static final String ROLE_DESC_BOB = " " + PREFIX_ROLE + VALID_ROLE_BOB;
+    public static final String STATUS_DESC_AMY = " " + PREFIX_STATUS + VALID_STATUS_AMY;
+    public static final String STATUS_DESC_BOB = " " + PREFIX_STATUS + VALID_STATUS_BOB;
+    public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
 
+    public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // Blank
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "notanemail"; // Not valid email
+    public static final String INVALID_CONTACT_ROLE_DESC = " " + PREFIX_CONTACT_ROLE + " "; // Blank
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY + " "; // Blank
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + " "; // Blank
+    public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "UNKNOWN"; // Not a valid status
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -43,11 +70,23 @@ public class CommandTestUtil {
     public static final EditCommand.EditOpportunityDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditOpportunityDescriptorBuilder().withCompany(VALID_COMPANY_AMY)
-                    .withRole(VALID_ROLE_AMY).build();
-        DESC_BOB = new EditOpportunityDescriptorBuilder().withCompany(VALID_COMPANY_BOB)
-                    .withRole(VALID_ROLE_BOB).build();
-
+        DESC_AMY = new EditOpportunityDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
+                .withEmail(VALID_EMAIL_AMY)
+                .withContactRole(VALID_CONTACT_ROLE_AMY)
+                .withCompany(VALID_COMPANY_AMY)
+                .withRole(VALID_ROLE_AMY)
+                .withStatus(VALID_STATUS_AMY)
+                .withPhone(VALID_PHONE_AMY)
+                .build();
+        DESC_BOB = new EditOpportunityDescriptorBuilder()
+                .withName(VALID_NAME_BOB)
+                .withEmail(VALID_EMAIL_BOB)
+                .withContactRole(VALID_CONTACT_ROLE_BOB)
+                .withCompany(VALID_COMPANY_BOB)
+                .withRole(VALID_ROLE_BOB)
+                .withStatus(VALID_STATUS_BOB)
+                .build();
     }
 
     /**
@@ -92,6 +131,7 @@ public class CommandTestUtil {
         assertEquals(expectedAddressBook, actualModel.getAddressBook());
         assertEquals(expectedFilteredList, actualModel.getFilteredOpportunityList());
     }
+
     /**
      * Updates {@code model}'s filtered list to show only the opportunity at the given {@code targetIndex} in the
      * {@code model}'s address book.

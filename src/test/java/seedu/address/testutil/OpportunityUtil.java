@@ -1,7 +1,12 @@
 package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand.EditOpportunityDescriptor;
@@ -24,8 +29,13 @@ public class OpportunityUtil {
      */
     public static String getOpportunityDetails(Opportunity opportunity) {
         StringBuilder sb = new StringBuilder();
+        sb.append(PREFIX_NAME + opportunity.getName().fullName + " ");
+        sb.append(PREFIX_EMAIL + opportunity.getEmail().value + " ");
+        sb.append(PREFIX_CONTACT_ROLE + opportunity.getContactRole().contactRoleName + " ");
         sb.append(PREFIX_COMPANY + opportunity.getCompany().companyName + " ");
         sb.append(PREFIX_ROLE + opportunity.getRole().roleName + " ");
+        sb.append(PREFIX_STATUS + opportunity.getStatus().statusName + " ");
+        opportunity.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE + phone.value + " "));
         return sb.toString();
     }
 
@@ -34,8 +44,15 @@ public class OpportunityUtil {
      */
     public static String getEditOpportunityDescriptorDetails(EditOpportunityDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getCompany().ifPresent(company -> sb.append(PREFIX_COMPANY).append(company.companyName).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
+        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getContactRole().ifPresent(cr -> sb.append(PREFIX_CONTACT_ROLE)
+                .append(cr.contactRoleName).append(" "));
+        descriptor.getCompany().ifPresent(company -> sb.append(PREFIX_COMPANY)
+                .append(company.companyName).append(" "));
         descriptor.getRole().ifPresent(role -> sb.append(PREFIX_ROLE).append(role.roleName).append(" "));
+        descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.statusName).append(" "));
+        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         return sb.toString();
     }
 }
