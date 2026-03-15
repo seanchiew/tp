@@ -4,7 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import static seedu.address.testutil.TypicalOpportunities.BOB;
 
@@ -23,8 +26,10 @@ public class OpportunityTest {
         assertFalse(ALICE.isSameOpportunity(null));
 
         // same company and role -> returns true
-        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(VALID_COMPANY_BOB)
-                    .withRole(VALID_ROLE_BOB).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE)
+                .withCompany(VALID_COMPANY_BOB)
+                .withRole(VALID_ROLE_BOB)
+                .build();
         assertTrue(BOB.isSameOpportunity(editedAlice));
 
         // different company, same role -> returns false
@@ -61,12 +66,31 @@ public class OpportunityTest {
         // different role -> returns false
         editedAlice = new OpportunityBuilder(ALICE).withRole(VALID_ROLE_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
+
+        // different name -> returns false
+        editedAlice = new OpportunityBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different email -> returns false
+        editedAlice = new OpportunityBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different status -> returns false
+        editedAlice = new OpportunityBuilder(ALICE).withStatus(VALID_STATUS_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
     public void toStringMethod() {
-        String expected = Opportunity.class.getCanonicalName() + "{company=" + ALICE.getCompany()
-                + ", role=" + ALICE.getRole() + "}";
+        String expected = Opportunity.class.getCanonicalName()
+                + "{name=" + ALICE.getName()
+                + ", email=" + ALICE.getEmail()
+                + ", contactRole=" + ALICE.getContactRole()
+                + ", company=" + ALICE.getCompany()
+                + ", role=" + ALICE.getRole()
+                + ", status=" + ALICE.getStatus()
+                + ", phone=" + ALICE.getPhone().orElse(null)
+                + "}";
         assertEquals(expected, ALICE.toString());
     }
 }

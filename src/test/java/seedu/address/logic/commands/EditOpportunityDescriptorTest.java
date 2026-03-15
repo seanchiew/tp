@@ -46,9 +46,15 @@ public class EditOpportunityDescriptorTest {
     @Test
     public void toStringMethod() {
         EditOpportunityDescriptor editOpportunityDescriptor = new EditOpportunityDescriptor();
-        String expected = EditOpportunityDescriptor.class.getCanonicalName() + "{company="
-                + editOpportunityDescriptor.getCompany().orElse(null) + ", role="
-                + editOpportunityDescriptor.getRole().orElse(null) + "}";
+        String expected = EditOpportunityDescriptor.class.getCanonicalName()
+                + "{name=" + editOpportunityDescriptor.getName().orElse(null)
+                + ", email=" + editOpportunityDescriptor.getEmail().orElse(null)
+                + ", contactRole=" + editOpportunityDescriptor.getContactRole().orElse(null)
+                + ", company=" + editOpportunityDescriptor.getCompany().orElse(null)
+                + ", role=" + editOpportunityDescriptor.getRole().orElse(null)
+                + ", status=" + editOpportunityDescriptor.getStatus().orElse(null)
+                + ", phone=" + editOpportunityDescriptor.getPhone().orElse(null)
+                + "}";
         assertEquals(expected, editOpportunityDescriptor.toString());
     }
 }

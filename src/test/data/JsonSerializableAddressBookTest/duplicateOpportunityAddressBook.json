@@ -1,12 +1,20 @@
 {
     "opportunities": [
       {
+        "name": "Alice Tan",
+        "email": "alice@stripe.com",
+        "contactRole": "recruiter",
         "company": "Stripe",
-        "role": "SWE Intern"
+        "role": "SWE Intern",
+        "status": "APPLIED"
       },
       {
+        "name": "Alice Tan",
+        "email": "alice@stripe.com",
+        "contactRole": "recruiter",
         "company": "Stripe",
-        "role": "SWE Intern"
+        "role": "SWE Intern",
+        "status": "APPLIED"
       }
     ]
   }

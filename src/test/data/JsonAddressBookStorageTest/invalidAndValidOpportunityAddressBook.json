@@ -1,13 +1,17 @@
 {
   "opportunities": [ {
-    "name": "Valid Person",
-    "phone": "9482424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "name": "Alice Tan",
+    "email": "alice@stripe.com",
+    "contactRole": "recruiter",
+    "company": "Stripe",
+    "role": "SWE Intern",
+    "status": "APPLIED"
   }, {
-    "name": "Person With Invalid Phone Field",
-    "phone": "948asdf2424",
-    "email": "hans@example.com",
-    "address": "4th street"
+    "name": "Invalid Entry",
+    "email": "invalid-email",
+    "contactRole": "recruiter",
+    "company": "Google",
+    "role": "SWE Intern",
+    "status": "APPLIED"
   } ]
 }

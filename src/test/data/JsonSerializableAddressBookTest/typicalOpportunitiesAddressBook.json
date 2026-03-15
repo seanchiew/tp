@@ -1,32 +1,61 @@
 {
     "opportunities": [
       {
+        "name": "Alice Tan",
+        "email": "alice@stripe.com",
+        "contactRole": "recruiter",
         "company": "Stripe",
-        "role": "SWE Intern"
+        "role": "SWE Intern",
+        "status": "APPLIED"
       },
       {
+        "name": "Benson Yeo",
+        "email": "benson@tiktok.com",
+        "contactRole": "hiring manager",
         "company": "Tiktok",
-        "role": "Backend Engineer"
+        "role": "Backend Engineer",
+        "status": "INTERVIEW",
+        "phone": "91234567"
       },
       {
+        "name": "Carl Ng",
+        "email": "carl@apple.com",
+        "contactRole": "recruiter",
         "company": "Apple",
-        "role": "iOS Engineer"
+        "role": "iOS Engineer",
+        "status": "OA"
       },
       {
+        "name": "Daniel Goh",
+        "email": "daniel@google.com",
+        "contactRole": "interviewer",
         "company": "Google",
-        "role": "Cloud Engineer"
+        "role": "Cloud Engineer",
+        "status": "SAVED"
       },
       {
+        "name": "Elle Wong",
+        "email": "elle@netflix.com",
+        "contactRole": "recruiter",
         "company": "Netflix",
-        "role": "Data Scientist"
+        "role": "Data Scientist",
+        "status": "OFFER"
       },
       {
+        "name": "Fiona Lim",
+        "email": "fiona@amazon.com",
+        "contactRole": "referrer",
         "company": "Amazon",
-        "role": "Network Engineer"
+        "role": "Network Engineer",
+        "status": "REJECTED"
       },
       {
+        "name": "George Koh",
+        "email": "george@meta.com",
+        "contactRole": "recruiter",
         "company": "Meta",
-        "role": "Operations Intern"
+        "role": "Operations Intern",
+        "status": "WITHDRAWN"
       }
     ]
   }

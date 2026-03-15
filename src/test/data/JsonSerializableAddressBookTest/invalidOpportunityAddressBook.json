@@ -1,8 +1,10 @@
 {
   "opportunities": [ {
-    "name": "Hans Muster",
-    "phone": "9482424",
-    "email": "invalid@email!3e",
-    "address": "4th street"
+    "name": "Valid Name",
+    "email": "invalid-email",
+    "contactRole": "recruiter",
+    "company": "Stripe",
+    "role": "SWE Intern",
+    "status": "APPLIED"
   } ]
 }
