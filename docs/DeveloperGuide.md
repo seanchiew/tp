@@ -281,7 +281,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: 
+**Value proposition**:
 
 * manage internship applications faster than a typical mouse/GUI driven app
 * helps user capture, update, and retrieve key application details in seconds
@@ -361,7 +361,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2c. Provided details are invalid (e.g. Email is not a valid format, Status is not a recognised value).
     * 2c1. System shows an error message indicating the invalid field(s).
-    
+
         Use case resumes from step 1.
 
 
@@ -369,10 +369,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to <u>list opportunity records (UC3).</u>
+1.  User requests to <u>list opportunity records (UC3)</u>.
 2.  System shows the list of stored opportunity records.
-3.  User requests to remove a specific record in the list.
-4.  System removes the record.
+3.  User requests to remove one or more specific records in the list.
+4.  System removes the requested record(s).
 5.  System reflects the removal.
 
     Use case ends.
@@ -384,7 +384,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 3a. Index does not refer to an existing record.
+* 3a. One or more of the provided indexes does not refer to an existing record.
     * 3a1. System shows an error message.
 
       Use case resumes from step 3.
@@ -474,6 +474,26 @@ Preconditions: At least one record exists.
     * 2a1. System informs the user the archive operation failed.
 
       Use case ends.
+
+**Use case: UC09 — Clear record**
+
+**MSS**
+
+1. User requests to clear all contact records.
+2. System deletes all tracked opportunity data, replacing it with an empty state.
+3. System reflects an empty tracker.
+
+   Use case ends.
+
+**Use case: UC10 — Request for help**
+
+**MSS**
+
+1. User requests for help.
+2. System opens the help window containing a link to the User Guide.
+3. User copies link to User Guide.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
