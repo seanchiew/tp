@@ -4,6 +4,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OPPORTUNITY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OPPORTUNITY;
 
 import java.util.List;
 
@@ -28,7 +29,24 @@ public class DeleteCommandParserTest {
     }
 
     @Test
+    public void parse_multipleValidArgs_returnsDeleteCommand() {
+        assertParseSuccess(parser, "1 2",
+                                        new DeleteCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY)));
+    }
+
+    @Test
+    public void parse_multipleValidArgsWithExtraSpaces_returnsDeleteCommand() {
+        assertParseSuccess(parser, " \n 1 \t 2 \n",
+                                        new DeleteCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY)));
+    }
+
+    @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_mixedValidAndInvalidArgs_throwsParseException() {
+        assertParseFailure(parser, "1 a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 }

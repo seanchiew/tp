@@ -37,7 +37,8 @@ public class Messages {
      */
     public static String format(Opportunity opportunity) {
         final StringBuilder builder = new StringBuilder();
-        builder.append(opportunity.getName())
+        builder.append("Name: ")
+                .append(opportunity.getName())
                 .append("; Email: ")
                 .append(opportunity.getEmail())
                 .append("; Contact Role: ")
