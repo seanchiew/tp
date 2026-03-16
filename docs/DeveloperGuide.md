@@ -349,20 +349,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. Required details are missing (Company or Role).
+* 2a. Required details are missing (Name, Email, Contact Role, Company, Role, or Status).
     * 2a1. System shows an error message indicating missing required details.
 
         Use case resumes from step 1.
 
-* 2b. Provided deadline format is invalid
-    * 2b1. System shows an error message indicating the accepted deadline format.
-
-        Use case resumes from step 1.
-
-* 2c. Duplicate detected (same Company and Role already exists).
+* 2b. Duplicate detected (same Company and Role already exists).
     * 2c1. System informs the user that a duplicate exists.
 
         Use case ends.
+
+* 2c. Provided details are invalid (e.g. Email is not a valid format, Status is not a recognised value).
+    * 2c1. System shows an error message indicating the invalid field(s).
+    
+        Use case resumes from step 1.
 
 
 **Use case: UC02 — Remove an opportunity record**
@@ -434,41 +434,7 @@ Preconditions: At least one record exists.
 
     Use case resumes from step 3.
 
-
-**Use case: UC05 — Record or update a deadline**
-
-Preconditions: At least one record exists.
-
-**MSS**
-
-1.  User requests to <u>list opportunity records (UC3).</u>
-2.  System shows the list of opportunity records.
-3.  User requests to set or update the deadline for a specified record
-4.  System validates the deadline value.
-5.  System updates the record
-6.  System reflects the update.
-
-    Use case ends.
-
-**Extensions**
-
-* 4a. Index is invalid.
-    * 4a1. System shows an error message.
-
-      Use case resumes from step 3.
-
-* 4b. Deadline format is invalid.
-    * 4b1. System shows an error message indicating the accepted format.
-
-      Use case resumes from step 3.
-
-* 4c. Deadline is in the past.
-    * 4c1. System shows a warning.
-
-      Use case resumes from step 5.
-
-
-**Use case: UC06 — Search for opportunities by keyword**
+**Use case: UC05 — Search for opportunities by keyword**
 
 **MSS**
 
@@ -484,7 +450,7 @@ Preconditions: At least one record exists.
 
       Use case ends.
 
-**Use case: UC07 — Archive an application cycle (representative non-MVP, multi-step)**
+**Use case: UC06 — Archive an application cycle**
 
 **Preconditions:** At least one record exists in the current cycle.
 
