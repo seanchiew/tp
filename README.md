@@ -5,13 +5,23 @@
 ![Ui](docs/images/Ui.png)
 
 
-InternTrack helps fast-typing internship applicants capture, update, and retrieve key application details in seconds, reducing missed deadlines and mental overhead while managing many simultaneous opportunities in one lightweight offline desktop tool.
+InternTrack is a lightweight desktop app for **managing application-related contacts**, optimized for fast keyboard input while still providing the benefits of a graphical interface.
 
-## Features:
-1. Add opportunity record - Create a new trackable opportunity record entry
-2. Remove opportunity - Delete an entry that is no longer relevant
-3. List opportunities - View all tracked entries in the current workspace so the user can review quickly
-4. Persistence across sessions - Ensure tracked data remains available across app restarts so the user can rely on InternTrack daily
-5. Record a deadline - Adds or updates a deadline for an existing tracked internship opportunity so that the user can monitor their application timeline
+It is designed for tech-savvy undergraduates in Singapore who are applying to multiple internships and need a quick way to capture, update, and retrieve contacts such as recruiters, interviewers, referrers, and company points of contact, together with the relevant opportunity context linked to each contact.
+
+InternTrack helps users reduce fragmented information, missed follow-ups, and mental overhead by keeping important contact records in one offline desktop tool.
+
+## Features
+1. **Add opportunity contact** — Create a new application-related contact record.
+2. **Remove opportunity contact** — Delete a tracked contact record that is no longer needed.
+3. **List opportunity contacts** — View all tracked contact records in the current workspace.
+4. **Edit opportunity record** — Update an existing contact record when details or opportunity context change.
+5. **Find a record by keyword** — Quickly retrieve matching records when needed.
+6. **Archive opportunity records** — Move old records out of the active workspace without losing them.
+7. **Unarchive opportunity records** — Restore previously archived records when they become relevant again.
+8. **Clear all opportunity records** — Remove all tracked records in one shot.
+9. **Help command** — Open quick access to the user guide from within the app.
+10. **Exit command** — Close the app quickly using the keyboard.
+11. **Persistence across sessions** — Ensure tracked data remains available across app restarts.
 
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](http://se-education.org)
