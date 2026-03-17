@@ -293,43 +293,44 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I …​             |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | undergraduate applicant | add a new opportunity record | can track it instead of relying on memory |
-| `* * *`  | busy applicant juggling many applications | list all opportunities I’m tracking | can see my workload at a glance |
-| `* * *`  | busy applicant juggling many applications | remove an opportunity I no longer pursue | can ensure my tracker stays uncluttered |
-| `* * *`  | undergraduate applicant | have confidence that my tracked items persist between sessions  | don’t lose critical application info |
-| `* *`  |new user exploring InternTrack|see example entries|can understand what information I’m supposed to track|
-| `* *`  |new user exploring InternTrack|remove the example entries in one go|can start clean without tedious manual cleanup|
-| `* *`  |busy applicant juggling many applications|record a deadline for an opportunity|don’t miss time-sensitive submissions|
-| `* *`  |busy applicant juggling many applications|quickly find an opportunity by keyword|can retrieve details under time pressure|
-| `* *`  |busy applicant juggling many applications|update the status/stage of an opportunity|the tracker reflects current progress|
-| `* *`  |busy applicant juggling many applications|see opportunities ordered by upcoming deadlines|know what to prioritize next|
-| `* *`  |undergraduate applicant|record the role and organization|can differentiate similar opportunities|
-| `* *`  |busy applicant juggling many applications|record a posting reference (e.g., link or identifier)|can revisit the source quickly|
-| `* *`  |undergraduate applicant|store recruiter/contact details for an opportunity|can follow up without searching through chats|
-| `* *`  |undergraduate applicant|mark an opportunity with a completed outcome|can close loops and reduce mental load|
-| `* *`  |busy applicant juggling many applications|view only opportunities in a chosen status|can batch-handle similar tasks|                                              |
-| `*` |  undergraduate applicant | tag / classify opportunities          |  can separate different application types quickly |
-| `*` |  undergraduate applicant | store a short note for an opportunity |  can remember context like referrals or required documents |
-| `*` |  undergraduate applicant | record milestone dates  |  can reconstruct my timeline when needed |
-| `*` |  busy applicant juggling many applications  |  see which deadlines are within the next N days | can plan my week |
-| `*` |  busy applicant juggling many applications  |  flag an opportunity as high priority  |  stands out among many entries |
-| `*` |  busy applicant juggling many applications  |  be warned about potential duplicates  |  don’t track the same application twice  |
-| `*` |  busy applicant juggling many applications  |  merge duplicate records  |  ensure my history stays consistent  |
-| `*` |  frequent user  |  maintain consistent status labels  |  ensure my filtering and reviewing reamins reliable over time  |
-| `*` |  busy applicant juggling many applications  |  extract key contact info from selected opportunities  |  can paste it into my email client quickly  |
-| `*` |  busy applicant juggling many applications  |  see summary counts by status |  can gauge progress at a glance  |
-| `*` |  end-of-cycle user  |  review outcomes for a cycle  |  can improve my strategy next time  |
-| `*` |  end-of-cycle user  |  record reasons for rejection / withdrawal  |  can learn patterns over time  |
-| `*` |  busy applicant juggling many applications  |  recover from accidental destructive actions  |  do not wipe a whole cycle when I make one mistake  |
-| `*` |  frequent user  |  keep my data in a human-editable local file  |  can make bulk edits when needed  |
-| `*` |  frequent user  |  make bulk-update statuses |  can process large batches efficiently  |
-| `*` |  end-of-cycle user  |  archive an old cycle  |  can keep my current list concise without losing history  |
-| `*` |  end-of-cycle user  |  start a new cycle while keeping past cycles accessible  |  can compare outcomes year to year  |
-| `*` |  frequent user  |  search within notes  |  can quickly retrieve context like "referral" or "via required"  |
-| `*` |  frequent user  |  view opportunities grouped by category / tag  |  focus on one track at a time  |
-| `*` |  frequent user  |  mark opportunities that require follow-up  |  don't forget to chase responses  |
+| Priority | As a …​ | I want to …​ | So that I …​ |
+|----------|---------|--------------|----------------|
+| `* * *` | undergraduate applicant | add a new application-related contact record | can track important contacts instead of relying on memory |
+| `* * *` | busy applicant juggling many applications | list all tracked contact records | can see who I am currently managing at a glance |
+| `* * *` | busy applicant juggling many applications | remove a contact record I no longer need | my tracker stays uncluttered |
+| `* * *` | undergraduate applicant | have my tracked records persist between sessions | do not lose critical contact information |
+| `* * *` | undergraduate applicant | have each contact record include opportunity context such as company and role | can remember why the contact matters |
+| `* * *` | busy applicant juggling many applications | edit an existing contact record | can keep details up to date when a contact’s information or application context changes |
+| `* * *` | busy applicant juggling many applications | quickly find a contact record by keyword | can retrieve details under time pressure |
+| `* *` | new user exploring InternTrack | see example records | can understand what information the product is meant to track |
+| `* *` | new user exploring InternTrack | remove the example records in one go | can start clean without tedious manual cleanup |
+| `* *` | busy applicant juggling many applications | record a stage or status for a contact record | know my current progress with that contact and opportunity |
+| `* *` | undergraduate applicant | store contact details such as name and email | can follow up without searching through chats or email threads |
+| `* *` | undergraduate applicant | store a contact role for each record | can tell whether someone is a recruiter, interviewer, referrer, or hiring manager |
+| `* *` | busy applicant juggling many applications | record a deadline for a contact record | can keep track of upcoming follow-ups, interviews, or submission-related actions |
+| `* *` | busy applicant juggling many applications | view only records in a chosen stage | can batch-handle similar follow-ups |
+| `* *` | busy applicant juggling many applications | view records ordered by upcoming deadlines | know what to prioritize next |
+| `* *` | busy applicant juggling many applications | remove multiple contact records at once | can clean up outdated records more efficiently |
+| `* *` | end-of-cycle user | archive old records | my current list stays focused without losing history |
+| `* *` | end-of-cycle user | unarchive previously archived records | can restore older records when I need to revisit them |
+| `* *` | user resetting my tracker | clear all contact records in one shot | can start over without deleting records one by one |
+| `* *` | new user exploring InternTrack | have quick access to the user guide from within the app | can learn how to use the commands when I get stuck |
+| `* *` | keyboard-oriented user | exit the app using a command | can close it quickly without leaving the keyboard |
+| `* *` | busy applicant juggling many applications | filter records by company | can focus on all contacts related to one organization at a time |
+| `*` | undergraduate applicant | tag or classify contact records | can separate different kinds of contacts or opportunities quickly |
+| `*` | undergraduate applicant | store short notes for a contact record | can remember context such as referrals, follow-up points, or interview details |
+| `*` | busy applicant juggling many applications | be warned about potential duplicate contact records | do not track the same contact twice unnecessarily |
+| `*` | frequent user | maintain consistent stage labels | filtering and review remain reliable over time |
+| `*` | frequent user | extract key contact information from selected records | can paste it into an email client quickly |
+| `*` | end-of-cycle user | review outcomes by cycle | can improve my application strategy next time |
+| `*` | frequent user | search within notes | can quickly retrieve context like “referral,” “visa,” or “follow-up” |
+| `*` | frequent user | mark records that require follow-up | do not forget to take action |
+| `*` | busy applicant juggling many applications | recover from accidental destructive actions | one mistake does not wipe critical records |
+| `*` | frequent user | sort records by company or role | can review my contacts in a more organized way |
+| `*` | busy applicant juggling many applications | view only records that require follow-up soon | can quickly identify the contacts that need action next |
+| `*` | end-of-cycle user | export my contact records for a cycle | can keep an external backup or review them outside the app later |
+| `*` | frequent user | filter records by contact role | can focus separately on recruiters, interviewers, referrers, or hiring managers |
+| `*` | frequent user | view a summary of how many records are in each stage | can quickly understand the overall state of my application-related contacts |
 
 *{More to be added}*
 
