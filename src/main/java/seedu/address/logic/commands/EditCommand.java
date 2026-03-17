@@ -108,7 +108,8 @@ public class EditCommand extends Command {
         Phone updatedPhone = editOpportunityDescriptor.getPhone().orElse(opportunityToEdit.getPhone().orElse(null));
 
         return new Opportunity(updatedName, updatedEmail, updatedContactRole,
-                updatedCompany, updatedRole, updatedStatus, updatedPhone);
+                updatedCompany, updatedRole, updatedStatus,
+                opportunityToEdit.isArchived(), updatedPhone);
     }
 
     @Override

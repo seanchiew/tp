@@ -40,7 +40,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                INVALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                INVALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = Name.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -48,7 +48,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                null, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                null, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -56,7 +56,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, INVALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, INVALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = Email.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -64,7 +64,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, null, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, null, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -72,7 +72,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_invalidContactRole_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, INVALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, INVALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = ContactRole.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -80,7 +80,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_nullContactRole_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, null, VALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, null, VALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, ContactRole.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -88,7 +88,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_invalidCompany_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, INVALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, INVALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = Company.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -96,7 +96,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_nullCompany_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, null, VALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, null, VALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -104,7 +104,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_invalidRole_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, INVALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, INVALID_ROLE, VALID_STATUS, false, null);
         String expectedMessage = Role.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -112,7 +112,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_nullRole_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, null, VALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, null, VALID_STATUS, false, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -120,7 +120,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_invalidStatus_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, INVALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, INVALID_STATUS, false, null);
         String expectedMessage = Status.MESSAGE_CONSTRAINTS;
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -128,7 +128,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_nullStatus_throwsIllegalValueException() {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, null, null);
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, null, false, null);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName());
         assertThrows(IllegalValueException.class, expectedMessage, opportunity::toModelType);
     }
@@ -136,7 +136,7 @@ public class JsonAdaptedOpportunityTest {
     @Test
     public void toModelType_noPhone_returnsOpportunityWithoutPhone() throws Exception {
         JsonAdaptedOpportunity opportunity = new JsonAdaptedOpportunity(
-                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, null);
+                VALID_NAME, VALID_EMAIL, VALID_CONTACT_ROLE, VALID_COMPANY, VALID_ROLE, VALID_STATUS, false, null);
         assertEquals(false, opportunity.toModelType().getPhone().isPresent());
     }
 }

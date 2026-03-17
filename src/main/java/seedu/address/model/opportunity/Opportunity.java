@@ -21,6 +21,7 @@ public class Opportunity {
     private final Company company;
     private final Role role;
     private final Status status;
+    private final boolean isArchived;
 
     // Optional fields
     private final Phone phone;
@@ -30,14 +31,15 @@ public class Opportunity {
      * Phone is optional and may be null.
      */
     public Opportunity(Name name, Email email, ContactRole contactRole,
-                       Company company, Role role, Status status, Phone phone) {
-        requireAllNonNull(name, email, contactRole, company, role, status);
+                       Company company, Role role, Status status, boolean isArchived, Phone phone) {
+        requireAllNonNull(name, email, contactRole, company, role, status, isArchived);
         this.name = name;
         this.email = email;
         this.contactRole = contactRole;
         this.company = company;
         this.role = role;
         this.status = status;
+        this.isArchived = isArchived;
         this.phone = phone;
     }
 
@@ -63,6 +65,10 @@ public class Opportunity {
 
     public Status getStatus() {
         return status;
+    }
+
+    public boolean isArchived() {
+        return isArchived;
     }
 
     /**
@@ -108,12 +114,13 @@ public class Opportunity {
             && company.equals(otherOpportunity.company)
             && role.equals(otherOpportunity.role)
             && status.equals(otherOpportunity.status)
+            && isArchived == otherOpportunity.isArchived
             && Objects.equals(phone, otherOpportunity.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, contactRole, company, role, status, phone);
+        return Objects.hash(name, email, contactRole, company, role, status, isArchived, phone);
     }
 
     @Override

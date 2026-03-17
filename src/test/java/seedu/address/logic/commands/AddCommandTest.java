@@ -42,6 +42,7 @@ public class AddCommandTest {
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validOpportunity)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validOpportunity), modelStub.opportunitiesAdded);
+        assertFalse(modelStub.opportunitiesAdded.get(0).isArchived());
     }
 
     @Test

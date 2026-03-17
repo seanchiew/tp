@@ -24,6 +24,7 @@ public class SampleDataUtil {
                 new Company("Stripe"),
                 new Role("SWE Intern"),
                 new Status("APPLIED"),
+                false,
                 new Phone("91234567")),
             new Opportunity(
                 new Name("David Tan"),
@@ -32,6 +33,7 @@ public class SampleDataUtil {
                 new Company("Tiktok"),
                 new Role("Backend Engineer"),
                 new Status("INTERVIEW"),
+                false,
                 null),
             new Opportunity(
                 new Name("Sarah Chen"),
@@ -40,6 +42,7 @@ public class SampleDataUtil {
                 new Company("Accenture"),
                 new Role("Tech Consultant"),
                 new Status("OA"),
+                false,
                 new Phone("87654321")),
             new Opportunity(
                 new Name("John Lee"),
@@ -48,6 +51,7 @@ public class SampleDataUtil {
                 new Company("NUS"),
                 new Role("Research Intern"),
                 new Status("SAVED"),
+                false,
                 null),
             new Opportunity(
                 new Name("Amy Wong"),
@@ -56,6 +60,7 @@ public class SampleDataUtil {
                 new Company("SP Group"),
                 new Role("Analyst Intern"),
                 new Status("OFFER"),
+                false,
                 new Phone("98887777"))
         };
     }

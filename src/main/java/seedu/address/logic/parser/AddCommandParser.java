@@ -58,7 +58,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         }
 
-        Opportunity opportunity = new Opportunity(name, email, contactRole, company, role, status, phone);
+        //Newly added opportunities are not archived by default
+        Opportunity opportunity = new Opportunity(name, email, contactRole, company, role, status, false, phone);
 
         return new AddCommand(opportunity);
     }

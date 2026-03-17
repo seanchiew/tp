@@ -7,7 +7,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_STATUS_BOB;
 import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import static seedu.address.testutil.TypicalOpportunities.BOB;
 
@@ -75,8 +74,12 @@ public class OpportunityTest {
         editedAlice = new OpportunityBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
-        // different status -> returns false
-        editedAlice = new OpportunityBuilder(ALICE).withStatus(VALID_STATUS_BOB).build();
+        // different archived status -> returns false
+        editedAlice = new OpportunityBuilder(ALICE).withArchived(!ALICE.isArchived()).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different archived status -> returns false
+        editedAlice = new OpportunityBuilder(ALICE).withArchived(!ALICE.isArchived()).build();
         assertFalse(ALICE.equals(editedAlice));
     }
 

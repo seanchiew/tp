@@ -26,6 +26,7 @@ class JsonAdaptedOpportunity {
     private final String company;
     private final String role;
     private final String status;
+    private final Boolean isArchived;
     private final String phone;
 
     /**
@@ -38,6 +39,7 @@ class JsonAdaptedOpportunity {
                                   @JsonProperty("company") String company,
                                   @JsonProperty("role") String role,
                                   @JsonProperty("status") String status,
+                                  @JsonProperty("isArchived") Boolean isArchived,
                                   @JsonProperty("phone") String phone) {
         this.name = name;
         this.email = email;
@@ -45,6 +47,7 @@ class JsonAdaptedOpportunity {
         this.company = company;
         this.role = role;
         this.status = status;
+        this.isArchived = isArchived;
         this.phone = phone;
     }
 
@@ -58,6 +61,7 @@ class JsonAdaptedOpportunity {
         company = source.getCompany().companyName;
         role = source.getRole().roleName;
         status = source.getStatus().statusName;
+        isArchived = source.isArchived();
         phone = source.getPhone().map(p -> p.value).orElse(null);
     }
 
@@ -116,6 +120,8 @@ class JsonAdaptedOpportunity {
         }
         final Status modelStatus = new Status(status);
 
+        final boolean modelIsArchived = (isArchived != null) ? isArchived : false;
+
         Phone modelPhone = null;
         if (phone != null) {
             if (!Phone.isValidPhone(phone)) {
@@ -125,7 +131,7 @@ class JsonAdaptedOpportunity {
         }
 
         return new Opportunity(modelName, modelEmail, modelContactRole,
-                modelCompany, modelRole, modelStatus, modelPhone);
+                modelCompany, modelRole, modelStatus, modelIsArchived, modelPhone);
     }
 
 }

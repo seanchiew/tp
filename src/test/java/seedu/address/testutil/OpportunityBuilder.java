@@ -27,6 +27,7 @@ public class OpportunityBuilder {
     private Company company;
     private Role role;
     private Status status;
+    private boolean isArchived;
     private Phone phone;
 
     /**
@@ -39,6 +40,7 @@ public class OpportunityBuilder {
         company = new Company(DEFAULT_COMPANY);
         role = new Role(DEFAULT_ROLE);
         status = new Status(DEFAULT_STATUS);
+        isArchived = false;
         phone = null;
     }
 
@@ -52,6 +54,7 @@ public class OpportunityBuilder {
         company = opportunityToCopy.getCompany();
         role = opportunityToCopy.getRole();
         status = opportunityToCopy.getStatus();
+        isArchived = opportunityToCopy.isArchived();
         phone = opportunityToCopy.getPhone().orElse(null);
     }
 
@@ -104,6 +107,14 @@ public class OpportunityBuilder {
     }
 
     /**
+     * Sets the archived status of the {@code Opportunity} that we are building.
+     */
+    public OpportunityBuilder withArchived(boolean isArchived) {
+        this.isArchived = isArchived;
+        return this;
+    }
+
+    /**
      * Sets the {@code Phone} of the {@code Opportunity} that we are building.
      */
     public OpportunityBuilder withPhone(String phone) {
@@ -120,7 +131,7 @@ public class OpportunityBuilder {
     }
 
     public Opportunity build() {
-        return new Opportunity(name, email, contactRole, company, role, status, phone);
+        return new Opportunity(name, email, contactRole, company, role, status, isArchived, phone);
     }
 
 }
