@@ -391,21 +391,31 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes from step 3.
 
 
-**Use case: UC03 — List all opportunity records**
+**Use case: UC03 — List all opportunity contact**
 
 **MSS**
 
-1.  User requests to list all opportunity records.
-2.  System shows the list of stored opportunity records.
+1.  User requests to list contact records.
+2.  System retrieves and shows all stored contact records.
 
     Use case ends.
 
 **Extensions**
 
 * 1a. No records exist.
-    * 1a1. System informs the user that the list is empty.
+    * 1a1. System informs the user there are no records.
 
       Use case ends.
+
+* 1b. User requests to list archived records.
+    * 1b1. System retrieves and shows all records in the archive.
+
+      Use case ends.
+
+    * 1b2. No archived records exist.
+        * 1b2a. System informs the user that the archive is empty.
+
+          Use case ends.
 
 
 **Use case: UC04 — Edit an opportunity contact**

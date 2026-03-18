@@ -18,10 +18,11 @@ InternTrack helps users reduce fragmented information, missed follow-ups, and me
 4. **Edit opportunity record** — Update an existing contact record when details or opportunity context change.
 5. **Find a record by keyword** — Quickly retrieve matching records when needed.
 6. **Archive opportunity records** — Move old records out of the active workspace without losing them.
-7. **Unarchive opportunity records** — Restore previously archived records when they become relevant again.
-8. **Clear all opportunity records** — Remove all tracked records in one shot.
-9. **Help command** — Open quick access to the user guide from within the app.
-10. **Exit command** — Close the app quickly using the keyboard.
-11. **Persistence across sessions** — Ensure tracked data remains available across app restarts.
+7. **List archived records** — View all records currently in the archive.
+8. **Unarchive opportunity records** — Restore previously archived records when they become relevant again.
+9. **Clear all opportunity records** — Remove all tracked records in one shot.
+10. **Help command** — Open quick access to the user guide from within the app.
+11. **Exit command** — Close the app quickly using the keyboard.
+12. **Persistence across sessions** — Ensure tracked data remains available across app restarts.
 
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](http://se-education.org)

@@ -33,7 +33,8 @@ public class ModelManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredOpportunities = new FilteredList<>(this.addressBook.getOpportunityList());
+        filteredOpportunities = new FilteredList<>(this.addressBook.getOpportunityList(),
+                PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
     }
 
     public ModelManager() {
@@ -101,7 +102,7 @@ public class ModelManager implements Model {
     @Override
     public void addOpportunity(Opportunity opportunity) {
         addressBook.addOpportunity(opportunity);
-        updateFilteredOpportunityList(PREDICATE_SHOW_ALL_OPPORTUNITIES);
+        updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
     }
 
     @Override

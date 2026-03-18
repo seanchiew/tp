@@ -29,6 +29,9 @@ public class UnarchiveCommand extends Command {
 
     public static final String MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS = "Unarchived Opportunity:%1$s";
 
+    public static final String MESSAGE_NOT_IN_ARCHIVE_VIEW =
+            "You are not viewing the archive. Use 'list archive' first to see archived opportunities.";
+
     private final List<Index> targetIndices;
 
     public UnarchiveCommand(List<Index> targetIndices) {
@@ -38,6 +41,13 @@ public class UnarchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        boolean isViewingArchive = model.getFilteredOpportunityList().stream()
+                .anyMatch(Opportunity::isArchived);
+        if (!isViewingArchive) {
+            throw new CommandException(MESSAGE_NOT_IN_ARCHIVE_VIEW);
+        }
+
         List<Opportunity> fullList = model.getAddressBook().getOpportunityList();
         List<Opportunity> archivedOpportunitiesList = new ArrayList<>();
 

@@ -100,12 +100,26 @@ public class UnarchiveCommandTest {
     }
 
     @Test
-    public void execute_noArchivedOpportunities_throwsCommandException() {
+    public void execute_notInArchiveView_throwsCommandException() {
+        // Model on main (unarchived) view — guard should trigger
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
-        assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
+        assertCommandFailure(unarchiveCommand, model, UnarchiveCommand.MESSAGE_NOT_IN_ARCHIVE_VIEW);
+    }
+
+    @Test
+    public void execute_notInArchiveViewWithArchivedEntries_throwsCommandException() {
+        // Has archived entries in storage but user is on unarchived view — guard should still trigger
+        Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        Opportunity original = model.getAddressBook().getOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        model.setOpportunity(original, createArchivedOpportunity(original));
+        // Stays on unarchived view (default filter)
+
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
+
+        assertCommandFailure(unarchiveCommand, model, UnarchiveCommand.MESSAGE_NOT_IN_ARCHIVE_VIEW);
     }
 
     @Test

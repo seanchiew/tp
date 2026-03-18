@@ -18,6 +18,9 @@ public class OpportunityContainsSubstringPredicate implements Predicate<Opportun
 
     @Override
     public boolean test(Opportunity opportunity) {
+        if (opportunity.isArchived()) {
+            return false;
+        }
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
                         opportunity.getName().fullName, keyword));

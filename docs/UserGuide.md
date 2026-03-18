@@ -89,9 +89,17 @@ Examples:
 
 ### Listing all opportunities : `list`
 
-Shows all tracked opportunities.
+Shows all tracked unarchived opportunities.
 
 Format: `list`
+
+### Listing all archived opportunities : `list archive`
+
+Shows all opportunities that have been archived.
+
+Format: `list archive`
+
+* Use this command before `unarchive` so you can see the indices of archived entries.
 
 ### Editing an opportunity contact: `edit`
 
@@ -196,5 +204,6 @@ Action     | Format, Examples
 **Edit**   | `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [p/PHONE]​`<br> e.g.,`edit 1 p/91234567 e/johndoe@example.com`
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
+**List Archive** | `list archive`
 **Help**   | `help`
 **Exit**   | `exit`
