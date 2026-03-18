@@ -23,6 +23,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.opportunity.Opportunity;
 import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
@@ -110,5 +111,10 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_archive() throws Exception {
         assertTrue(parser.parseCommand("archive 1") instanceof ArchiveCommand);
+    }
+
+    @Test
+    public void parseCommand_unarchive() throws Exception {
+        assertTrue(parser.parseCommand("unarchive 1") instanceof UnarchiveCommand);
     }
 }

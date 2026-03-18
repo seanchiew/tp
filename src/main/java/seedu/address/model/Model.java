@@ -17,6 +17,9 @@ public interface Model {
     /** {@code Predicate} that shows only unarchived opportunities */
     Predicate<Opportunity> PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES = opportunity -> !opportunity.isArchived();
 
+    /** {@code Predicate} that shows only archived opportunities */
+    Predicate<Opportunity> PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES = opportunity -> opportunity.isArchived();
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
