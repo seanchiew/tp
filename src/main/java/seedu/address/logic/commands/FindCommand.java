@@ -8,17 +8,19 @@ import seedu.address.model.Model;
 import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 
 /**
- * Finds and lists all opportunities in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Finds and lists all opportunities in address book whose name matches the provided keywords and,
+ * when supplied, whose company matches the provided company keyword(s). Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all opportunities whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
-            + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "the specified name keywords (case-insensitive). You can optionally add a company filter with c/.\n"
+            + "Parameters: [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]\n"
+            + "Examples: " + COMMAND_WORD + " alice bob\n"
+            + "          " + COMMAND_WORD + " alice c/stripe\n"
+            + "          " + COMMAND_WORD + " c/tiktok";
 
     private final OpportunityContainsSubstringPredicate predicate;
 

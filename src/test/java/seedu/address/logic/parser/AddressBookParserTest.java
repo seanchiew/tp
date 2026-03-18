@@ -80,6 +80,13 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_findWithCompany() throws Exception {
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " alex c/meta");
+        assertEquals(new FindCommand(new OpportunityContainsSubstringPredicate(List.of("alex"), List.of("meta"))),
+                command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
