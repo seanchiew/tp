@@ -20,7 +20,7 @@ public class OpportunityContainsSubstringPredicate implements Predicate<Opportun
     public boolean test(Opportunity opportunity) {
         return keywords.stream()
                 .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
-                        opportunity.getCompany().companyName, keyword));
+                        opportunity.getName().fullName, keyword));
     }
 
     @Override
