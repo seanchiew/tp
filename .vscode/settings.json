@@ -10,7 +10,6 @@
     "[java]": {
         "editor.defaultFormatter": "redhat.java"
     },
-    "java.saveActions.organizeImports": true,
     "editor.codeActionsOnSave": {
         "source.organizeImports": "explicit"
     },

@@ -8,9 +8,9 @@ import java.util.Optional;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Represents an Opportunity in the tracker.
- * Guarantees: required fields are present and not null, optional fields may be absent,
- * field values are validated by their respective classes, immutable.
+ * Represents an Opportunity in the tracker. Guarantees: required fields are
+ * present and not null, optional fields may be absent, field values are
+ * validated by their respective classes, immutable.
  */
 public class Opportunity {
 
@@ -27,11 +27,11 @@ public class Opportunity {
     private final Phone phone;
 
     /**
-     * Required fields must be present and not null.
-     * Phone is optional and may be null.
+     * Required fields must be present and not null. Phone is optional and may
+     * be null.
      */
-    public Opportunity(Name name, Email email, ContactRole contactRole,
-                       Company company, Role role, Status status, boolean isArchived, Phone phone) {
+    public Opportunity(Name name, Email email, ContactRole contactRole, Company company, Role role, Status status,
+                                    boolean isArchived, Phone phone) {
         requireAllNonNull(name, email, contactRole, company, role, status, isArchived);
         this.name = name;
         this.email = email;
@@ -72,29 +72,32 @@ public class Opportunity {
     }
 
     /**
-     * Returns an {@code Optional} containing the phone number, or an empty Optional if absent.
+     * Returns an {@code Optional} containing the phone number, or an empty
+     * Optional if absent.
      */
     public Optional<Phone> getPhone() {
         return Optional.ofNullable(phone);
     }
 
     /**
-     * Returns true if both opportunities have the same Company and Role.
-     * This defines a weaker notion of equality between two opportunities.
+     * Returns true if both opportunities have the same Email, Company, and
+     * Role. This defines a weaker notion of equality between two opportunities,
+     * representing the same contact-opportunity relationship.
      */
     public boolean isSameOpportunity(Opportunity otherOpportunity) {
         if (otherOpportunity == this) {
             return true;
         }
 
-        return otherOpportunity != null
-                && otherOpportunity.getCompany().equals(getCompany())
-                && otherOpportunity.getRole().equals(getRole());
+        return otherOpportunity != null && otherOpportunity.getEmail().equals(getEmail())
+                                        && otherOpportunity.getCompany().equals(getCompany())
+                                        && otherOpportunity.getRole().equals(getRole());
     }
 
     /**
-     * Returns true if both opportunities have the same identity and data fields.
-     * This defines a stronger notion of equality between two opportunities.
+     * Returns true if both opportunities have the same identity and data
+     * fields. This defines a stronger notion of equality between two
+     * opportunities.
      */
     @Override
     public boolean equals(Object other) {
@@ -108,14 +111,12 @@ public class Opportunity {
         }
 
         Opportunity otherOpportunity = (Opportunity) other;
-        return name.equals(otherOpportunity.name)
-            && email.equals(otherOpportunity.email)
-            && contactRole.equals(otherOpportunity.contactRole)
-            && company.equals(otherOpportunity.company)
-            && role.equals(otherOpportunity.role)
-            && status.equals(otherOpportunity.status)
-            && isArchived == otherOpportunity.isArchived
-            && Objects.equals(phone, otherOpportunity.phone);
+        return name.equals(otherOpportunity.name) && email.equals(otherOpportunity.email)
+                                        && contactRole.equals(otherOpportunity.contactRole)
+                                        && company.equals(otherOpportunity.company)
+                                        && role.equals(otherOpportunity.role) && status.equals(otherOpportunity.status)
+                                        && isArchived == otherOpportunity.isArchived
+                                        && Objects.equals(phone, otherOpportunity.phone);
     }
 
     @Override
@@ -125,15 +126,9 @@ public class Opportunity {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .add("name", name)
-                .add("email", email)
-                .add("contactRole", contactRole)
-                .add("company", company)
-                .add("role", role)
-                .add("status", status)
-                .add("phone", phone)
-                .toString();
+        return new ToStringBuilder(this).add("name", name).add("email", email).add("contactRole", contactRole)
+                                        .add("company", company).add("role", role).add("status", status)
+                                        .add("phone", phone).toString();
     }
 
 }

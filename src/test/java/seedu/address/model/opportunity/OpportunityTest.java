@@ -24,18 +24,23 @@ public class OpportunityTest {
         // null -> returns false
         assertFalse(ALICE.isSameOpportunity(null));
 
-        // same company and role -> returns true
+        // same email, company, and role -> returns true
         Opportunity editedAlice = new OpportunityBuilder(ALICE)
+                .withEmail(VALID_EMAIL_BOB)
                 .withCompany(VALID_COMPANY_BOB)
                 .withRole(VALID_ROLE_BOB)
                 .build();
         assertTrue(BOB.isSameOpportunity(editedAlice));
 
-        // different company, same role -> returns false
+        // different email, same company and role -> returns false
+        editedAlice = new OpportunityBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.isSameOpportunity(editedAlice));
+
+        // different company, same email and role -> returns false
         editedAlice = new OpportunityBuilder(ALICE).withCompany(VALID_COMPANY_BOB).build();
         assertFalse(ALICE.isSameOpportunity(editedAlice));
 
-        // same company, different role -> returns false
+        // different role, same email and company -> returns false
         editedAlice = new OpportunityBuilder(ALICE).withRole(VALID_ROLE_BOB).build();
         assertFalse(ALICE.isSameOpportunity(editedAlice));
     }

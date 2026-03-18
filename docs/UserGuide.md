@@ -113,22 +113,25 @@ Format: `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st opportunity contact to be `91234567` and `johndoe@example.com` respectively.
 
-### Locating persons by name: `find`
+### Locating opportunity contacts: `find`
 
-Finds persons whose names contain any of the given keywords.
+Finds opportunity contacts whose names contain any of the given keywords, optionally filtered by company.
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Partial words are matched too. e.g. `Han` will match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The search is case-insensitive. e.g. `jan` will match `Jane`
+* Partial words are matched for both name and company. e.g. `find jan c/Tik` matches `Jane @ TikTok`
+* If name keywords are provided, contacts matching at least one name keyword are returned.
+* If a company filter is provided, only contacts whose company matches all given company keywords are returned.
+* If both name keywords and a company filter are provided, both conditions must match.
+* You can search by company only by leaving the name blank. e.g. `find c/Visa`
+* `find` and `find c/` are invalid because at least one search term must be provided.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
+* `find Jane` returns contacts whose names contain `Jane`
+* `find jan c/Tik` returns contacts whose names contain `jan` and whose company contains `Tik`
+* `find c/Visa` returns all contacts whose company contains `Visa`
+* `find alex david` returns contacts whose names contain either `alex` or `david`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Deleting an opportunity contact : `delete`
@@ -144,7 +147,7 @@ Format: `delete INDEX [MORE_INDICES]...`
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd opportunity contact in the tracker.
-* `find Stripe` followed by `delete 1 2 3` deletes the 1st, 2nd, and 3rd opportunity contacts in the displayed results.
+* `find c/Stripe` followed by `delete 1 2 3` deletes the 1st, 2nd, and 3rd opportunity contacts in the displayed results.
 
 ### Archiving an opportunity contact : `archive`
 
@@ -253,7 +256,7 @@ Action     | Format, Examples
 **Clear**  | `clear`
 **Delete** | `delete INDEX [MORE_INDICES]...`<br> e.g., `delete 1 2 3`
 **Edit**   | `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [p/PHONE]​`<br> e.g.,`edit 1 p/91234567 e/johndoe@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
+**Find**   | `find [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find Jane c/Stripe`
 **List**   | `list`
 **List Archive** | `list archive`
 **Archive** | `Archive INDEX [MORE_INDICES]...`<br> e.g., `Archive 1 2 3`

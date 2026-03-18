@@ -285,8 +285,8 @@ _{Explain here how the data archiving feature will be implemented}_
 
 * manage internship applications faster than a typical mouse/GUI driven app
 * helps user capture, update, and retrieve key application details in seconds
-* reduce missed deadlines and mental overhead while managing concurrent applications
-* serve as a lightweight offline desktop tool
+* reduce the mental overhead of keeping track of recruiters, interviewers, referrers, and other opportunity-related contacts
+* serve as a lightweight offline desktop tool for organizing opportunity contacts
 
 
 ### User stories
@@ -355,7 +355,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
         Use case resumes from step 1.
 
-* 2b. Duplicate detected (same Company and Role already exists).
+* 2b. Duplicate detected (same Email, Company, and Role already exists).
     * 2c1. System informs the user that a duplicate opportunity contact exists.
 
         Use case ends.
