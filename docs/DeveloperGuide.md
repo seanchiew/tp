@@ -461,28 +461,45 @@ Preconditions: At least one record exists.
 
       Use case ends.
 
-**Use case: UC06 — Archive an application cycle**
+**Use case: UC06 — Archive an opportunity record**
 
-**Preconditions:** At least one record exists in the current cycle.
+Preconditions: At least one record exists in the unarchived/active list.
 
 **MSS**
 
-1. User requests to archive the current cycle.
-2. System archives the current cycle and starts a new empty cycle.
-3. System confirms that the new cycle is active and the archived cycle remains accessible.
+1.  User requests to <u>list unarchived/active opportunity records (UC03)</u>.
+2.  System shows the list of unarchived opportunity records.
+3.  User requests to archive a specific record from the unarchived list.
+4.  System archives the specified record.
+5.  System confirms that the record has been archived.
 
-   Use case ends.
-
+    Use case ends.
 
 **Extensions**
 
-* 1a. No records exist.
-    * 1a1. System informs the user there is nothing to archive.
+* 3a. The specified index is invalid.
+    * 3a1. System informs the user that the index is invalid.
 
       Use case ends.
 
-* 2a. Archive fails due to storage write failure.
-    * 2a1. System informs the user the archive operation failed.
+**Use case: UC07 — Unarchive an opportunity record**
+
+Preconditions: At least one record exists in the archived list.
+
+**MSS**
+
+1.  User requests to <u>list archived opportunity records (UC03)</u>.
+2.  System shows the list of archived opportunity records.
+3.  User requests to unarchive a specific record from the archived list.
+4.  System unarchives the specified record.
+5.  System confirms that the record has been unarchived.
+
+    Use case ends.
+
+**Extensions**
+
+* 3a. The specified index is invalid.
+    * 3a1. System informs the user that the index is invalid.
 
       Use case ends.
 
@@ -518,33 +535,38 @@ Preconditions: At least one record exists.
 
 ### Non-Functional Requirements
 
+**For this section:**  
+**commands** refer to the following commands: **add, delete, list, find, edit, archive, and unarchive**.  
+**core functions** refer to the execution of the app’s main features, including command execution, data storage, and GUI support, but excluding application startup.
+
 1. **Platform compatibility:** The app must run on Windows 10/11, macOS, and Ubuntu Linux with Java 17 installed.
-2. **Distribution:** The app must be distributable as a single executable JAR without an installer.
-3. **Offline-first:** All core functions must work fully offline and must not require any remote server or external API.
-4. **Local storage format:** Data must be stored locally in a human-editable text file (e.g., JSON) and must not use a DBMS.
-5. **Response time:** With up to **500** opportunity records, typical commands (add, delete, list, find, update) must complete within **500 ms**, excluding application startup.
-6. **Startup time:** With up to **500** records, the application should be usable within **2 seconds** after launch on a typical modern laptop.
-7. **Autosave reliability:** The app must automatically save after every state-changing operation (e.g., add, remove, update).
+2. **Distribution:** The app must be distributable as a single executable JAR without requiring an installer.
+3. **Offline operation:** All core functions must work fully offline and must not require any remote server or external API.
+4. **Local storage format:** Data must be stored locally in a human-editable text file (e.g., JSON) and must not require a DBMS.
+5. **Response time:** With up to **500** opportunity records, all commands must complete within **500 ms**, excluding application startup.
+6. **Startup time:** With up to **500** opportunity records, the application must be ready to accept user input within **2 seconds** after launch on a typical modern laptop.
+7. **Autosave reliability:** The app must automatically save after every state-changing operation (e.g., add, delete, edit, archive, unarchive).
 8. **Graceful storage failure:** If reading or writing the storage file fails, the app must not crash and must show a clear error message.
-9. **CLI-first usability:** All core functions must be operable using keyboard-only input; the GUI is for visualization and must not be required to complete core tasks.
+9. **CLI-first usability:** All commands must be executable using keyboard-only input; the GUI is for visualization and must not be required to complete core tasks.
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **CLI**: Command Line Interface; users interact primarily by typing commands.
-* **Opportunity record (Record)**: A single entry representing one internship application being tracked.
-* **Company**: The organisation that offers the opportunity.
-* **Role**: The position/title applied for.
-* **Status / Stage**: The current progress state of an application (e.g., SAVED, APPLIED, OA, INTERVIEW, OFFER, REJECTED, WITHDRAWN).
-* **Deadline**: The date/time by which a submission or action is due for an opportunity record.
-* **Outcome**: A terminal result of an application (e.g., OFFER, REJECTED, WITHDRAWN).
-* **Keyword**: A text fragment used to search/filter records.
-* **Duplicate opportunity**: Two records that refer to the same opportunity under the project’s duplicate rule (e.g., same Company and Role).
+* **Opportunity record (Record)**: A single record representing a tracked contact and the associated internship opportunity.
+* **Contact**: A recruiter, interviewer, referrer, hiring manager, or other person involved in the user’s internship application process.
+* **Contact Role**: The role of the contact person associated with the opportunity (e.g. recruiter, hiring manager, interviewer, referrer).
+* **Company**: The organisation associated with the tracked contact or opportunity.
+* **Role**: The internship position associated with the opportunity.
+* **Status / Stage**: The current progress state of the user’s interaction with a contact or the associated opportunity (e.g. SAVED, APPLIED, OA, INTERVIEW, OFFER, REJECTED, WITHDRAWN).
+* **Deadline**: The date/time by which a submission, follow-up, or action is due for a tracked record.
+* **Outcome**: A terminal result of the tracked interaction or associated opportunity (e.g. OFFER, REJECTED, WITHDRAWN).
+* **Keyword**: A text fragment used to search or filter records.
+* **Duplicate record**: Two records that refer to the same tracked contact-opportunity relationship under the project’s duplicate rule (e.g., same Email, Company and Role).
 * **Index**: A temporary 1-based position number shown in a displayed list.
-* **MSS**: Main Success Scenario; the most straightforward interaction for a given use case, which assumes that nothing goes wrong.
+* **MSS**: Main Success Scenario; the most straightforward interaction for a given use case, assuming nothing goes wrong.
 * **Persistence**: The ability to save and load data across sessions from local storage.
-* **Prefix**: A short label used to indicate a field in typed input (e.g., c/, r/).
-* **Cycle**: A time-bounded application period (e.g., one internship season) that can later be archived and reset.
+* **Prefix**: A short label used to indicate a field in typed input (e.g. n/, e/, c/, r/).
+* **Cycle**: A defined internship application period, such as Summer, Semester 1, or Semester 2.
 
 --------------------------------------------------------------------------------------------------------------------
 

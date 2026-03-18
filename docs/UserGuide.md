@@ -146,6 +146,40 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd opportunity contact in the tracker.
 * `find Stripe` followed by `delete 1 2 3` deletes the 1st, 2nd, and 3rd opportunity contacts in the displayed results.
 
+### Archiving an opportunity contact : `archive`
+
+Archives one or more specified opportunity contacts in InternTrack.
+
+Format: `archive INDEX [MORE_INDICES]...`
+
+* Archives the opportunity contact(s) at the specified `INDEX`es.
+* The index refers to the index number shown in the displayed unarchived / active opportunity contact list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* If multiple indices are provided, they must be separated by spaces.
+
+Examples:
+* `list` followed by `archive 2` archives the 2nd opportunity contact in the tracker.
+* `list` followed by `archive 1 2 3` archives the 1st, 2nd, and 3rd unarchived opportunity contacts in the displayed results.
+
+![archive](images/Archive.png)
+
+### Unarchiving an opportunity contact : `unarchive`
+
+Unarchives one or more specified opportunity contacts in InternTrack.
+
+Format: `unarchive INDEX [MORE_INDICES]...`
+
+* Unarchives the opportunity contact(s) at the specified `INDEX`es.
+* The index refers to the index number shown in the displayed archived opportunity contact list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* If multiple indices are provided, they must be separated by spaces.
+
+Examples:
+* `list archive` followed by `unarchive 2` unarchives the 2nd archived opportunity contact in the tracker.
+* `list archive` followed by `unarchive 1 2 3` unarchives the 1st, 2nd, and 3rd archived opportunity contacts in the displayed results.
+
+![unarchive](images/Unarchive.png)
+
 ### Clearing all entries : `clear`
 
 Clears all opportunity contacts from InternTrack, giving you a blank slate.
@@ -173,16 +207,34 @@ If your changes to the data file makes its format invalid, AddressBook will disc
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </box>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**Q: How do I transfer my data to another computer?**  
+**A:** Install InternTrack on the other computer, then replace the data file created there with the data file from your current computer.
+
+**Q: Where does InternTrack store my data?**  
+**A:** InternTrack stores its data in `data/addressbook.json`, where the `data` folder is created in the same directory as the application JAR file. For example, if the JAR file is placed in Desktop, the data file will be stored in `Desktop/data/addressbook.json`.
+
+**Q: Are my changes saved automatically?**  
+**A:** Yes. InternTrack automatically saves after every state-changing operation(e.g., add, delete, edit, archive, unarchive).
+
+**Q: Does InternTrack need internet access to work?**  
+**A:** No. InternTrack is designed to support all core functions fully offline.
+
+**Q: Why is my command rejected due to an invalid index?**  
+**A:** The specified index does not match any record in the currently displayed list. Use the index shown in the latest displayed list.
+
+**Q: Can an archived record be restored?**  
+**A:** Yes. First use the `list archive` command to view archived records, then use the `unarchive` command to restore the selected archived opportunity record to the active list.
+
+**Q: What happens if the data file cannot be read or written?**  
+**A:** InternTrack will not crash and will inform you that the storage operation has failed.
+
+**Q: Do I need to use the GUI to access core features?**  
+**A:** No. All core features can be completed using keyboard-only input.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -204,5 +256,7 @@ Action     | Format, Examples
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **List Archive** | `list archive`
+**Archive** | `Archive INDEX [MORE_INDICES]...`<br> e.g., `Archive 1 2 3`
+**Unarchive** | `Archive INDEX [MORE_INDICES]...`<br> e.g., `Unarchive 1 2 3`
 **Help**   | `help`
 **Exit**   | `exit`
