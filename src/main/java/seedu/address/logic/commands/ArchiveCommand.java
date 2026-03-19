@@ -29,6 +29,9 @@ public class ArchiveCommand extends Command {
 
     public static final String MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS = "Archived Opportunity:%1$s";
 
+    public static final String MESSAGE_NOT_IN_UNARCHIVED_VIEW =
+            "You are viewing the archive. Use 'list' first to see unarchived opportunities.";
+
     private final List<Index> targetIndices;
 
     public ArchiveCommand(List<Index> targetIndices) {
@@ -38,6 +41,13 @@ public class ArchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+
+        boolean isViewingArchive = model.getFilteredOpportunityList().stream()
+                .anyMatch(Opportunity::isArchived);
+        if (isViewingArchive) {
+            throw new CommandException(MESSAGE_NOT_IN_UNARCHIVED_VIEW);
+        }
+
         List<Opportunity> lastShownList = model.getFilteredOpportunityList();
 
         // Use LinkedHashSet to remove duplicates
