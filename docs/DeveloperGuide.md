@@ -626,4 +626,5 @@ testers are expected to do more *exploratory* testing.
    2. The app should recreate the missing data file and load the sample data without crashing.
    3. See the [User Guide](UserGuide.md#faq) for how to locate the data file.
 
+
 1. _{ more test cases …​ }_

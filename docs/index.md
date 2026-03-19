@@ -8,7 +8,7 @@
 [![CI Status](https://github.com/se-edu/addressbook-level3/workflows/Java%20CI/badge.svg)](https://github.com/se-edu/addressbook-level3/actions)
 [![codecov](https://codecov.io/gh/se-edu/addressbook-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/addressbook-level3)
 
-![Ui](images/Ui.png)
+![Ui](images/release_v1.3/Ui.png)
 
 **InternTrack is a desktop application for managing your opportunity contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 
