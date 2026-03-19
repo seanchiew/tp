@@ -4,7 +4,7 @@
   pageNav: 3
 ---
 
-# AB-3 Developer Guide
+# InternTrack Developer Guide
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -251,10 +251,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
+### Data archiving
 
-_{Explain here how the data archiving feature will be implemented}_
+The data archiving feature allows users to hide selected opportunity records from the active list without deleting them.
 
+This is implemented by storing an archived flag in each Opportunity. Archive and unarchive commands update this flag accordingly. The Model uses separate predicates to display active records and archived records. The archived state is also saved in the storage file so that it persists across sessions.
+
+This approach keeps the implementation simple because it extends the existing record structure instead of introducing a separate archive data structure.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -370,7 +373,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to <u>list opportunity contacts (UC3)</u>.
+1.  User requests to <u>list opportunity contacts (UC03)</u>.
 2.  System shows the list of stored opportunity contacts.
 3.  User requests to remove one or more specific contacts in the list.
 4.  System removes the requested contact(s).
@@ -424,7 +427,7 @@ Preconditions: At least one opportunity contact exists.
 
 **MSS**
 
-1.  User requests to <u>list opportunity contacts (UC3)</u>.
+1.  User requests to <u>list opportunity contacts (UC03)</u>.
 2.  System shows the list of opportunity contacts.
 3.  User requests to edit the details of a specified opportunity contact.
 4.  System validates the new details.
@@ -503,7 +506,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
       Use case ends.
 
-**Use case: UC09 — Clear opportunity contact**
+**Use case: UC08 — Clear opportunity contact**
 
 **MSS**
 
@@ -513,7 +516,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
    Use case ends.
 
-**Use case: UC10 — Request for help**
+**Use case: UC09 — Request for help**
 
 **MSS**
 
@@ -523,7 +526,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
    Use case ends.
 
-**Use case: UC11 — Exit the application**
+**Use case: UC10 — Exit the application**
 
 **MSS**
 
