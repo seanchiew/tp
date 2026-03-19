@@ -82,9 +82,12 @@ Adds an opportunity contact to InternTrack.
 
 Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS [p/PHONE]​`
 
+* `p/PHONE` is optional and can be omitted if the contact's phone number is not available.
+* `STATUS` must be one of: `SAVED`, `APPLIED`, `OA`, `INTERVIEW`, `OFFER`, `REJECTED`, `WITHDRAWN`.
+
 Examples:
 * `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED p/98765432`
-* `add n/Bob Tan e/bob@google.com cr/hiring manager c/Google r/Backend Engineer s/INTERVIEW p/93257632`
+* `add n/Bob Tan e/bob@google.com cr/hiring manager c/Google r/Backend Engineer s/INTERVIEW`
 
 ### Listing all opportunities : `list`
 
@@ -185,7 +188,13 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all opportunity contacts from InternTrack, giving you a blank slate.
+Clears **all** opportunity contacts from InternTrack, including archived ones, giving you a blank slate.
+
+<box type="warning" seamless>
+
+**Caution:** `clear` permanently removes all records, including archived ones. This action cannot be undone.
+
+</box>
 
 Format: `clear`
 
@@ -259,7 +268,7 @@ Action     | Format, Examples
 **Find**   | `find [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find Jane c/Stripe`
 **List**   | `list`
 **List Archive** | `list archive`
-**Archive** | `Archive INDEX [MORE_INDICES]...`<br> e.g., `Archive 1 2 3`
-**Unarchive** | `Archive INDEX [MORE_INDICES]...`<br> e.g., `Unarchive 1 2 3`
+**Archive** | `archive INDEX [MORE_INDICES]...`<br> e.g., `archive 1 2 3`
+**Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`
 **Help**   | `help`
 **Exit**   | `exit`
