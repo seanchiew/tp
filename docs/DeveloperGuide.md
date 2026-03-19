@@ -259,17 +259,6 @@ This is implemented by storing an archived flag in each Opportunity. Archive and
 
 This approach keeps the implementation simple because it extends the existing record structure instead of introducing a separate archive data structure.
 
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-    1. To simulate a missing data file, close the app, delete the data file `data/addressbook.json`, and then reopen the app.
-    2. The app should recreate the missing data file and load the sample data without crashing.
-    3. See the [User Guide](UserGuide.md#faq) for how to locate the data file.
-
-2. _{ more test cases ... }_
-
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
