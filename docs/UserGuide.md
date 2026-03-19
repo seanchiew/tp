@@ -18,7 +18,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2526S2-CS2103T-W13-2/tp/releases/).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your InternTrack.
 
@@ -236,28 +236,28 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 
 ## FAQ
 
-**Q: How do I transfer my data to another computer?**  
+**Q: How do I transfer my data to another computer?**
 **A:** Install InternTrack on the other computer, then replace the data file created there with the data file from your current computer.
 
-**Q: Where does InternTrack store my data?**  
+**Q: Where does InternTrack store my data?**
 **A:** InternTrack stores its data in `data/addressbook.json`, where the `data` folder is created in the same directory as the application JAR file. For example, if the JAR file is placed in Desktop, the data file will be stored in `Desktop/data/addressbook.json`.
 
-**Q: Are my changes saved automatically?**  
+**Q: Are my changes saved automatically?**
 **A:** Yes. InternTrack automatically saves after every state-changing operation(e.g., add, delete, edit, archive, unarchive).
 
-**Q: Does InternTrack need internet access to work?**  
+**Q: Does InternTrack need internet access to work?**
 **A:** No. InternTrack is designed to support all core functions fully offline.
 
-**Q: Why is my command rejected due to an invalid index?**  
+**Q: Why is my command rejected due to an invalid index?**
 **A:** The specified index does not match any record in the currently displayed list. Use the index shown in the latest displayed list.
 
-**Q: Can an archived record be restored?**  
+**Q: Can an archived record be restored?**
 **A:** Yes. First use the `list archive` command to view archived records, then use the `unarchive` command to restore the selected archived opportunity record to the active list.
 
-**Q: What happens if the data file cannot be read or written?**  
+**Q: What happens if the data file cannot be read or written?**
 **A:** InternTrack will not crash and will inform you that the storage operation has failed.
 
-**Q: Do I need to use the GUI to access core features?**  
+**Q: Do I need to use the GUI to access core features?**
 **A:** No. All core features can be completed using keyboard-only input.
 
 --------------------------------------------------------------------------------------------------------------------
