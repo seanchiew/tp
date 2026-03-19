@@ -57,7 +57,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -338,7 +338,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `InternTrack` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: UC01 — Add an opportunity record**
+**Use case: UC01 — Add an opportunity contact**
 
 **MSS**
 
@@ -366,26 +366,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
         Use case resumes from step 1.
 
 
-**Use case: UC02 — Remove an opportunity record**
+**Use case: UC02 — Remove an opportunity contact**
 
 **MSS**
 
-1.  User requests to <u>list opportunity records (UC3)</u>.
-2.  System shows the list of stored opportunity records.
-3.  User requests to remove one or more specific records in the list.
-4.  System removes the requested record(s).
+1.  User requests to <u>list opportunity contacts (UC3)</u>.
+2.  System shows the list of stored opportunity contacts.
+3.  User requests to remove one or more specific contacts in the list.
+4.  System removes the requested contact(s).
 5.  System reflects the removal.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. No records exist.
-    * 1a1. System informs the user there are no records to remove.
+* 1a. No contacts exist.
+    * 1a1. System informs the user there are no contacts to remove.
 
       Use case ends.
 
-* 3a. One or more of the provided indexes does not refer to an existing record.
+* 3a. One or more of the provided indexes does not refer to an existing contact.
     * 3a1. System shows an error message.
 
       Use case resumes from step 3.
@@ -395,24 +395,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1.  User requests to list contact records.
-2.  System retrieves and shows all stored contact records.
+1.  User requests to list opportunity contacts.
+2.  System retrieves and shows all stored opportunity contacts.
 
     Use case ends.
 
 **Extensions**
 
-* 1a. No records exist.
-    * 1a1. System informs the user there are no records.
+* 1a. No contacts exist.
+    * 1a1. System informs the user there are no contacts.
 
       Use case ends.
 
-* 1b. User requests to list archived records.
-    * 1b1. System retrieves and shows all records in the archive.
+* 1b. User requests to list archived contacts.
+    * 1b1. System retrieves and shows all contacts in the archive.
 
       Use case ends.
 
-    * 1b2. No archived records exist.
+    * 1b2. No archived contacts exist.
         * 1b2a. System informs the user that the archive is empty.
 
           Use case ends.
@@ -420,7 +420,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case: UC04 — Edit an opportunity contact**
 
-Preconditions: At least one record exists.
+Preconditions: At least one opportunity contact exists.
 
 **MSS**
 
@@ -445,33 +445,33 @@ Preconditions: At least one record exists.
 
     Use case resumes from step 3.
 
-**Use case: UC05 — Search for opportunities by keyword**
+**Use case: UC05 — Search for opportunity contacts by keyword**
 
 **MSS**
 
-1.  User requests to search opportunity records matching a keyword.
-2.  System shows all records that match the keyword.
+1.  User requests to search opportunity contacts matching a keyword.
+2.  System shows all opportunity contacts that match the keyword.
 
     Use case ends.
 
 **Extensions**
 
 * 2a. No matches found.
-    * 2a1. System informs the user there are no matching records.
+    * 2a1. System informs the user there are no matching opportunity contacts.
 
       Use case ends.
 
-**Use case: UC06 — Archive an opportunity record**
+**Use case: UC06 — Archive an opportunity contact**
 
-Preconditions: At least one record exists in the unarchived/active list.
+Preconditions: At least one opportunity contact exists in the unarchived/active list.
 
 **MSS**
 
-1.  User requests to <u>list unarchived/active opportunity records (UC03)</u>.
-2.  System shows the list of unarchived opportunity records.
-3.  User requests to archive a specific record from the unarchived list.
-4.  System archives the specified record.
-5.  System confirms that the record has been archived.
+1.  User requests to <u>list unarchived/active opportunity contacts (UC03)</u>.
+2.  System shows the list of unarchived opportunity contacts.
+3.  User requests to archive a specific opportunity contact from the unarchived list.
+4.  System archives the specified opportunity contact.
+5.  System confirms that the opportunity contact has been archived.
 
     Use case ends.
 
@@ -482,17 +482,17 @@ Preconditions: At least one record exists in the unarchived/active list.
 
       Use case ends.
 
-**Use case: UC07 — Unarchive an opportunity record**
+**Use case: UC07 — Unarchive an opportunity contact**
 
-Preconditions: At least one record exists in the archived list.
+Preconditions: At least one opportunity contact exists in the archived list.
 
 **MSS**
 
-1.  User requests to <u>list archived opportunity records (UC03)</u>.
-2.  System shows the list of archived opportunity records.
-3.  User requests to unarchive a specific record from the archived list.
-4.  System unarchives the specified record.
-5.  System confirms that the record has been unarchived.
+1.  User requests to <u>list archived opportunity contacts (UC03)</u>.
+2.  System shows the list of archived opportunity contacts.
+3.  User requests to unarchive a specific opportunity contact from the archived list.
+4.  System unarchives the specified opportunity contact.
+5.  System confirms that the opportunity contact has been unarchived.
 
     Use case ends.
 
@@ -503,12 +503,12 @@ Preconditions: At least one record exists in the archived list.
 
       Use case ends.
 
-**Use case: UC09 — Clear record**
+**Use case: UC09 — Clear opportunity contact**
 
 **MSS**
 
-1. User requests to clear all contact records.
-2. System deletes all tracked opportunity data, replacing it with an empty state.
+1. User requests to clear all opportunity contacts.
+2. System deletes all tracked opportunity contacts, replacing it with an empty state.
 3. System reflects an empty tracker.
 
    Use case ends.
@@ -529,22 +529,22 @@ Preconditions: At least one record exists in the archived list.
 
 1. User requests to exit the application.
 2. System saves any unsaved data.
-3. System closes the application. 
+3. System closes the application.
 
    Use case ends.
 
 ### Non-Functional Requirements
 
-**For this section:**  
-**commands** refer to the following commands: **add, delete, list, find, edit, archive, and unarchive**.  
+**For this section:**
+**commands** refer to the following commands: **add, delete, list, find, edit, archive, and unarchive**.
 **core functions** refer to the execution of the app’s main features, including command execution, data storage, and GUI support, but excluding application startup.
 
 1. **Platform compatibility:** The app must run on Windows 10/11, macOS, and Ubuntu Linux with Java 17 installed.
 2. **Distribution:** The app must be distributable as a single executable JAR without requiring an installer.
 3. **Offline operation:** All core functions must work fully offline and must not require any remote server or external API.
 4. **Local storage format:** Data must be stored locally in a human-editable text file (e.g., JSON) and must not require a DBMS.
-5. **Response time:** With up to **500** opportunity records, all commands must complete within **500 ms**, excluding application startup.
-6. **Startup time:** With up to **500** opportunity records, the application must be ready to accept user input within **2 seconds** after launch on a typical modern laptop.
+5. **Response time:** With up to **500** opportunity contacts, all commands must complete within **500 ms**, excluding application startup.
+6. **Startup time:** With up to **500** opportunity contacts, the application must be ready to accept user input within **2 seconds** after launch on a typical modern laptop.
 7. **Autosave reliability:** The app must automatically save after every state-changing operation (e.g., add, delete, edit, archive, unarchive).
 8. **Graceful storage failure:** If reading or writing the storage file fails, the app must not crash and must show a clear error message.
 9. **CLI-first usability:** All commands must be executable using keyboard-only input; the GUI is for visualization and must not be required to complete core tasks.
@@ -552,7 +552,7 @@ Preconditions: At least one record exists in the archived list.
 ### Glossary
 
 * **CLI**: Command Line Interface; users interact primarily by typing commands.
-* **Opportunity record (Record)**: A single record representing a tracked contact and the associated internship opportunity.
+* **Opportunity contact / record**: A single record representing a tracked contact and the associated internship opportunity.
 * **Contact**: A recruiter, interviewer, referrer, hiring manager, or other person involved in the user’s internship application process.
 * **Contact Role**: The role of the contact person associated with the opportunity (e.g. recruiter, hiring manager, interviewer, referrer).
 * **Company**: The organisation associated with the tracked contact or opportunity.
