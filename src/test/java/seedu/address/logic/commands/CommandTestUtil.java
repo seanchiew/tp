@@ -55,6 +55,7 @@ public class CommandTestUtil {
     public static final String STATUS_DESC_AMY = " " + PREFIX_STATUS + VALID_STATUS_AMY;
     public static final String STATUS_DESC_BOB = " " + PREFIX_STATUS + VALID_STATUS_BOB;
     public static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
+    public static final String PHONE_DESC_CLEAR = " " + PREFIX_PHONE; // empty value clears the phone field
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + " "; // Blank
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "notanemail"; // Not valid email

@@ -157,6 +157,72 @@ public class EditCommandTest {
     }
 
     @Test
+    public void execute_clearPhoneField_success() {
+        // BENSON (index 2) has a phone set; clearing it should produce a BENSON without phone
+        Index indexBenson = Index.fromOneBased(2);
+        Opportunity bensonInList = model.getFilteredOpportunityList().get(indexBenson.getZeroBased());
+        assertTrue(bensonInList.getPhone().isPresent(), "Precondition: BENSON must have a phone set");
+
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder().withClearPhone().build();
+        EditCommand editCommand = new EditCommand(indexBenson, descriptor);
+
+        Opportunity expectedOpportunity = new OpportunityBuilder(bensonInList).withoutPhone().build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
+                Messages.format(expectedOpportunity));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setOpportunity(bensonInList, expectedOpportunity);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertFalse(model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().isPresent());
+    }
+
+    @Test
+    public void execute_omitPhonePrefixPreservesExistingPhone_success() {
+        // BENSON (index 2) has a phone; editing another field without p/ must keep the phone intact
+        Index indexBenson = Index.fromOneBased(2);
+        Opportunity bensonInList = model.getFilteredOpportunityList().get(indexBenson.getZeroBased());
+        assertTrue(bensonInList.getPhone().isPresent(), "Precondition: BENSON must have a phone set");
+
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder()
+                .withCompany(VALID_COMPANY_BOB).build();
+        EditCommand editCommand = new EditCommand(indexBenson, descriptor);
+
+        Opportunity expectedOpportunity = new OpportunityBuilder(bensonInList)
+                .withCompany(VALID_COMPANY_BOB).build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
+                Messages.format(expectedOpportunity));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setOpportunity(bensonInList, expectedOpportunity);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertTrue(model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().isPresent());
+    }
+
+    @Test
+    public void execute_updatePhoneToNewValue_success() {
+        // BENSON (index 2) has a phone; replacing it with a new value should work
+        Index indexBenson = Index.fromOneBased(2);
+        Opportunity bensonInList = model.getFilteredOpportunityList().get(indexBenson.getZeroBased());
+
+        String newPhone = "81234567";
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder().withPhone(newPhone).build();
+        EditCommand editCommand = new EditCommand(indexBenson, descriptor);
+
+        Opportunity expectedOpportunity = new OpportunityBuilder(bensonInList).withPhone(newPhone).build();
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
+                Messages.format(expectedOpportunity));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setOpportunity(bensonInList, expectedOpportunity);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+        assertEquals(newPhone,
+                model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().get().value);
+    }
+
+    @Test
     public void equals() {
         final EditCommand standardCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY, DESC_AMY);
 

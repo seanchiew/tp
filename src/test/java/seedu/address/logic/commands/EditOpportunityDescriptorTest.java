@@ -54,6 +54,7 @@ public class EditOpportunityDescriptorTest {
                 + ", role=" + editOpportunityDescriptor.getRole().orElse(null)
                 + ", status=" + editOpportunityDescriptor.getStatus().orElse(null)
                 + ", phone=" + editOpportunityDescriptor.getPhone().orElse(null)
+                + ", clearPhone=" + editOpportunityDescriptor.isClearPhone()
                 + "}";
         assertEquals(expected, editOpportunityDescriptor.toString());
     }

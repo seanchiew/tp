@@ -95,6 +95,15 @@ public class EditOpportunityDescriptorBuilder {
         return this;
     }
 
+    /**
+     * Sets the clearPhone flag of the {@code EditOpportunityDescriptor} that we are building,
+     * indicating that the phone field should be cleared on edit.
+     */
+    public EditOpportunityDescriptorBuilder withClearPhone() {
+        descriptor.setClearPhone(true);
+        return this;
+    }
+
     public EditOpportunityDescriptor build() {
         return descriptor;
     }

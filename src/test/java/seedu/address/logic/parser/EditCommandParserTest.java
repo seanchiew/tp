@@ -4,9 +4,12 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_CLEAR;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -18,6 +21,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditOpportunityDescriptor;
 import seedu.address.model.opportunity.Company;
+import seedu.address.model.opportunity.Phone;
 import seedu.address.model.opportunity.Role;
 import seedu.address.testutil.EditOpportunityDescriptorBuilder;
 
@@ -71,5 +75,35 @@ public class EditCommandParserTest {
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_emptyPhoneValue_setsClearPhone() {
+        // p/ with no value should produce a descriptor with clearPhone=true, not a ParseException
+        Index targetIndex = INDEX_FIRST_OPPORTUNITY;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_CLEAR;
+
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder().withClearPhone().build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_validPhoneValue_setsPhone() {
+        Index targetIndex = INDEX_FIRST_OPPORTUNITY;
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
+
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder()
+                .withPhone(VALID_PHONE_AMY).build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_invalidPhoneValue_failure() {
+        // A phone that is non-empty but invalid should still fail
+        assertParseFailure(parser, "1 " + " p/abc", Phone.MESSAGE_CONSTRAINTS);
     }
 }
