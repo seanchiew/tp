@@ -13,15 +13,15 @@ import seedu.address.model.opportunity.Opportunity;
 import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 
 /**
- * Finds and lists all opportunities in address book whose name matches the provided keywords and,
- * when supplied, whose company matches the provided company keyword(s). Keyword matching is case insensitive.
+ * Finds and lists all opportunities in address book whose name and company match the provided keywords.
+ * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
     public static final String ARCHIVED_FLAG = "-a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all opportunities whose names contain any of "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all opportunities whose names contain all of "
             + "the specified name keywords (case-insensitive). By default, only unarchived opportunities are "
             + "searched. Add " + ARCHIVED_FLAG + " immediately after " + COMMAND_WORD
             + " to search archived opportunities instead. You can optionally add a company filter with c/.\n"

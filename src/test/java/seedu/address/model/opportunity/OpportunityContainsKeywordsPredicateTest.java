@@ -48,7 +48,7 @@ public class OpportunityContainsKeywordsPredicateTest {
                 Collections.singletonList("Ali"));
         assertTrue(predicate.test(new OpportunityBuilder().withName("Alice Tan").build()));
 
-        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("Ali", "Bob"));
+        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("Ali", "Tan"));
         assertTrue(predicate.test(new OpportunityBuilder().withName("Alice Tan").build()));
     }
 
@@ -86,6 +86,9 @@ public class OpportunityContainsKeywordsPredicateTest {
         assertFalse(predicate.test(new OpportunityBuilder().withName("Alice Tan").withCompany("Stripe").build()));
 
         predicate = new OpportunityContainsSubstringPredicate(Collections.singletonList("Bob"));
+        assertFalse(predicate.test(new OpportunityBuilder().withName("Alice Tan").build()));
+
+        predicate = new OpportunityContainsSubstringPredicate(Arrays.asList("Ali", "Bob"));
         assertFalse(predicate.test(new OpportunityBuilder().withName("Alice Tan").build()));
 
         predicate = new OpportunityContainsSubstringPredicate(List.of(), Collections.singletonList("Tik"));

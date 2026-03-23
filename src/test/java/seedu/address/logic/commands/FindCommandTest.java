@@ -9,9 +9,6 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import static seedu.address.testutil.TypicalOpportunities.BENSON;
-import static seedu.address.testutil.TypicalOpportunities.CARL;
-import static seedu.address.testutil.TypicalOpportunities.ELLE;
-import static seedu.address.testutil.TypicalOpportunities.FIONA;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -78,13 +75,13 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleOpportunitiesFound() {
-        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 3);
-        OpportunityContainsSubstringPredicate predicate = preparePredicate("Car Ell Fio");
+    public void execute_matchingNameKeywords_opportunityFound() {
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1);
+        OpportunityContainsSubstringPredicate predicate = preparePredicate("Ali Tan");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredOpportunityList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredOpportunityList());
+        assertEquals(Collections.singletonList(ALICE), model.getFilteredOpportunityList());
     }
 
     @Test

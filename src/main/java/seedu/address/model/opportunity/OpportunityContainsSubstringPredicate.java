@@ -9,7 +9,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
- * Tests that a {@code Opportunity}'s name matches any of the given name keywords and, when provided,
+ * Tests that a {@code Opportunity}'s name matches all of the given name keywords and, when provided,
  * its company matches all of the given company keywords.
  */
 public class OpportunityContainsSubstringPredicate implements Predicate<Opportunity> {
@@ -21,7 +21,7 @@ public class OpportunityContainsSubstringPredicate implements Predicate<Opportun
     }
 
     /**
-     * Creates a predicate that matches opportunities whose names contain any of the given
+     * Creates a predicate that matches opportunities whose names contain all of the given
      * {@code nameKeywords} and whose companies contain all of the given {@code companyKeywords}.
      *
      * @param nameKeywords name substrings to match against; may be empty for company-only searches
@@ -41,7 +41,7 @@ public class OpportunityContainsSubstringPredicate implements Predicate<Opportun
         }
 
         boolean matchesName = nameKeywords.isEmpty() || nameKeywords.stream()
-                .anyMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
+                .allMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
                         opportunity.getName().fullName, keyword));
         boolean matchesCompany = companyKeywords.isEmpty() || companyKeywords.stream()
                 .allMatch(keyword -> StringUtil.containsSubstringIgnoreCase(
