@@ -169,6 +169,7 @@ public class ArchiveCommandTest {
                 opportunityToArchive.getCompany(),
                 opportunityToArchive.getRole(),
                 opportunityToArchive.getStatus(),
+                opportunityToArchive.getCycle(),
                 true,
                 opportunityToArchive.getPhone().orElse(null)
         );

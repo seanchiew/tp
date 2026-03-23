@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.ContactRole;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Opportunity;
@@ -26,6 +27,7 @@ class JsonAdaptedOpportunity {
     private final String company;
     private final String role;
     private final String status;
+    private final String cycle;
     private final Boolean isArchived;
     private final String phone;
 
@@ -39,6 +41,7 @@ class JsonAdaptedOpportunity {
                                   @JsonProperty("company") String company,
                                   @JsonProperty("role") String role,
                                   @JsonProperty("status") String status,
+                                  @JsonProperty("cycle") String cycle,
                                   @JsonProperty("isArchived") Boolean isArchived,
                                   @JsonProperty("phone") String phone) {
         this.name = name;
@@ -47,6 +50,7 @@ class JsonAdaptedOpportunity {
         this.company = company;
         this.role = role;
         this.status = status;
+        this.cycle = cycle;
         this.isArchived = isArchived;
         this.phone = phone;
     }
@@ -61,6 +65,7 @@ class JsonAdaptedOpportunity {
         company = source.getCompany().companyName;
         role = source.getRole().roleName;
         status = source.getStatus().statusName;
+        cycle = source.getCycle().value;
         isArchived = source.isArchived();
         phone = source.getPhone().map(p -> p.value).orElse(null);
     }
@@ -120,6 +125,14 @@ class JsonAdaptedOpportunity {
         }
         final Status modelStatus = new Status(status);
 
+        if (cycle == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Cycle.class.getSimpleName()));
+        }
+        if (!Cycle.isValidCycle(cycle)) {
+            throw new IllegalValueException(Cycle.MESSAGE_CONSTRAINTS);
+        }
+        final Cycle modelCycle = new Cycle(cycle);
+
         final boolean modelIsArchived = (isArchived != null) ? isArchived : false;
 
         Phone modelPhone = null;
@@ -131,7 +144,7 @@ class JsonAdaptedOpportunity {
         }
 
         return new Opportunity(modelName, modelEmail, modelContactRole,
-                modelCompany, modelRole, modelStatus, modelIsArchived, modelPhone);
+                modelCompany, modelRole, modelStatus, modelCycle, modelIsArchived, modelPhone);
     }
 
 }

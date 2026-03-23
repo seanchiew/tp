@@ -4,6 +4,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_ROLE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CONTACT_ROLE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CYCLE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CYCLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -33,6 +35,7 @@ public class TypicalOpportunities {
             .withCompany("Stripe")
             .withRole("SWE Intern")
             .withStatus("APPLIED")
+            .withCycle("SUMMER 2025")
             .build();
     public static final Opportunity BENSON = new OpportunityBuilder()
             .withName("Benson Yeo")
@@ -41,6 +44,7 @@ public class TypicalOpportunities {
             .withCompany("Tiktok")
             .withRole("Backend Engineer")
             .withStatus("INTERVIEW")
+            .withCycle("SUMMER 2025")
             .withPhone("91234567")
             .build();
     public static final Opportunity CARL = new OpportunityBuilder()
@@ -50,6 +54,7 @@ public class TypicalOpportunities {
             .withCompany("Apple")
             .withRole("iOS Engineer")
             .withStatus("OA")
+            .withCycle("SUMMER 2025")
             .build();
     public static final Opportunity DANIEL = new OpportunityBuilder()
             .withName("Daniel Goh")
@@ -58,6 +63,7 @@ public class TypicalOpportunities {
             .withCompany("Google")
             .withRole("Cloud Engineer")
             .withStatus("SAVED")
+            .withCycle("SUMMER 2025")
             .build();
     public static final Opportunity ELLE = new OpportunityBuilder()
             .withName("Elle Wong")
@@ -66,6 +72,7 @@ public class TypicalOpportunities {
             .withCompany("Netflix")
             .withRole("Data Scientist")
             .withStatus("OFFER")
+            .withCycle("SUMMER 2025")
             .build();
     public static final Opportunity FIONA = new OpportunityBuilder()
             .withName("Fiona Lim")
@@ -74,6 +81,7 @@ public class TypicalOpportunities {
             .withCompany("Amazon")
             .withRole("Network Engineer")
             .withStatus("REJECTED")
+            .withCycle("SUMMER 2025")
             .build();
     public static final Opportunity GEORGE = new OpportunityBuilder()
             .withName("George Koh")
@@ -82,6 +90,7 @@ public class TypicalOpportunities {
             .withCompany("Meta")
             .withRole("Operations Intern")
             .withStatus("WITHDRAWN")
+            .withCycle("SUMMER 2025")
             .build();
 
     // Manually added
@@ -92,6 +101,7 @@ public class TypicalOpportunities {
             .withCompany("Grab")
             .withRole("Frontend Intern")
             .withStatus("APPLIED")
+            .withCycle("WINTER 2025")
             .build();
     public static final Opportunity IDA = new OpportunityBuilder()
             .withName("Ida Mueller")
@@ -100,6 +110,7 @@ public class TypicalOpportunities {
             .withCompany("Shopee")
             .withRole("Data Analyst")
             .withStatus("SAVED")
+            .withCycle("S1 2025")
             .build();
 
     // Manually added - Opportunity's details found in {@code CommandTestUtil}
@@ -110,6 +121,7 @@ public class TypicalOpportunities {
             .withCompany(VALID_COMPANY_AMY)
             .withRole(VALID_ROLE_AMY)
             .withStatus(VALID_STATUS_AMY)
+            .withCycle(VALID_CYCLE_AMY)
             .withPhone(VALID_PHONE_AMY)
             .build();
     public static final Opportunity BOB = new OpportunityBuilder()
@@ -119,6 +131,7 @@ public class TypicalOpportunities {
             .withCompany(VALID_COMPANY_BOB)
             .withRole(VALID_ROLE_BOB)
             .withStatus(VALID_STATUS_BOB)
+            .withCycle(VALID_CYCLE_BOB)
             .build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Stripe"; // A keyword that matches the company of ALICE

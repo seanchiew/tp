@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CYCLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -35,6 +36,7 @@ public class OpportunityUtil {
         sb.append(PREFIX_COMPANY + opportunity.getCompany().companyName + " ");
         sb.append(PREFIX_ROLE + opportunity.getRole().roleName + " ");
         sb.append(PREFIX_STATUS + opportunity.getStatus().statusName + " ");
+        sb.append(PREFIX_CYCLE + opportunity.getCycle().value + " ");
         opportunity.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE + phone.value + " "));
         return sb.toString();
     }
@@ -52,6 +54,7 @@ public class OpportunityUtil {
                 .append(company.companyName).append(" "));
         descriptor.getRole().ifPresent(role -> sb.append(PREFIX_ROLE).append(role.roleName).append(" "));
         descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.statusName).append(" "));
+        descriptor.getCycle().ifPresent(cycle -> sb.append(PREFIX_CYCLE).append(cycle.value).append(" "));
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
         return sb.toString();
     }

@@ -36,7 +36,8 @@ public class EditCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Opportunity editedOpportunity = new OpportunityBuilder().build();
+        // Explicitly set the cycle to SUMMER 2025 to match ALICE's preserved cycle
+        Opportunity editedOpportunity = new OpportunityBuilder().withCycle("SUMMER 2025").build();
         EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder(editedOpportunity).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY, descriptor);
 
@@ -130,7 +131,7 @@ public class EditCommandTest {
     @Test
     public void execute_invalidOpportunityIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredOpportunityList().size() + 1);
-        // Changed .withName(VALID_NAME_BOB) to .withCompany(VALID_COMPANY_BOB)
+
         EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder().withCompany(VALID_COMPANY_BOB)
                                         .build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);

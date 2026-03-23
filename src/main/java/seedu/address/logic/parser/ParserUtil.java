@@ -7,6 +7,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.ContactRole;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Phone;
@@ -121,6 +122,29 @@ public class ParserUtil {
             throw new ParseException(Status.MESSAGE_CONSTRAINTS);
         }
         return new Status(trimmedStatus);
+    }
+
+    /**
+     * Parses a {@code String cycle} into a {@code Cycle}. Normalizes inputs
+     * like "sem 2 2025" into "S2 2025" for a forgiving CLI experience.
+     *
+     * @throws ParseException if the given {@code cycle} is invalid.
+     */
+    public static Cycle parseCycle(String cycle) throws ParseException {
+        requireNonNull(cycle);
+        String normalizedStr = cycle.trim().toUpperCase();
+
+        //Normalise user-friendly inputs into the strict internal format
+        normalizedStr = normalizedStr.replace("SEMESTER 1", "S1")
+                                     .replace("SEM 1", "S1")
+                                     .replace("SEMESTER 2", "S2")
+                                     .replace("SEM 2", "S2");
+
+        if (!Cycle.isValidCycle(normalizedStr)) {
+            throw new ParseException(Cycle.MESSAGE_CONSTRAINTS);
+        }
+
+        return new Cycle(normalizedStr);
     }
 
     /**

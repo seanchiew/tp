@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CYCLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -40,7 +41,10 @@ public class CommandTestUtil {
     public static final String VALID_ROLE_BOB = "Backend Intern";
     public static final String VALID_STATUS_AMY = "APPLIED";
     public static final String VALID_STATUS_BOB = "INTERVIEW";
+    public static final String VALID_CYCLE_AMY = "SUMMER 2025";
+    public static final String VALID_CYCLE_BOB = "WINTER 2025";
     public static final String VALID_PHONE_AMY = "91234567";
+
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -63,6 +67,9 @@ public class CommandTestUtil {
     public static final String INVALID_COMPANY_DESC = " " + PREFIX_COMPANY + " "; // Blank
     public static final String INVALID_ROLE_DESC = " " + PREFIX_ROLE + " "; // Blank
     public static final String INVALID_STATUS_DESC = " " + PREFIX_STATUS + "UNKNOWN"; // Not a valid status
+    public static final String CYCLE_DESC_AMY = " " + PREFIX_CYCLE + VALID_CYCLE_AMY;
+    public static final String CYCLE_DESC_BOB = " " + PREFIX_CYCLE + VALID_CYCLE_BOB;
+    public static final String INVALID_CYCLE_DESC = " " + PREFIX_CYCLE + "Autumn 2025"; // Invalid format
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -78,6 +85,7 @@ public class CommandTestUtil {
                 .withCompany(VALID_COMPANY_AMY)
                 .withRole(VALID_ROLE_AMY)
                 .withStatus(VALID_STATUS_AMY)
+                .withCycle(VALID_CYCLE_AMY)
                 .withPhone(VALID_PHONE_AMY)
                 .build();
         DESC_BOB = new EditOpportunityDescriptorBuilder()
@@ -87,6 +95,7 @@ public class CommandTestUtil {
                 .withCompany(VALID_COMPANY_BOB)
                 .withRole(VALID_ROLE_BOB)
                 .withStatus(VALID_STATUS_BOB)
+                .withCycle(VALID_CYCLE_BOB)
                 .build();
     }
 

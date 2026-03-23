@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CYCLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -38,6 +39,7 @@ public class AddCommand extends Command {
             + PREFIX_COMPANY + "Stripe "
             + PREFIX_ROLE + "SWE Intern "
             + PREFIX_STATUS + "APPLIED "
+            + PREFIX_CYCLE + "SUMMER 2026 "
             + PREFIX_PHONE + "98765432";
 
     public static final String MESSAGE_SUCCESS = "New opportunity added: %1$s";
