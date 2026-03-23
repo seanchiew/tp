@@ -13,8 +13,11 @@ public class Cycle {
         + "followed by a space and a 4-digit year (e.g. SUMMER 2025).";
 
     /*
-     * The cycle must strictly match the (SUMMER|WINTER|S1|S2) keyword, followed
-     * by a single space, and a 4-digit year.
+     * The cycle must strictly match the (SUMMER|WINTER|S1|S2) keyword,
+     * followed by a single space, and any 4-digit year.
+     * Note: We intentionally do not restrict the year to a "realistic" range
+     * (e.g., 2000-2099) to avoid overzealous input validation, allowing users
+     * the flexibility to track historical or far-future opportunities.
      */
     public static final String VALIDATION_REGEX = "^(SUMMER|WINTER|S1|S2)\\s\\d{4}$";
 
