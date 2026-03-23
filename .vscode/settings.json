@@ -22,5 +22,6 @@
     "java.checkstyle.configuration": "${workspaceFolder}/config/checkstyle/checkstyle.xml",
     "java.checkstyle.properties": {
         "config_loc": "${workspaceFolder}/config/checkstyle"
-    }
+    },
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
