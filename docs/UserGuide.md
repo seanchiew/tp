@@ -135,7 +135,7 @@ Examples:
 * `find jan c/Tik` returns contacts whose names contain `jan` and whose company contains `Tik`
 * `find c/Visa` returns all contacts whose company contains `Visa`
 * `find alex david` returns contacts whose names contain either `alex` or `david`<br>
-  ![result for 'find alex david'](images/FindContact.png)
+  ![result for 'find jane'](images/FindContact.png)
 
 ### Deleting an opportunity contact : `delete`
 
