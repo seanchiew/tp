@@ -132,13 +132,12 @@ public class ParserUtil {
      */
     public static Cycle parseCycle(String cycle) throws ParseException {
         requireNonNull(cycle);
-        String normalizedStr = cycle.trim().toUpperCase();
+        // Normalize multiple space into a single space, trim and then uppercase
+        String normalizedStr = cycle.trim().replaceAll("\\s+", " ").toUpperCase();
 
-        //Normalise user-friendly inputs into the strict internal format
-        normalizedStr = normalizedStr.replace("SEMESTER 1", "S1")
-                                     .replace("SEM 1", "S1")
-                                     .replace("SEMESTER 2", "S2")
-                                     .replace("SEM 2", "S2");
+        // Use Regex to elegantly catch variations like "SEM 2", "SEM2", "SEMESTER 2"
+        normalizedStr = normalizedStr.replaceAll("SEM(?:ESTER)?\\s*1", "S1")
+                                     .replaceAll("SEM(?:ESTER)?\\s*2", "S2");
 
         if (!Cycle.isValidCycle(normalizedStr)) {
             throw new ParseException(Cycle.MESSAGE_CONSTRAINTS);

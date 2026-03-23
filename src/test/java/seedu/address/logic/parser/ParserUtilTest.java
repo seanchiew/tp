@@ -117,4 +117,13 @@ public class ParserUtilTest {
         assertEquals(expectedCycle, ParserUtil.parseCycle("semester 2 2025"));
     }
 
+    @Test
+    public void parseCycle_irregularWhitespaceAndAlias_returnsNormalizedCycle() throws Exception {
+        Cycle expectedCycle = new Cycle("S2 2025");
+        // Tests multiple internal spaces
+        assertEquals(expectedCycle, ParserUtil.parseCycle("sem   2    2025"));
+        // Tests missing internal space in the alias
+        assertEquals(expectedCycle, ParserUtil.parseCycle("semester2 2025"));
+    }
+
 }
