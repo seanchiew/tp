@@ -91,6 +91,7 @@ public class UnarchiveCommand extends Command {
                 opportunityToUnarchive.getCompany(),
                 opportunityToUnarchive.getRole(),
                 opportunityToUnarchive.getStatus(),
+                opportunityToUnarchive.getCycle(),
                 false,
                 opportunityToUnarchive.getPhone().orElse(null)
         );

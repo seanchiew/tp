@@ -21,6 +21,7 @@ public class Opportunity {
     private final Company company;
     private final Role role;
     private final Status status;
+    private final Cycle cycle;
     private final boolean isArchived;
 
     // Optional fields
@@ -31,14 +32,15 @@ public class Opportunity {
      * be null.
      */
     public Opportunity(Name name, Email email, ContactRole contactRole, Company company, Role role, Status status,
-                                    boolean isArchived, Phone phone) {
-        requireAllNonNull(name, email, contactRole, company, role, status, isArchived);
+                                    Cycle cycle, boolean isArchived, Phone phone) {
+        requireAllNonNull(name, email, contactRole, company, role, status, cycle, isArchived);
         this.name = name;
         this.email = email;
         this.contactRole = contactRole;
         this.company = company;
         this.role = role;
         this.status = status;
+        this.cycle = cycle;
         this.isArchived = isArchived;
         this.phone = phone;
     }
@@ -67,6 +69,10 @@ public class Opportunity {
         return status;
     }
 
+    public Cycle getCycle() {
+        return cycle;
+    }
+
     public boolean isArchived() {
         return isArchived;
     }
@@ -80,8 +86,8 @@ public class Opportunity {
     }
 
     /**
-     * Returns true if both opportunities have the same Email, Company, and
-     * Role. This defines a weaker notion of equality between two opportunities,
+     * Returns true if both opportunities have the same Email, Company, Role and
+     * Cycle. This defines a weaker notion of equality between two opportunities,
      * representing the same contact-opportunity relationship.
      */
     public boolean isSameOpportunity(Opportunity otherOpportunity) {
@@ -91,7 +97,8 @@ public class Opportunity {
 
         return otherOpportunity != null && otherOpportunity.getEmail().equals(getEmail())
                                         && otherOpportunity.getCompany().equals(getCompany())
-                                        && otherOpportunity.getRole().equals(getRole());
+                                        && otherOpportunity.getRole().equals(getRole())
+                                        && otherOpportunity.getCycle().equals(getCycle());
     }
 
     /**
@@ -115,20 +122,21 @@ public class Opportunity {
                                         && contactRole.equals(otherOpportunity.contactRole)
                                         && company.equals(otherOpportunity.company)
                                         && role.equals(otherOpportunity.role) && status.equals(otherOpportunity.status)
+                                        && cycle.equals(otherOpportunity.cycle)
                                         && isArchived == otherOpportunity.isArchived
                                         && Objects.equals(phone, otherOpportunity.phone);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, email, contactRole, company, role, status, isArchived, phone);
+        return Objects.hash(name, email, contactRole, company, role, status, cycle, isArchived, phone);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this).add("name", name).add("email", email).add("contactRole", contactRole)
                                         .add("company", company).add("role", role).add("status", status)
-                                        .add("phone", phone).toString();
+                                        .add("cycle", cycle).add("phone", phone).toString();
     }
 
 }

@@ -41,6 +41,8 @@ public class OpportunityCard extends UiPart<Region> {
     private Label phone;
     @FXML
     private Label status;
+    @FXML
+    private Label cycle;
 
     /**
      * Creates a {@code OpportunityCard} with the given {@code Opportunity} and index to display.
@@ -55,8 +57,16 @@ public class OpportunityCard extends UiPart<Region> {
         role.setText(opportunity.getRole().roleName);
         email.setText(opportunity.getEmail().value);
         status.setText(opportunity.getStatus().statusName);
+        cycle.setText(opportunity.getCycle().value);
         opportunity.getPhone().ifPresentOrElse(
-                p -> phone.setText(p.value), () -> phone.setText("")
+                p -> {
+                    phone.setText(p.value);
+                    phone.setVisible(true);
+                    phone.setManaged(true);
+                }, () -> {
+                    phone.setVisible(false);
+                    phone.setManaged(false);
+                }
         );
     }
 }

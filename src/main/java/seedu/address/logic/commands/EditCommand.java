@@ -3,11 +3,13 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CONTACT_ROLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_CYCLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 
 import java.util.List;
@@ -21,6 +23,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.ContactRole;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Opportunity;
@@ -45,6 +48,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_COMPANY + "COMPANY] "
             + "[" + PREFIX_ROLE + "ROLE] "
             + "[" + PREFIX_STATUS + "STATUS] "
+            + "[" + PREFIX_CYCLE + "CYCLE] "
             + "[" + PREFIX_PHONE + "PHONE]\n"
             + "Use " + PREFIX_PHONE + " (with no value) to clear an existing phone number.\n"
             + "Example: " + COMMAND_WORD + " 1 "
@@ -86,8 +90,16 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_OPPORTUNITY);
         }
 
+        boolean wasArchived = opportunityToEdit.isArchived();
+
         model.setOpportunity(opportunityToEdit, editedOpportunity);
-        model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+
+        if (wasArchived) {
+            model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
+        } else {
+            model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+        }
+
         return new CommandResult(String.format(MESSAGE_EDIT_OPPORTUNITY_SUCCESS, Messages.format(editedOpportunity)));
     }
 
@@ -106,6 +118,7 @@ public class EditCommand extends Command {
         Company updatedCompany = editOpportunityDescriptor.getCompany().orElse(opportunityToEdit.getCompany());
         Role updatedRole = editOpportunityDescriptor.getRole().orElse(opportunityToEdit.getRole());
         Status updatedStatus = editOpportunityDescriptor.getStatus().orElse(opportunityToEdit.getStatus());
+        Cycle updatedCycle = editOpportunityDescriptor.getCycle().orElse(opportunityToEdit.getCycle());
         Phone updatedPhone;
         if (editOpportunityDescriptor.isClearPhone()) {
             updatedPhone = null;
@@ -115,6 +128,7 @@ public class EditCommand extends Command {
 
         return new Opportunity(updatedName, updatedEmail, updatedContactRole,
                 updatedCompany, updatedRole, updatedStatus,
+                updatedCycle,
                 opportunityToEdit.isArchived(), updatedPhone);
     }
 
@@ -153,6 +167,7 @@ public class EditCommand extends Command {
         private Company company;
         private Role role;
         private Status status;
+        private Cycle cycle;
         private Phone phone;
         /** When true, the phone field should be cleared (set to absent) on the edited opportunity. */
         private boolean clearPhone = false;
@@ -170,6 +185,7 @@ public class EditCommand extends Command {
             setRole(toCopy.role);
             setStatus(toCopy.status);
             setPhone(toCopy.phone);
+            setCycle(toCopy.cycle);
             setClearPhone(toCopy.clearPhone);
         }
 
@@ -226,6 +242,14 @@ public class EditCommand extends Command {
 
         public Optional<Status> getStatus() {
             return Optional.ofNullable(status);
+        }
+
+        public void setCycle(Cycle cycle) {
+            this.cycle = cycle;
+        }
+
+        public Optional<Cycle> getCycle() {
+            return Optional.ofNullable(cycle);
         }
 
         public void setPhone(Phone phone) {

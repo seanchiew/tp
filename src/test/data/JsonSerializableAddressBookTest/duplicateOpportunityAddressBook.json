@@ -6,7 +6,8 @@
         "contactRole": "recruiter",
         "company": "Stripe",
         "role": "SWE Intern",
-        "status": "APPLIED"
+        "status": "APPLIED",
+        "cycle" : "SUMMER 2025"
       },
       {
         "name": "Alice Tan",
@@ -14,7 +15,8 @@
         "contactRole": "recruiter",
         "company": "Stripe",
         "role": "SWE Intern",
-        "status": "APPLIED"
+        "status": "APPLIED",
+        "cycle" : "SUMMER 2025"
       }
     ]
   }

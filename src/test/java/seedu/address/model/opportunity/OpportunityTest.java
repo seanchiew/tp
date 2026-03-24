@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CYCLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
@@ -24,24 +25,24 @@ public class OpportunityTest {
         // null -> returns false
         assertFalse(ALICE.isSameOpportunity(null));
 
-        // same email, company, and role -> returns true
-        Opportunity editedAlice = new OpportunityBuilder(ALICE)
-                .withEmail(VALID_EMAIL_BOB)
-                .withCompany(VALID_COMPANY_BOB)
-                .withRole(VALID_ROLE_BOB)
-                .build();
-        assertTrue(BOB.isSameOpportunity(editedAlice));
+        // same email, company, role, cycle -> returns true (identity check)
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertTrue(ALICE.isSameOpportunity(editedAlice));
 
-        // different email, same company and role -> returns false
+        // different email -> returns false
         editedAlice = new OpportunityBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
         assertFalse(ALICE.isSameOpportunity(editedAlice));
 
-        // different company, same email and role -> returns false
+        // different company -> returns false
         editedAlice = new OpportunityBuilder(ALICE).withCompany(VALID_COMPANY_BOB).build();
         assertFalse(ALICE.isSameOpportunity(editedAlice));
 
-        // different role, same email and company -> returns false
+        // different role -> returns false
         editedAlice = new OpportunityBuilder(ALICE).withRole(VALID_ROLE_BOB).build();
+        assertFalse(ALICE.isSameOpportunity(editedAlice));
+
+        // different cycle -> returns false (Proves identity relies on Cycle!)
+        editedAlice = new OpportunityBuilder(ALICE).withCycle(VALID_CYCLE_BOB).build();
         assertFalse(ALICE.isSameOpportunity(editedAlice));
     }
 
@@ -97,6 +98,7 @@ public class OpportunityTest {
                 + ", company=" + ALICE.getCompany()
                 + ", role=" + ALICE.getRole()
                 + ", status=" + ALICE.getStatus()
+                + ", cycle=" + ALICE.getCycle()
                 + ", phone=" + ALICE.getPhone().orElse(null)
                 + "}";
         assertEquals(expected, ALICE.toString());

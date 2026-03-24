@@ -24,7 +24,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/release_v1.3/Ui.png)
+   ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -35,7 +35,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all tracked contacts.
+   * `clear` : Deletes all tracked contacts, including archived ones.
 
    * `exit` : Exits the app.
 
@@ -50,7 +50,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 **Notes about the command format:**<br>
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS`, `NAME`, `EMAIl`, `CONTACT_ROLE`, `COMPANY`, `ROLE`, and `STATUS` are parameters which can be used as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED`.
+  e.g. in `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS`, `NAME`, `EMAIL`, `CONTACT_ROLE`, `COMPANY`, `ROLE`, and `STATUS` are parameters which can be used as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED`.
 
 * Items in square brackets are optional.<br>
   e.g `n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS [p/PHONE_NUMBER]` can be used as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED p/91234567` or as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED`.
@@ -99,16 +99,6 @@ Format: `list`
 
 ![list](images/ListContacts.png)
 
-### Listing all archived opportunities : `list archive`
-
-Shows all opportunities that have been archived.
-
-Format: `list archive`
-
-* Use this command before `unarchive` so you can see the indices of archived entries.
-
-![list archive](images/ListArchive.png)
-
 ### Editing an opportunity contact: `edit`
 
 Edits an existing opportunity contact in InternTrack.
@@ -149,7 +139,7 @@ Examples:
 * `find -a c/Visa` returns archived contacts whose company contains `Visa`
 * `find c/Visa` returns all contacts whose company contains `Visa`
 * `find alex david` returns contacts whose names contain either `alex` or `david`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+  ![result for 'find jane'](images/FindContact.png)
 
 ### Deleting an opportunity contact : `delete`
 
@@ -202,6 +192,14 @@ Examples:
 * `list archive` followed by `unarchive 1 2 3` unarchives the 1st, 2nd, and 3rd archived opportunity contacts in the displayed results.
 
 ![unarchive](images/Unarchive.png)
+
+### Listing all archived opportunities : `list archive`
+
+Shows all opportunities that have been archived. Use this command to see the indices of archived entries before running `unarchive`.
+
+Format: `list archive`
+
+![list archive](images/ListArchive.png)
 
 ### Clearing all entries : `clear`
 
@@ -281,13 +279,13 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 Action     | Format, Examples
 -----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 **Add**    | `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS [p/PHONE]​` <br> e.g., `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED p/98765432`
-**Clear**  | `clear`
-**Delete** | `delete INDEX [MORE_INDICES]...`<br> e.g., `delete 1 2 3`
+**List**   | `list`
 **Edit**   | `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [p/PHONE]​`<br> e.g.,`edit 1 p/91234567 e/johndoe@example.com`
 **Find**   | `find [-a] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find -a Jane c/Stripe`
-**List**   | `list`
-**List Archive** | `list archive`
+**Delete** | `delete INDEX [MORE_INDICES]...`<br> e.g., `delete 1 2 3`
 **Archive** | `archive INDEX [MORE_INDICES]...`<br> e.g., `archive 1 2 3`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`
+**List Archive** | `list archive`
+**Clear**  | `clear`
 **Help**   | `help`
 **Exit**   | `exit`

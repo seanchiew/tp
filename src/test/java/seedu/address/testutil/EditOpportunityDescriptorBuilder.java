@@ -3,6 +3,7 @@ package seedu.address.testutil;
 import seedu.address.logic.commands.EditCommand.EditOpportunityDescriptor;
 import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.ContactRole;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Opportunity;
@@ -36,6 +37,7 @@ public class EditOpportunityDescriptorBuilder {
         descriptor.setCompany(opportunity.getCompany());
         descriptor.setRole(opportunity.getRole());
         descriptor.setStatus(opportunity.getStatus());
+        descriptor.setCycle(opportunity.getCycle());
         opportunity.getPhone().ifPresent(descriptor::setPhone);
     }
 
@@ -84,6 +86,14 @@ public class EditOpportunityDescriptorBuilder {
      */
     public EditOpportunityDescriptorBuilder withStatus(String status) {
         descriptor.setStatus(new Status(status));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Cycle} of the {@code EditOpportunityDescriptor} that we are building.
+     */
+    public EditOpportunityDescriptorBuilder withCycle(String cycle) {
+        descriptor.setCycle(new Cycle(cycle));
         return this;
     }
 

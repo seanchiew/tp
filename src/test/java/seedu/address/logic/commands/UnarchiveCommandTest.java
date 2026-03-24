@@ -253,6 +253,7 @@ public class UnarchiveCommandTest {
                 opportunity.getCompany(),
                 opportunity.getRole(),
                 opportunity.getStatus(),
+                opportunity.getCycle(),
                 true,
                 opportunity.getPhone().orElse(null)
         );
@@ -272,6 +273,7 @@ public class UnarchiveCommandTest {
                 opportunity.getCompany(),
                 opportunity.getRole(),
                 opportunity.getStatus(),
+                opportunity.getCycle(),
                 false,
                 opportunity.getPhone().orElse(null)
         );

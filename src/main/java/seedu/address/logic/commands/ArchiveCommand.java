@@ -94,6 +94,7 @@ public class ArchiveCommand extends Command {
                 opportunityToArchive.getCompany(),
                 opportunityToArchive.getRole(),
                 opportunityToArchive.getStatus(),
+                opportunityToArchive.getCycle(),
                 true,
                 opportunityToArchive.getPhone().orElse(null)
         );

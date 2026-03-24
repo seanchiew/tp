@@ -4,6 +4,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.ContactRole;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Opportunity;
@@ -24,6 +25,7 @@ public class SampleDataUtil {
                 new Company("Stripe"),
                 new Role("SWE Intern"),
                 new Status("APPLIED"),
+                new Cycle("SUMMER 2026"),
                 false,
                 new Phone("91234567")),
             new Opportunity(
@@ -33,6 +35,7 @@ public class SampleDataUtil {
                 new Company("Tiktok"),
                 new Role("Backend Engineer"),
                 new Status("INTERVIEW"),
+                new Cycle("S1 2026"),
                 false,
                 null),
             new Opportunity(
@@ -42,6 +45,7 @@ public class SampleDataUtil {
                 new Company("Accenture"),
                 new Role("Tech Consultant"),
                 new Status("OA"),
+                new Cycle("S2 2026"),
                 false,
                 new Phone("87654321")),
             new Opportunity(
@@ -51,6 +55,7 @@ public class SampleDataUtil {
                 new Company("NUS"),
                 new Role("Research Intern"),
                 new Status("SAVED"),
+                new Cycle("WINTER 2026"),
                 false,
                 null),
             new Opportunity(
@@ -60,6 +65,7 @@ public class SampleDataUtil {
                 new Company("SP Group"),
                 new Role("Analyst Intern"),
                 new Status("OFFER"),
+                new Cycle("SUMMER 2027"),
                 false,
                 new Phone("98887777"))
         };
