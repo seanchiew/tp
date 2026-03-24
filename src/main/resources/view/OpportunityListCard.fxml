@@ -38,6 +38,7 @@
         <Label fx:id="phone" styleClass="cell_small_label" />
       </HBox>
       <Label fx:id="status" styleClass="cell_small_label" />
+      <Label fx:id="cycle" styleClass="cell_small_label" text="\$cycle" />
     </VBox>
   </GridPane>
 </HBox>

@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.ContactRole;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Email;
 import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Opportunity;
@@ -20,6 +21,7 @@ public class OpportunityBuilder {
     public static final String DEFAULT_COMPANY = "Stripe";
     public static final String DEFAULT_ROLE = "SWE Intern";
     public static final String DEFAULT_STATUS = "APPLIED";
+    public static final String DEFAULT_CYCLE = "SUMMER 2026";
 
     private Name name;
     private Email email;
@@ -27,6 +29,7 @@ public class OpportunityBuilder {
     private Company company;
     private Role role;
     private Status status;
+    private Cycle cycle;
     private boolean isArchived;
     private Phone phone;
 
@@ -40,6 +43,7 @@ public class OpportunityBuilder {
         company = new Company(DEFAULT_COMPANY);
         role = new Role(DEFAULT_ROLE);
         status = new Status(DEFAULT_STATUS);
+        cycle = new Cycle(DEFAULT_CYCLE);
         isArchived = false;
         phone = null;
     }
@@ -54,6 +58,7 @@ public class OpportunityBuilder {
         company = opportunityToCopy.getCompany();
         role = opportunityToCopy.getRole();
         status = opportunityToCopy.getStatus();
+        cycle = opportunityToCopy.getCycle();
         isArchived = opportunityToCopy.isArchived();
         phone = opportunityToCopy.getPhone().orElse(null);
     }
@@ -107,6 +112,14 @@ public class OpportunityBuilder {
     }
 
     /**
+     * Sets the {@code Cycle} of the {@code Opportunity} that we are building.
+     */
+    public OpportunityBuilder withCycle(String cycle) {
+        this.cycle = new Cycle(cycle);
+        return this;
+    }
+
+    /**
      * Sets the archived status of the {@code Opportunity} that we are building.
      */
     public OpportunityBuilder withArchived(boolean isArchived) {
@@ -131,7 +144,7 @@ public class OpportunityBuilder {
     }
 
     public Opportunity build() {
-        return new Opportunity(name, email, contactRole, company, role, status, isArchived, phone);
+        return new Opportunity(name, email, contactRole, company, role, status, cycle, isArchived, phone);
     }
 
 }

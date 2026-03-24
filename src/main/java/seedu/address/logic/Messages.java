@@ -48,7 +48,9 @@ public class Messages {
                 .append("; Role: ")
                 .append(opportunity.getRole())
                 .append("; Status: ")
-                .append(opportunity.getStatus());
+                .append(opportunity.getStatus())
+                .append("; Cycle: ")
+                .append(opportunity.getCycle());
         opportunity.getPhone().ifPresent(phone -> builder.append("; Phone: ").append(phone));
         return builder.toString();
     }

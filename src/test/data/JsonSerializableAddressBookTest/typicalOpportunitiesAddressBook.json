@@ -6,7 +6,8 @@
         "contactRole": "recruiter",
         "company": "Stripe",
         "role": "SWE Intern",
-        "status": "APPLIED"
+        "status": "APPLIED",
+        "cycle" : "SUMMER 2025"
       },
       {
         "name": "Benson Yeo",
@@ -15,6 +16,7 @@
         "company": "Tiktok",
         "role": "Backend Engineer",
         "status": "INTERVIEW",
+        "cycle" : "SUMMER 2025",
         "phone": "91234567"
       },
       {
@@ -23,7 +25,8 @@
         "contactRole": "recruiter",
         "company": "Apple",
         "role": "iOS Engineer",
-        "status": "OA"
+        "status": "OA",
+        "cycle" : "SUMMER 2025"
       },
       {
         "name": "Daniel Goh",
@@ -31,7 +34,8 @@
         "contactRole": "interviewer",
         "company": "Google",
         "role": "Cloud Engineer",
-        "status": "SAVED"
+        "status": "SAVED",
+        "cycle" : "SUMMER 2025"
       },
       {
         "name": "Elle Wong",
@@ -39,7 +43,8 @@
         "contactRole": "recruiter",
         "company": "Netflix",
         "role": "Data Scientist",
-        "status": "OFFER"
+        "status": "OFFER",
+        "cycle" : "SUMMER 2025"
       },
       {
         "name": "Fiona Lim",
@@ -47,7 +52,8 @@
         "contactRole": "referrer",
         "company": "Amazon",
         "role": "Network Engineer",
-        "status": "REJECTED"
+        "status": "REJECTED",
+        "cycle" : "SUMMER 2025"
       },
       {
         "name": "George Koh",
@@ -55,7 +61,8 @@
         "contactRole": "recruiter",
         "company": "Meta",
         "role": "Operations Intern",
-        "status": "WITHDRAWN"
+        "status": "WITHDRAWN",
+        "cycle" : "SUMMER 2025"
       }
     ]
   }

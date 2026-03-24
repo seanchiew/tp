@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.opportunity.Company;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Role;
 
 public class ParserUtilTest {
@@ -84,6 +85,45 @@ public class ParserUtilTest {
         String roleWithWhitespace = WHITESPACE + VALID_ROLE + WHITESPACE;
         Role expectedRole = new Role(VALID_ROLE);
         assertEquals(expectedRole, ParserUtil.parseRole(roleWithWhitespace));
+    }
+
+    @Test
+    public void parseCycle_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseCycle(null));
+    }
+
+    @Test
+    public void parseCycle_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseCycle("Autumn 2025"));
+    }
+
+    @Test
+    public void parseCycle_validValueWithoutWhitespace_returnsCycle() throws Exception {
+        Cycle expectedCycle = new Cycle("SUMMER 2025");
+        assertEquals(expectedCycle, ParserUtil.parseCycle("SUMMER 2025"));
+    }
+
+    @Test
+    public void parseCycle_validValueWithWhitespace_returnsTrimmedCycle() throws Exception {
+        String cycleWithWhitespace = "  WINTER 2025  ";
+        Cycle expectedCycle = new Cycle("WINTER 2025");
+        assertEquals(expectedCycle, ParserUtil.parseCycle(cycleWithWhitespace));
+    }
+
+    @Test
+    public void parseCycle_validAlias_returnsNormalizedCycle() throws Exception {
+        Cycle expectedCycle = new Cycle("S2 2025");
+        assertEquals(expectedCycle, ParserUtil.parseCycle("sem 2 2025"));
+        assertEquals(expectedCycle, ParserUtil.parseCycle("semester 2 2025"));
+    }
+
+    @Test
+    public void parseCycle_irregularWhitespaceAndAlias_returnsNormalizedCycle() throws Exception {
+        Cycle expectedCycle = new Cycle("S2 2025");
+        // Tests multiple internal spaces
+        assertEquals(expectedCycle, ParserUtil.parseCycle("sem   2    2025"));
+        // Tests missing internal space in the alias
+        assertEquals(expectedCycle, ParserUtil.parseCycle("semester2 2025"));
     }
 
 }
