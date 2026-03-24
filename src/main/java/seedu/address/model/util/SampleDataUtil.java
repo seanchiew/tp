@@ -35,7 +35,7 @@ public class SampleDataUtil {
                 new Company("Tiktok"),
                 new Role("Backend Engineer"),
                 new Status("INTERVIEW"),
-                new Cycle("SUMMER 2026"),
+                new Cycle("S1 2026"),
                 false,
                 null),
             new Opportunity(
@@ -45,7 +45,7 @@ public class SampleDataUtil {
                 new Company("Accenture"),
                 new Role("Tech Consultant"),
                 new Status("OA"),
-                new Cycle("SUMMER 2026"),
+                new Cycle("S2 2026"),
                 false,
                 new Phone("87654321")),
             new Opportunity(
@@ -55,7 +55,7 @@ public class SampleDataUtil {
                 new Company("NUS"),
                 new Role("Research Intern"),
                 new Status("SAVED"),
-                new Cycle("SUMMER 2026"),
+                new Cycle("WINTER 2026"),
                 false,
                 null),
             new Opportunity(
@@ -65,7 +65,7 @@ public class SampleDataUtil {
                 new Company("SP Group"),
                 new Role("Analyst Intern"),
                 new Status("OFFER"),
-                new Cycle("SUMMER 2026"),
+                new Cycle("SUMMER 2027"),
                 false,
                 new Phone("98887777"))
         };
