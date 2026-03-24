@@ -130,7 +130,7 @@ The `Model` component,
 
 <box type="info" seamless>
 
-**Note:** The `Phone` attribute is optional (represented by a `0..1` multiplicity in the class diagram), while all other attributes such as `Cycle`, `Company`, and `Role` are strictly mandatory (`1` multiplicity) to ensure robust duplicate detection across internship applications.*
+**Note:** The `Phone` attribute is optional (represented by a `0..1` multiplicity in the class diagram), while all other attributes such as `Cycle`, `Company`, and `Role` are strictly mandatory (`1` multiplicity) to ensure robust duplicate detection across internship applications.
 
 </box>
 
