@@ -23,9 +23,12 @@ public class ArchiveCommand extends Command {
     public static final String COMMAND_WORD = "archive";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Archives the opportunity identified by the index number used in the displayed opportunity list.\n"
+            + ": Archives active opportunities either by their displayed indices or by cycle.\n"
             + "Parameters: INDEX [MORE_INDICES]... (must be positive integers)\n"
-            + "Example: " + COMMAND_WORD + " 1 2 3";
+            + "            or: cycle CYCLE\n"
+            + "Examples: " + COMMAND_WORD + " 1 2 3\n"
+            + "          " + COMMAND_WORD + " cycle SUMMER 2026\n"
+            + "          " + COMMAND_WORD + " cycle S2 2026";
 
     public static final String MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS = "Archived Opportunity:%1$s";
 

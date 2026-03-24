@@ -11,6 +11,8 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ArchiveCommand;
+import seedu.address.logic.commands.ArchiveCycleCommand;
+import seedu.address.model.opportunity.Cycle;
 
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -41,6 +43,18 @@ public class ArchiveCommandParserTest {
     }
 
     @Test
+    public void parse_cycleArgs_returnsArchiveCycleCommand() {
+        assertParseSuccess(parser, "cycle S1 2026",
+                new ArchiveCycleCommand(new Cycle("S1 2026")));
+    }
+
+    @Test
+    public void parse_secondCycleArgs_returnsArchiveCycleCommand() {
+        assertParseSuccess(parser, "cycle S2 2026",
+                new ArchiveCycleCommand(new Cycle("S2 2026")));
+    }
+
+    @Test
     public void parse_invalidArgs_throwsParseException() {
         assertParseFailure(parser, "a",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ArchiveCommand.MESSAGE_USAGE));
@@ -56,5 +70,17 @@ public class ArchiveCommandParserTest {
     public void parse_emptyArgs_throwsParseException() {
         assertParseFailure(parser, " ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, ArchiveCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_cycleWithoutCycle_throwsParseException() {
+        assertParseFailure(parser, "cycle",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ArchiveCycleCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_invalidCycleArgs_throwsParseException() {
+        assertParseFailure(parser, "cycle autumn 2026",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, ArchiveCycleCommand.MESSAGE_USAGE));
     }
 }
