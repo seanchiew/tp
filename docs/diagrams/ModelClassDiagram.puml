@@ -12,15 +12,16 @@ Class AddressBook
 Class ModelManager
 Class UserPrefs
 
-Class UniquePersonList
-Class Person
-Class Address
-Class Email
+Class UniqueOpportunityList
+Class Opportunity
 Class Name
+Class Email
+Class ContactRole
+Class Company
+Class Role
+Class Status
+Class Cycle
 Class Phone
-Class Tag
-
-Class I #FFFFFF
 }
 
 Class HiddenOutside #FFFFFF
@@ -35,20 +36,24 @@ ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniquePersonList
-UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> Phone
-Person *--> Email
-Person *--> Address
-Person *--> "*" Tag
+AddressBook *--> "1" UniqueOpportunityList
+UniqueOpportunityList --> "~* all" Opportunity
+Opportunity *--> "1" Name
+Opportunity *--> "1" Email
+Opportunity *--> "1" ContactRole
+Opportunity *--> "1" Company
+Opportunity *--> "1" Role
+Opportunity *--> "1" Status
+Opportunity *--> "1" Cycle
+Opportunity *--> "0..1" Phone
 
-Person -[hidden]up--> I
-UniquePersonList -[hidden]right-> I
+Name -[hidden]right-> Email
+Email -[hidden]right-> ContactRole
+ContactRole -[hidden]right-> Company
+Company -[hidden]right-> Role
+Role -[hidden]right-> Status
+Status -[hidden]right-> Cycle
+Cycle -[hidden]right-> Phone
 
-Name -[hidden]right-> Phone
-Phone -[hidden]right-> Address
-Address -[hidden]right-> Email
-
-ModelManager --> "~* filtered" Person
+ModelManager --> "~* filtered" Opportunity
 @enduml

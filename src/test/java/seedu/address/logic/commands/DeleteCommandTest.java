@@ -116,6 +116,13 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void execute_duplicateIndicesUnfilteredList_throwsCommandException() {
+        DeleteCommand deleteCommand = new DeleteCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_FIRST_OPPORTUNITY));
+
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_DUPLICATE_INDICES);
+    }
+
+    @Test
     public void equals() {
         DeleteCommand deleteFirstCommand = new DeleteCommand(List.of(INDEX_FIRST_OPPORTUNITY));
         DeleteCommand deleteSecondCommand = new DeleteCommand(List.of(INDEX_SECOND_OPPORTUNITY));

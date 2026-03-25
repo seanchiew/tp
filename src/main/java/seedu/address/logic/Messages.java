@@ -15,7 +15,8 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX =
-            "The opportunity index provided is invalid";
+            "The opportunity index provided is invalid.";
+    public static final String MESSAGE_DUPLICATE_INDICES = "Duplicate indices are not allowed.";
     public static final String MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW = "%1$d opportunities listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";

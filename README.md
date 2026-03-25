@@ -16,7 +16,7 @@ InternTrack helps users reduce fragmented information, missed follow-ups, and me
 2. **Remove opportunity contact** — Delete a tracked contact record that is no longer needed.
 3. **List opportunity contacts** — View all tracked contact records in the current workspace.
 4. **Edit opportunity record** — Update an existing contact record when details or opportunity context change.
-5. **Find a record by keyword** — Quickly retrieve matching records when needed.
+5. **Find active or archived records by keyword** — Quickly retrieve matching records when needed.
 6. **Archive opportunity records** — Hide selected opportunity records from the unarchived / active list without deleting them, either by index or by cycle.
 7. **List archived records** — View all records currently in the archive.
 8. **Unarchive opportunity records** — Unarchive selected archived opportunity records to the active list.

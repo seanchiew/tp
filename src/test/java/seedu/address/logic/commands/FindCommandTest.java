@@ -5,11 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import static seedu.address.testutil.TypicalOpportunities.BENSON;
-import static seedu.address.testutil.TypicalOpportunities.CARL;
-import static seedu.address.testutil.TypicalOpportunities.ELLE;
-import static seedu.address.testutil.TypicalOpportunities.FIONA;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -21,7 +20,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.opportunity.Opportunity;
 import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
+import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.OpportunityBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
@@ -56,6 +58,9 @@ public class FindCommandTest {
 
         // different opportunity -> returns false
         assertFalse(findFirstCommand.equals(findSecondCommand));
+
+        // different archive scope -> returns false
+        assertFalse(findFirstCommand.equals(new FindCommand(firstPredicate, true)));
     }
 
     @Test
@@ -70,13 +75,13 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_multipleKeywords_multipleOpportunitiesFound() {
-        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 3);
-        OpportunityContainsSubstringPredicate predicate = preparePredicate("Car Ell Fio");
+    public void execute_matchingNameKeywords_opportunityFound() {
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1);
+        OpportunityContainsSubstringPredicate predicate = preparePredicate("Ali Tan");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredOpportunityList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, ELLE, FIONA), model.getFilteredOpportunityList());
+        assertEquals(Collections.singletonList(ALICE), model.getFilteredOpportunityList());
     }
 
     @Test
@@ -112,11 +117,70 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_matchingArchivedAndUnarchivedKeywords_returnsOnlyUnarchivedByDefault() {
+        Opportunity archivedJan = new OpportunityBuilder()
+                .withName("Janice Tan")
+                .withEmail("janice@meta.com")
+                .withCompany("Meta")
+                .withRole("Data Intern")
+                .withArchived(true)
+                .build();
+        Opportunity activeJan = new OpportunityBuilder()
+                .withName("Jan Koh")
+                .withEmail("jan@google.com")
+                .withCompany("Google")
+                .withRole("SWE Intern")
+                .build();
+        Model scopedModel = new ModelManager(new AddressBookBuilder()
+                .withOpportunity(archivedJan)
+                .withOpportunity(activeJan)
+                .build(), new UserPrefs());
+        Model expectedScopedModel = new ModelManager(scopedModel.getAddressBook(), new UserPrefs());
+        OpportunityContainsSubstringPredicate predicate = preparePredicate("jan");
+        FindCommand command = new FindCommand(predicate);
+
+        expectedScopedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES.and(predicate));
+        assertCommandSuccess(command, scopedModel,
+                String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedScopedModel);
+        assertEquals(Collections.singletonList(activeJan), scopedModel.getFilteredOpportunityList());
+    }
+
+    @Test
+    public void execute_archivedSearch_returnsOnlyArchivedMatches() {
+        Opportunity archivedJan = new OpportunityBuilder()
+                .withName("Janice Tan")
+                .withEmail("janice@meta.com")
+                .withCompany("Meta")
+                .withRole("Data Intern")
+                .withArchived(true)
+                .build();
+        Opportunity activeJan = new OpportunityBuilder()
+                .withName("Jan Koh")
+                .withEmail("jan@google.com")
+                .withCompany("Google")
+                .withRole("SWE Intern")
+                .build();
+        Model scopedModel = new ModelManager(new AddressBookBuilder()
+                .withOpportunity(archivedJan)
+                .withOpportunity(activeJan)
+                .build(), new UserPrefs());
+        Model expectedScopedModel = new ModelManager(scopedModel.getAddressBook(), new UserPrefs());
+        OpportunityContainsSubstringPredicate predicate = preparePredicate("jan");
+        FindCommand command = new FindCommand(predicate, true);
+
+        expectedScopedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
+        assertCommandSuccess(command, scopedModel,
+                String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedScopedModel);
+        assertEquals(Collections.singletonList(archivedJan), scopedModel.getFilteredOpportunityList());
+    }
+
+    @Test
     public void toStringMethod() {
         OpportunityContainsSubstringPredicate predicate =
                 new OpportunityContainsSubstringPredicate(Arrays.asList("keyword"), Arrays.asList("company"));
-        FindCommand findCommand = new FindCommand(predicate);
-        String expected = FindCommand.class.getCanonicalName() + "{predicate=" + predicate + "}";
+        FindCommand findCommand = new FindCommand(predicate, true);
+        String expected = FindCommand.class.getCanonicalName()
+                + "{predicate=" + predicate + ", searchArchived=true}";
         assertEquals(expected, findCommand.toString());
     }
 

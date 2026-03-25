@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.COMPANY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CYCLE_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_COMPANY_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ROLE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
@@ -9,6 +10,7 @@ import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_CLEAR;
 import static seedu.address.logic.commands.CommandTestUtil.ROLE_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CYCLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
@@ -72,6 +74,18 @@ public class EditCommandParserTest {
 
         EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder().withCompany(VALID_COMPANY_BOB)
                                         .build();
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_cycleOnlySpecified_success() {
+        Index targetIndex = INDEX_FIRST_OPPORTUNITY;
+        String userInput = targetIndex.getOneBased() + CYCLE_DESC_BOB;
+
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder()
+                .withCycle(VALID_CYCLE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);

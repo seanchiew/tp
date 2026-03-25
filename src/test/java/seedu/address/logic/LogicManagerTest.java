@@ -2,13 +2,16 @@ package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalOpportunities.AMY;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 import java.nio.file.Path;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +26,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.opportunity.Opportunity;
+import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 import seedu.address.storage.JsonAddressBookStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -64,6 +68,19 @@ public class LogicManagerTest {
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_EMPTY, model);
+    }
+
+    @Test
+    public void execute_findArchived_success() throws Exception {
+        Opportunity archivedAmy = new OpportunityBuilder(AMY).withArchived(true).build();
+        model.addOpportunity(archivedAmy);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        OpportunityContainsSubstringPredicate predicate =
+                new OpportunityContainsSubstringPredicate(List.of("Amy"));
+        expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
+
+        assertCommandSuccess("find -a Amy", String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedModel);
     }
 
     @Test

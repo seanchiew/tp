@@ -21,6 +21,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.opportunity.Opportunity;
+import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
+import seedu.address.testutil.OpportunityBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -29,10 +31,10 @@ import seedu.address.model.opportunity.Opportunity;
 public class UnarchiveCommandTest {
 
     @Test
-    public void execute_validIndexFullStorageArchivedList_success() {
+    public void execute_validIndexDisplayedArchivedList_success() {
         Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
 
-        Opportunity opportunityToUnarchive = getArchivedOpportunities(model)
+        Opportunity opportunityToUnarchive = getDisplayedArchivedOpportunities(model)
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
         Opportunity unarchivedOpportunity = createUnarchivedOpportunity(opportunityToUnarchive);
 
@@ -49,22 +51,21 @@ public class UnarchiveCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFullStorageArchivedList_throwsCommandException() {
+    public void execute_invalidIndexDisplayedArchivedList_throwsCommandException() {
         Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
-        // ensures that outOfBoundIndex is still in bounds of address book list
-        Index outOfBoundIndex = Index.fromOneBased(getArchivedOpportunities(model).size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(getDisplayedArchivedOpportunities(model).size() + 1);
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(outOfBoundIndex));
 
         assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
     }
 
     @Test
-    public void execute_multipleValidIndicesFullStorageArchivedList_success() {
+    public void execute_multipleValidIndicesDisplayedArchivedList_success() {
         Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY);
 
-        Opportunity firstOpportunityToUnarchive = getArchivedOpportunities(model)
+        Opportunity firstOpportunityToUnarchive = getDisplayedArchivedOpportunities(model)
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        Opportunity secondOpportunityToUnarchive = getArchivedOpportunities(model)
+        Opportunity secondOpportunityToUnarchive = getDisplayedArchivedOpportunities(model)
                 .get(INDEX_SECOND_OPPORTUNITY.getZeroBased());
 
         Opportunity unarchivedFirstOpportunity = createUnarchivedOpportunity(firstOpportunityToUnarchive);
@@ -90,13 +91,48 @@ public class UnarchiveCommandTest {
     }
 
     @Test
-    public void execute_validAndInvalidIndicesFullStorageArchivedList_throwsCommandException() {
+    public void execute_validAndInvalidIndicesDisplayedArchivedList_throwsCommandException() {
         Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
-        // Should throw exception as long as one index is invalid
-        Index outOfBoundIndex = Index.fromOneBased(getArchivedOpportunities(model).size() + 1);
+        Index outOfBoundIndex = Index.fromOneBased(getDisplayedArchivedOpportunities(model).size() + 1);
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, outOfBoundIndex));
 
         assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_archivedFindView_usesDisplayedArchivedResult() {
+        Model model = createModelWithArchivedSearchResults();
+        Opportunity opportunityToUnarchive = model.getFilteredOpportunityList()
+                .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        Opportunity unarchivedOpportunity = createUnarchivedOpportunity(opportunityToUnarchive);
+
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
+
+        String expectedMessage = String.format(UnarchiveCommand.MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS,
+                "\n" + Messages.format(unarchivedOpportunity));
+
+        Model expectedModel = createModelWithArchivedSearchResults();
+        expectedModel.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);
+
+        assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
+        assertTrue(model.getFilteredOpportunityList().isEmpty());
+    }
+
+    @Test
+    public void execute_archivedFindViewOutOfBounds_throwsCommandException() {
+        Model model = createModelWithArchivedSearchResults();
+        UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_SECOND_OPPORTUNITY));
+
+        assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_duplicateIndicesFullStorageArchivedList_throwsCommandException() {
+        Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
+        UnarchiveCommand unarchiveCommand =
+                new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_FIRST_OPPORTUNITY));
+
+        assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_DUPLICATE_INDICES);
     }
 
     @Test
@@ -169,15 +205,47 @@ public class UnarchiveCommandTest {
     }
 
     /**
-     * Returns a list of archived opportunities from storage.
-     *
-     * @param model the model to retrieve archived opportunities from
-     * @return a list of archived opportunities from storage
+     * Returns a snapshot of the currently displayed archived opportunities.
      */
-    private List<Opportunity> getArchivedOpportunities(Model model) {
-        return model.getAddressBook().getOpportunityList().stream()
-                .filter(Opportunity::isArchived)
-                .toList();
+    private List<Opportunity> getDisplayedArchivedOpportunities(Model model) {
+        return List.copyOf(model.getFilteredOpportunityList());
+    }
+
+    /**
+     * Creates a model with multiple archived opportunities and an archived search view showing a subset.
+     */
+    private Model createModelWithArchivedSearchResults() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+
+        Opportunity archivedAlice = new OpportunityBuilder()
+                .withName("Alice Tan")
+                .withEmail("alice@stripe.com")
+                .withCompany("Stripe")
+                .withRole("SWE Intern")
+                .withArchived(true)
+                .build();
+        Opportunity archivedBenson = new OpportunityBuilder()
+                .withName("Benson Yeo")
+                .withEmail("benson@tiktok.com")
+                .withCompany("TikTok")
+                .withRole("Backend Engineer")
+                .withArchived(true)
+                .build();
+        Opportunity activeBenson = new OpportunityBuilder()
+                .withName("Benson Active")
+                .withEmail("benson.active@tiktok.com")
+                .withCompany("TikTok")
+                .withRole("Frontend Engineer")
+                .build();
+
+        model.addOpportunity(archivedAlice);
+        model.addOpportunity(archivedBenson);
+        model.addOpportunity(activeBenson);
+
+        OpportunityContainsSubstringPredicate predicate =
+                new OpportunityContainsSubstringPredicate(List.of("Ben"), List.of("Tik"));
+        model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
+        return model;
     }
 
     /**

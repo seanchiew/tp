@@ -32,3 +32,4 @@ docs/_markbind/logs/
 /.vscode/*
 *codebase.txt
 *docs.txt
+*diagrams.txt

@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -44,6 +43,9 @@ public class ArchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
+        }
 
         boolean isViewingArchive = model.getFilteredOpportunityList().stream()
                 .anyMatch(Opportunity::isArchived);
@@ -53,10 +55,7 @@ public class ArchiveCommand extends Command {
 
         List<Opportunity> lastShownList = model.getFilteredOpportunityList();
 
-        // Use LinkedHashSet to remove duplicates
-        Set<Index> uniqueIndices = new LinkedHashSet<>(targetIndices);
-
-        for (Index targetIndex : uniqueIndices) {
+        for (Index targetIndex : targetIndices) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
             }
@@ -64,7 +63,7 @@ public class ArchiveCommand extends Command {
 
         // Sort indices in descending order to prevent index mismatch
         // due to shifting when archiving multiple opportunities
-        List<Index> sortedIndices = new ArrayList<>(uniqueIndices);
+        List<Index> sortedIndices = new ArrayList<>(targetIndices);
         sortedIndices.sort((index1, index2) -> index2.getZeroBased() - index1.getZeroBased());
 
         StringBuilder archivedOpportunities = new StringBuilder();

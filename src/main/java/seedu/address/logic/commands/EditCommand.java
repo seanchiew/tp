@@ -193,7 +193,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, email, contactRole, company, role, status, phone) || clearPhone;
+            return CollectionUtil.isAnyNonNull(name, email, contactRole, company, role, status, cycle, phone)
+                    || clearPhone;
         }
 
         public void setName(Name name) {
@@ -294,6 +295,7 @@ public class EditCommand extends Command {
                 && getCompany().equals(otherEditOpportunityDescriptor.getCompany())
                 && getRole().equals(otherEditOpportunityDescriptor.getRole())
                 && getStatus().equals(otherEditOpportunityDescriptor.getStatus())
+                && getCycle().equals(otherEditOpportunityDescriptor.getCycle())
                 && getPhone().equals(otherEditOpportunityDescriptor.getPhone())
                 && isClearPhone() == otherEditOpportunityDescriptor.isClearPhone();
         }

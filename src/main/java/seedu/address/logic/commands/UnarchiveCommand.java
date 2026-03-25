@@ -1,12 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -41,6 +39,9 @@ public class UnarchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
+        }
 
         boolean isViewingArchive = model.getFilteredOpportunityList().stream()
                 .anyMatch(Opportunity::isArchived);
@@ -48,41 +49,28 @@ public class UnarchiveCommand extends Command {
             throw new CommandException(MESSAGE_NOT_IN_ARCHIVE_VIEW);
         }
 
-        List<Opportunity> fullList = model.getAddressBook().getOpportunityList();
-        List<Opportunity> archivedOpportunitiesList = new ArrayList<>();
+        List<Opportunity> displayedArchivedOpportunities = new ArrayList<>(model.getFilteredOpportunityList());
 
-        for (Opportunity opportunity : fullList) {
-            if (opportunity.isArchived()) {
-                archivedOpportunitiesList.add(opportunity);
-            }
-        }
-
-        // Use LinkedHashSet to remove duplicates
-        Set<Index> uniqueIndices = new LinkedHashSet<>(targetIndices);
-
-        for (Index targetIndex : uniqueIndices) {
-            if (targetIndex.getZeroBased() >= archivedOpportunitiesList.size()) {
+        for (Index targetIndex : targetIndices) {
+            if (targetIndex.getZeroBased() >= displayedArchivedOpportunities.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
             }
         }
 
         // Sort indices in descending order to prevent index mismatch
         // due to shifting when unarchiving multiple opportunities
-        List<Index> sortedIndices = new ArrayList<>(uniqueIndices);
+        List<Index> sortedIndices = new ArrayList<>(targetIndices);
         sortedIndices.sort((index1, index2) -> index2.getZeroBased() - index1.getZeroBased());
 
         StringBuilder unarchivedOpportunities = new StringBuilder();
 
         for (Index targetIndex : sortedIndices) {
-            Opportunity opportunityToUnarchive = archivedOpportunitiesList.get(targetIndex.getZeroBased());
+            Opportunity opportunityToUnarchive = displayedArchivedOpportunities.get(targetIndex.getZeroBased());
             Opportunity unarchivedOpportunity = createUnarchivedOpportunity(opportunityToUnarchive);
 
             model.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);
             unarchivedOpportunities.append(String.format("\n%1$s", Messages.format(unarchivedOpportunity)));
         }
-
-        // Update the filtered list to show only archived opportunities after unarchiving
-        model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
         return new CommandResult(
                 String.format(MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS, unarchivedOpportunities.toString()));

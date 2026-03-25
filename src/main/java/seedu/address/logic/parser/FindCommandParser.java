@@ -22,7 +22,19 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + args, PREFIX_COMPANY);
+        boolean searchArchived = false;
+        String argsToParse = args;
+        String trimmedArgs = args.trim();
+
+        if (!trimmedArgs.isEmpty()) {
+            String[] splitArgs = trimmedArgs.split("\\s+", 2);
+            if (splitArgs[0].equals(FindCommand.ARCHIVED_FLAG)) {
+                searchArchived = true;
+                argsToParse = splitArgs.length == 1 ? "" : splitArgs[1];
+            }
+        }
+
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + argsToParse, PREFIX_COMPANY);
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY);
 
         List<String> nameKeywords = splitKeywords(argMultimap.getPreamble());
@@ -35,7 +47,8 @@ public class FindCommandParser implements Parser<FindCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        return new FindCommand(new OpportunityContainsSubstringPredicate(nameKeywords, companyKeywords));
+        return new FindCommand(new OpportunityContainsSubstringPredicate(nameKeywords, companyKeywords),
+                searchArchived);
     }
 
     private List<String> splitKeywords(String value) {
