@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ArchiveCommand;
+import seedu.address.logic.commands.ArchiveCycleCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Opportunity;
 import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 import seedu.address.testutil.EditOpportunityDescriptorBuilder;
@@ -125,6 +127,12 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_archive() throws Exception {
         assertTrue(parser.parseCommand("archive 1") instanceof ArchiveCommand);
+    }
+
+    @Test
+    public void parseCommand_archiveCycle() throws Exception {
+        assertEquals(new ArchiveCycleCommand(new Cycle("SUMMER 2026")),
+                parser.parseCommand("archive cycle SUMMER 2026"));
     }
 
     @Test

@@ -164,17 +164,23 @@ Examples:
 
 Archives one or more specified opportunity contacts in InternTrack.
 
-Format: `archive INDEX [MORE_INDICES]...`
+Format:
+* `archive INDEX [MORE_INDICES]...`
+* `archive cycle CYCLE`
 
 * Archives the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed unarchived / active opportunity contact list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
+* `archive cycle CYCLE` archives all active opportunity contacts with the specified cycle, regardless of the current view.
+* A cycle must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025).
 
 Examples:
 * `list` followed by `archive 2` archives the 2nd opportunity contact in the tracker.
 * `list` followed by `archive 1 2 3` archives the 1st, 2nd, and 3rd unarchived opportunity contacts in the displayed results.
+* `archive cycle S1 2026` archives all active opportunity contacts for `S1 2026`.
+* `archive cycle S2 2026` archives all active opportunity contacts for `S2 2026`.
 
 ![archive](images/Archive.png)
 
@@ -287,7 +293,7 @@ Action     | Format, Examples
 **List**   | `list`
 **Find**   | `find [-a] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find -a Jane c/Stripe`
 **Delete** | `delete INDEX [MORE_INDICES]...`<br> e.g., `delete 1 2 3`
-**Archive** | `archive INDEX [MORE_INDICES]...`<br> e.g., `archive 1 2 3`
+**Archive** | `archive INDEX [MORE_INDICES]...` or `archive cycle CYCLE`<br> e.g., `archive 1 2 3` or `archive cycle SUMMER 2026`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`
 **List Archive** | `list archive`
 **Clear**  | `clear`
