@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CYCLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 
 import org.junit.jupiter.api.Test;
@@ -40,6 +41,10 @@ public class EditOpportunityDescriptorTest {
 
         // different role -> returns false
         editedAmy = new EditOpportunityDescriptorBuilder(DESC_AMY).withRole(VALID_ROLE_BOB).build();
+        assertFalse(DESC_AMY.equals(editedAmy));
+
+        // different cycle -> returns false
+        editedAmy = new EditOpportunityDescriptorBuilder(DESC_AMY).withCycle(VALID_CYCLE_BOB).build();
         assertFalse(DESC_AMY.equals(editedAmy));
     }
 

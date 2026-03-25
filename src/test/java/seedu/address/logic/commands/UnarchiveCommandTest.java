@@ -127,6 +127,15 @@ public class UnarchiveCommandTest {
     }
 
     @Test
+    public void execute_duplicateIndicesFullStorageArchivedList_throwsCommandException() {
+        Model model = createModelWithArchivedOpportunities(INDEX_FIRST_OPPORTUNITY);
+        UnarchiveCommand unarchiveCommand =
+                new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_FIRST_OPPORTUNITY));
+
+        assertCommandFailure(unarchiveCommand, model, Messages.MESSAGE_DUPLICATE_INDICES);
+    }
+
+    @Test
     public void execute_notInArchiveView_throwsCommandException() {
         // Model on main (unarchived) view — guard should trigger
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());

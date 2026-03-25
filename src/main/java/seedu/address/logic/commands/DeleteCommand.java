@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -35,6 +36,10 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
+        }
+
         List<Opportunity> lastShownList = model.getFilteredOpportunityList();
 
         for (Index targetIndex : targetIndices) {

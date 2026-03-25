@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COMPANY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CYCLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROLE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
@@ -68,6 +69,24 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(lastOpportunity, editedOpportunity);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_cycleOnlySpecifiedUnfilteredList_success() {
+        Opportunity opportunityToEdit = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        Opportunity editedOpportunity = new OpportunityBuilder(opportunityToEdit).withCycle(VALID_CYCLE_BOB).build();
+
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder()
+                .withCycle(VALID_CYCLE_BOB).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_OPPORTUNITY_SUCCESS,
+                Messages.format(editedOpportunity));
+
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModel.setOpportunity(opportunityToEdit, editedOpportunity);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

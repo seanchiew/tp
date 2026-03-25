@@ -3,9 +3,8 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -40,6 +39,9 @@ public class UnarchiveCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
+            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
+        }
 
         boolean isViewingArchive = model.getFilteredOpportunityList().stream()
                 .anyMatch(Opportunity::isArchived);
@@ -49,10 +51,7 @@ public class UnarchiveCommand extends Command {
 
         List<Opportunity> displayedArchivedOpportunities = new ArrayList<>(model.getFilteredOpportunityList());
 
-        // Use LinkedHashSet to remove duplicates
-        Set<Index> uniqueIndices = new LinkedHashSet<>(targetIndices);
-
-        for (Index targetIndex : uniqueIndices) {
+        for (Index targetIndex : targetIndices) {
             if (targetIndex.getZeroBased() >= displayedArchivedOpportunities.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
             }
@@ -60,7 +59,7 @@ public class UnarchiveCommand extends Command {
 
         // Sort indices in descending order to prevent index mismatch
         // due to shifting when unarchiving multiple opportunities
-        List<Index> sortedIndices = new ArrayList<>(uniqueIndices);
+        List<Index> sortedIndices = new ArrayList<>(targetIndices);
         sortedIndices.sort((index1, index2) -> index2.getZeroBased() - index1.getZeroBased());
 
         StringBuilder unarchivedOpportunities = new StringBuilder();

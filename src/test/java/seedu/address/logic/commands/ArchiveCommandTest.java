@@ -126,6 +126,13 @@ public class ArchiveCommandTest {
     }
 
     @Test
+    public void execute_duplicateIndicesUnfilteredList_throwsCommandException() {
+        ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_FIRST_OPPORTUNITY));
+
+        assertCommandFailure(archiveCommand, model, Messages.MESSAGE_DUPLICATE_INDICES);
+    }
+
+    @Test
     public void equals() {
         ArchiveCommand archiveFirstCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
         ArchiveCommand archiveSecondCommand = new ArchiveCommand(List.of(INDEX_SECOND_OPPORTUNITY));
