@@ -44,6 +44,18 @@ public class OpportunityTest {
         // different cycle -> returns false (Proves identity relies on Cycle!)
         editedAlice = new OpportunityBuilder(ALICE).withCycle(VALID_CYCLE_BOB).build();
         assertFalse(ALICE.isSameOpportunity(editedAlice));
+
+        // email differs only in casing -> returns true (case-insensitive comparison)
+        editedAlice = new OpportunityBuilder(ALICE).withEmail("ALICE@STRIPE.COM").build();
+        assertTrue(ALICE.isSameOpportunity(editedAlice));
+
+        // company differs only in casing -> returns true (case-insensitive comparison)
+        editedAlice = new OpportunityBuilder(ALICE).withCompany("stripe").build();
+        assertTrue(ALICE.isSameOpportunity(editedAlice));
+
+        // role differs only in casing -> returns true (case-insensitive comparison)
+        editedAlice = new OpportunityBuilder(ALICE).withRole("swe intern").build();
+        assertTrue(ALICE.isSameOpportunity(editedAlice));
     }
 
     @Test

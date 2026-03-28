@@ -86,19 +86,27 @@ public class Opportunity {
     }
 
     /**
-     * Returns true if both opportunities have the same Email, Company, Role and
-     * Cycle. This defines a weaker notion of equality between two opportunities,
-     * representing the same contact-opportunity relationship.
+     * Returns true if both opportunities represent the same contact-opportunity
+     * relationship, defined by Email, Company, Role, and Cycle.
+     *
+     * <p>Email, Company, and Role are compared case-insensitively so that
+     * records differing only in capitalisation (e.g. "Google" vs "google")
+     * are treated as duplicates. Cycle is compared as-is because Cycle values
+     * are already normalised to uppercase by the parser before storage.
+     *
+     * <p>This defines a weaker notion of equality than {@link #equals(Object)},
+     * which performs strict field-by-field comparison.
      */
     public boolean isSameOpportunity(Opportunity otherOpportunity) {
         if (otherOpportunity == this) {
             return true;
         }
 
-        return otherOpportunity != null && otherOpportunity.getEmail().equals(getEmail())
-                                        && otherOpportunity.getCompany().equals(getCompany())
-                                        && otherOpportunity.getRole().equals(getRole())
-                                        && otherOpportunity.getCycle().equals(getCycle());
+        return otherOpportunity != null
+                && otherOpportunity.getEmail().value.equalsIgnoreCase(getEmail().value)
+                && otherOpportunity.getCompany().companyName.equalsIgnoreCase(getCompany().companyName)
+                && otherOpportunity.getRole().roleName.equalsIgnoreCase(getRole().roleName)
+                && otherOpportunity.getCycle().equals(getCycle());
     }
 
     /**

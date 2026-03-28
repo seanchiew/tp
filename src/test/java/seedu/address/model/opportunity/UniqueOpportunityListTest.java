@@ -57,6 +57,27 @@ public class UniqueOpportunityListTest {
     }
 
     @Test
+    public void add_opportunityWithSameEmailDifferentCasing_throwsDuplicateOpportunityException() {
+        uniqueOpportunityList.add(ALICE);
+        Opportunity aliceUpperEmail = new OpportunityBuilder(ALICE).withEmail("ALICE@STRIPE.COM").build();
+        assertThrows(DuplicateOpportunityException.class, () -> uniqueOpportunityList.add(aliceUpperEmail));
+    }
+
+    @Test
+    public void add_opportunityWithSameCompanyDifferentCasing_throwsDuplicateOpportunityException() {
+        uniqueOpportunityList.add(ALICE);
+        Opportunity aliceLowerCompany = new OpportunityBuilder(ALICE).withCompany("stripe").build();
+        assertThrows(DuplicateOpportunityException.class, () -> uniqueOpportunityList.add(aliceLowerCompany));
+    }
+
+    @Test
+    public void add_opportunityWithSameRoleDifferentCasing_throwsDuplicateOpportunityException() {
+        uniqueOpportunityList.add(ALICE);
+        Opportunity aliceLowerRole = new OpportunityBuilder(ALICE).withRole("swe intern").build();
+        assertThrows(DuplicateOpportunityException.class, () -> uniqueOpportunityList.add(aliceLowerRole));
+    }
+
+    @Test
     public void setOpportunity_nullTargetOpportunity_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> uniqueOpportunityList.setOpportunity(null, ALICE));
     }
