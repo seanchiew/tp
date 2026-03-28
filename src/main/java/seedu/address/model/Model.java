@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -62,6 +63,12 @@ public interface Model {
      * Returns true if a opportunity with the same identity as {@code opportunity} exists in the address book.
      */
     boolean hasOpportunity(Opportunity opportunity);
+
+    /**
+     * Returns an {@code Optional} containing the existing opportunity that has the same identity
+     * as {@code opportunity}, or an empty Optional if no such opportunity exists.
+     */
+    Optional<Opportunity> getConflictingOpportunity(Opportunity opportunity);
 
     /**
      * Deletes the given opportunity.

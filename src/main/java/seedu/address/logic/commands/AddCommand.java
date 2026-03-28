@@ -10,6 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ROLE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
+import java.util.Optional;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -43,7 +45,11 @@ public class AddCommand extends Command {
             + PREFIX_PHONE + "98765432";
 
     public static final String MESSAGE_SUCCESS = "New opportunity added: %1$s";
-    public static final String MESSAGE_DUPLICATE_OPPORTUNITY = "This opportunity already exists in the tracker.";
+    public static final String MESSAGE_DUPLICATE_IN_ACTIVE_LIST =
+            "This opportunity already exists in the active list.";
+    public static final String MESSAGE_DUPLICATE_IN_ARCHIVE =
+            "This opportunity already exists in your archive. "
+            + "Use the unarchive command to restore it to your active list.";
 
     private final Opportunity toAdd;
 
@@ -60,7 +66,13 @@ public class AddCommand extends Command {
         requireNonNull(model);
 
         if (model.hasOpportunity(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_OPPORTUNITY);
+            Optional<Opportunity> conflicting = model.getConflictingOpportunity(toAdd);
+            assert conflicting.isPresent() : "Conflicting opportunity must be present when hasOpportunity is true";
+            if (conflicting.get().isArchived()) {
+                throw new CommandException(MESSAGE_DUPLICATE_IN_ARCHIVE);
+            } else {
+                throw new CommandException(MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
+            }
         }
 
         model.addOpportunity(toAdd);
