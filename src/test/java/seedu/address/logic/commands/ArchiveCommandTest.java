@@ -98,19 +98,16 @@ public class ArchiveCommandTest {
         Opportunity archivedFirstOpportunity = createArchivedOpportunity(firstOpportunityToArchive);
         Opportunity archivedSecondOpportunity = createArchivedOpportunity(secondOpportunityToArchive);
 
-        // Pass indices in ascending order to test the descending sort in execute()
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY));
 
-        // The expected message will have them in descending order because of the sorting implementation
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
-                "\n" + Messages.format(archivedSecondOpportunity)
-                        + "\n" + Messages.format(archivedFirstOpportunity));
+                "\n" + Messages.format(archivedFirstOpportunity)
+                        + "\n" + Messages.format(archivedSecondOpportunity));
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
-        // Archive in descending order to match expectedModel state execution safely
-        expectedModel.setOpportunity(secondOpportunityToArchive, archivedSecondOpportunity);
         expectedModel.setOpportunity(firstOpportunityToArchive, archivedFirstOpportunity);
+        expectedModel.setOpportunity(secondOpportunityToArchive, archivedSecondOpportunity);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
         assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);

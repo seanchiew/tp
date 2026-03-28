@@ -54,25 +54,20 @@ public class ArchiveCommand extends Command {
         }
 
         List<Opportunity> lastShownList = model.getFilteredOpportunityList();
+        List<Opportunity> opportunitiesToArchive = new ArrayList<>();
 
         for (Index targetIndex : targetIndices) {
             if (targetIndex.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
             }
+            opportunitiesToArchive.add(lastShownList.get(targetIndex.getZeroBased()));
         }
 
-        // Sort indices in descending order to prevent index mismatch
-        // due to shifting when archiving multiple opportunities
-        List<Index> sortedIndices = new ArrayList<>(targetIndices);
-        sortedIndices.sort((index1, index2) -> index2.getZeroBased() - index1.getZeroBased());
-
         StringBuilder archivedOpportunities = new StringBuilder();
-
-        for (Index targetIndex : sortedIndices) {
-            Opportunity opportunityToArchive = lastShownList.get(targetIndex.getZeroBased());
+        for (Opportunity opportunityToArchive : opportunitiesToArchive) {
             Opportunity archivedOpportunity = createArchivedOpportunity(opportunityToArchive);
-
             model.setOpportunity(opportunityToArchive, archivedOpportunity);
+
             archivedOpportunities.append(String.format("\n%1$s", Messages.format(archivedOpportunity)));
         }
 
