@@ -120,6 +120,22 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_mixedCaseCommandWord_returnsCommand() throws Exception {
+        Opportunity validOpportunity = new OpportunityBuilder().build();
+        // Using "aDd" instead of the standard "add"
+        assertTrue(parser.parseCommand("aDd "
+            + OpportunityUtil.getOpportunityDetails(validOpportunity)) instanceof AddCommand);
+
+        // EP: Testing an argument-less command
+        assertTrue(parser.parseCommand("cLeAr") instanceof ClearCommand);
+        assertTrue(parser.parseCommand("eXiT") instanceof ExitCommand);
+        assertTrue(parser.parseCommand("lIsT") instanceof ListCommand);
+
+        // EP: Testing a command with a simple argument
+        assertTrue(parser.parseCommand("dElEtE 1") instanceof DeleteCommand);
+    }
+
+    @Test
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
