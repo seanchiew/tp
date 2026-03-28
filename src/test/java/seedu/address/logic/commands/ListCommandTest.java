@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalOpportunities.getTypicalOpportunitie
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.Messages;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -31,7 +32,7 @@ public class ListCommandTest {
     @Test
     public void execute_listIsNotFiltered_showsSameList() {
         int count = getTypicalOpportunities().size();
-        String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, count);
+        String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, count, Messages.getOpportunityWord(count));
         assertCommandSuccess(new ListCommand(), model, expectedMessage, expectedModel);
     }
 
@@ -39,7 +40,7 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() {
         showOpportunityAtIndex(model, INDEX_FIRST_OPPORTUNITY);
         int count = getTypicalOpportunities().size();
-        String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, count);
+        String expectedMessage = String.format(ListCommand.MESSAGE_SUCCESS, count, Messages.getOpportunityWord(count));
         assertCommandSuccess(new ListCommand(), model, expectedMessage, expectedModel);
     }
 

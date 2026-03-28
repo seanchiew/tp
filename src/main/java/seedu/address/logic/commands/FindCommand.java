@@ -59,9 +59,11 @@ public class FindCommand extends Command {
                 : PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
         model.setArchiveView(searchArchived);
         model.updateFilteredOpportunityList(archiveScopePredicate.and(predicate));
+
+        int count = model.getFilteredOpportunityList().size();
         return new CommandResult(
                 String.format(Messages.MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW,
-                        model.getFilteredOpportunityList().size()));
+                        count, Messages.getOpportunityWord(count)));
     }
 
     @Override

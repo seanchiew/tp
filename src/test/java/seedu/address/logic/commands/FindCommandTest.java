@@ -65,7 +65,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_zeroKeywords_noOpportunityFound() {
-        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 0);
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 0, "opportunities");
         OpportunityContainsSubstringPredicate predicate = new OpportunityContainsSubstringPredicate(
                 Collections.emptyList());
         FindCommand command = new FindCommand(predicate);
@@ -76,7 +76,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_matchingNameKeywords_opportunityFound() {
-        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity");
         OpportunityContainsSubstringPredicate predicate = preparePredicate("Ali Tan");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredOpportunityList(predicate);
@@ -86,7 +86,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_partialKeyword_opportunityFound() {
-        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity");
         OpportunityContainsSubstringPredicate predicate = preparePredicate("lic");
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredOpportunityList(predicate);
@@ -96,7 +96,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_companyOnlyKeyword_opportunityFound() {
-        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity");
         OpportunityContainsSubstringPredicate predicate =
                 new OpportunityContainsSubstringPredicate(Collections.emptyList(), List.of("Tik"));
         FindCommand command = new FindCommand(predicate);
@@ -107,7 +107,7 @@ public class FindCommandTest {
 
     @Test
     public void execute_nameAndCompanyKeywords_matchesBothFilters() {
-        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity");
         OpportunityContainsSubstringPredicate predicate =
                 new OpportunityContainsSubstringPredicate(List.of("Ben"), List.of("Tik"));
         FindCommand command = new FindCommand(predicate);
@@ -141,7 +141,7 @@ public class FindCommandTest {
 
         expectedScopedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES.and(predicate));
         assertCommandSuccess(command, scopedModel,
-                String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedScopedModel);
+                String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity"), expectedScopedModel);
         assertEquals(Collections.singletonList(activeJan), scopedModel.getFilteredOpportunityList());
     }
 
@@ -171,7 +171,7 @@ public class FindCommandTest {
         expectedScopedModel.setArchiveView(true);
         expectedScopedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
         assertCommandSuccess(command, scopedModel,
-                String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedScopedModel);
+                String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity"), expectedScopedModel);
         assertEquals(Collections.singletonList(archivedJan), scopedModel.getFilteredOpportunityList());
     }
 

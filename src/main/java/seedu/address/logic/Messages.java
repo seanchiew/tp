@@ -17,7 +17,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX =
             "The opportunity index provided is invalid.";
     public static final String MESSAGE_DUPLICATE_INDICES = "Duplicate indices are not allowed.";
-    public static final String MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW = "%1$d opportunities listed!";
+    public static final String MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW = "%1$d %2$s listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
 
@@ -31,6 +31,14 @@ public class Messages {
                 Stream.of(duplicatePrefixes).map(Prefix::toString).collect(Collectors.toSet());
 
         return MESSAGE_DUPLICATE_FIELDS + String.join(" ", duplicateFields);
+    }
+
+    /**
+     * Returns the correct pluralization of "opportunity" based on the given
+     * count.
+     */
+    public static String getOpportunityWord(int count) {
+        return count == 1 ? "opportunity" : "opportunities";
     }
 
     /**

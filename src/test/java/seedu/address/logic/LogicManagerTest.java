@@ -81,7 +81,8 @@ public class LogicManagerTest {
         expectedModel.setArchiveView(true);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
 
-        assertCommandSuccess("find -a Amy", String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1), expectedModel);
+        assertCommandSuccess("find -a Amy",
+            String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity"), expectedModel);
     }
 
     @Test

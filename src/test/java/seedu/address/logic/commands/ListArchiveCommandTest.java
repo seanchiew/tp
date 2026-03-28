@@ -45,7 +45,8 @@ public class ListArchiveCommandTest {
                 .withEmail("bob@tiktok.com").withCompany("TikTok")
                 .withRole("Backend Intern").withArchived(true).build();
         Opportunity unarchived = new OpportunityBuilder().withName("Carl Ng")
-                .withEmail("carl@apple.com").withCompany("Apple").withRole("iOS Intern").withArchived(false).build();
+                .withEmail("carl@apple.com").withCompany("Apple")
+                .withRole("iOS Intern").withArchived(false).build();
         ab.addOpportunity(archived1);
         ab.addOpportunity(archived2);
         ab.addOpportunity(unarchived);
@@ -56,7 +57,7 @@ public class ListArchiveCommandTest {
         expectedModelWithArchived.updateFilteredOpportunityList(
                 PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
-        String expectedMessage = String.format(ListArchiveCommand.MESSAGE_SUCCESS, 2);
+        String expectedMessage = String.format(ListArchiveCommand.MESSAGE_SUCCESS, 2, "opportunities");
         assertCommandSuccess(new ListArchiveCommand(), modelWithArchived, expectedMessage, expectedModelWithArchived);
     }
 
@@ -77,7 +78,7 @@ public class ListArchiveCommandTest {
         expectedAllArchivedModel.updateFilteredOpportunityList(
                 PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
-        String expectedMessage = String.format(ListArchiveCommand.MESSAGE_SUCCESS, 2);
+        String expectedMessage = String.format(ListArchiveCommand.MESSAGE_SUCCESS, 2, "opportunities");
         assertCommandSuccess(new ListArchiveCommand(), allArchivedModel, expectedMessage, expectedAllArchivedModel);
     }
 
@@ -103,7 +104,7 @@ public class ListArchiveCommandTest {
         expectedFilteredModel.updateFilteredOpportunityList(
                 PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
-        String expectedMessage = String.format(ListArchiveCommand.MESSAGE_SUCCESS, 1);
+        String expectedMessage = String.format(ListArchiveCommand.MESSAGE_SUCCESS, 1, "opportunity");
         assertCommandSuccess(new ListArchiveCommand(), filteredModel, expectedMessage, expectedFilteredModel);
     }
 
