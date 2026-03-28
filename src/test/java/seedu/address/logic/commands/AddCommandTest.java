@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalOpportunities.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
@@ -46,12 +47,23 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_duplicateOpportunity_throwsCommandException() {
-        Opportunity validOpportunity = new OpportunityBuilder().build();
-        AddCommand addCommand = new AddCommand(validOpportunity);
-        ModelStub modelStub = new ModelStubWithOpportunity(validOpportunity);
+    public void execute_duplicateActiveOpportunity_throwsCommandException() {
+        Opportunity activeOpportunity = new OpportunityBuilder().build();
+        AddCommand addCommand = new AddCommand(activeOpportunity);
+        ModelStub modelStub = new ModelStubWithOpportunity(activeOpportunity);
 
-        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_OPPORTUNITY, ()
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_IN_ACTIVE_LIST, ()
+                -> addCommand.execute(modelStub));
+    }
+
+    @Test
+    public void execute_duplicateArchivedOpportunity_throwsCommandException() {
+        Opportunity archivedOpportunity = new OpportunityBuilder().withArchived(true).build();
+        // toAdd has same identity as archivedOpportunity but is not archived
+        AddCommand addCommand = new AddCommand(new OpportunityBuilder().build());
+        ModelStub modelStub = new ModelStubWithOpportunity(archivedOpportunity);
+
+        assertThrows(CommandException.class, AddCommand.MESSAGE_DUPLICATE_IN_ARCHIVE, ()
                 -> addCommand.execute(modelStub));
     }
 
@@ -141,6 +153,11 @@ public class AddCommandTest {
         }
 
         @Override
+        public Optional<Opportunity> getConflictingOpportunity(Opportunity opportunity) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteOpportunity(Opportunity target) {
             throw new AssertionError("This method should not be called.");
         }
@@ -176,6 +193,14 @@ public class AddCommandTest {
         public boolean hasOpportunity(Opportunity opportunity) {
             requireNonNull(opportunity);
             return this.opportunity.isSameOpportunity(opportunity);
+        }
+
+        @Override
+        public Optional<Opportunity> getConflictingOpportunity(Opportunity opportunity) {
+            requireNonNull(opportunity);
+            return this.opportunity.isSameOpportunity(opportunity)
+                    ? Optional.of(this.opportunity)
+                    : Optional.empty();
         }
     }
 

@@ -131,7 +131,7 @@ public class EditCommandTest {
         EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder(firstOpportunity).build();
         EditCommand editCommand = new EditCommand(INDEX_SECOND_OPPORTUNITY, descriptor);
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_OPPORTUNITY);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
     }
 
     @Test
@@ -144,7 +144,23 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY,
                 new EditOpportunityDescriptorBuilder(opportunityInList).build());
 
-        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_OPPORTUNITY);
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
+    }
+
+    @Test
+    public void execute_duplicateArchivedOpportunityUnfilteredList_failure() {
+        // Archive the first opportunity, then try to edit the second to match it
+        Opportunity firstOpportunity = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        Opportunity archivedVersion = new OpportunityBuilder(firstOpportunity).withArchived(true).build();
+        model.setOpportunity(firstOpportunity, archivedVersion);
+        model.updateFilteredOpportunityList(seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+
+        // Edit the (now first visible) opportunity to match the archived one
+        Opportunity secondOpportunity = model.getFilteredOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
+        EditOpportunityDescriptor descriptor = new EditOpportunityDescriptorBuilder(archivedVersion).build();
+        EditCommand editCommand = new EditCommand(INDEX_FIRST_OPPORTUNITY, descriptor);
+
+        assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_IN_ARCHIVE);
     }
 
     @Test

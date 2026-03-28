@@ -57,7 +57,11 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_OPPORTUNITY_SUCCESS = "Edited Opportunity: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_OPPORTUNITY = "This opportunity already exists in the tracker.";
+    public static final String MESSAGE_DUPLICATE_IN_ACTIVE_LIST =
+            "This opportunity already exists in the active list.";
+    public static final String MESSAGE_DUPLICATE_IN_ARCHIVE =
+            "This opportunity already exists in your archive. "
+            + "Use the unarchive command to restore it to your active list.";
 
     private final Index index;
     private final EditOpportunityDescriptor editOpportunityDescriptor;
@@ -87,7 +91,13 @@ public class EditCommand extends Command {
         Opportunity editedOpportunity = createEditedOpportunity(opportunityToEdit, editOpportunityDescriptor);
 
         if (!opportunityToEdit.isSameOpportunity(editedOpportunity) && model.hasOpportunity(editedOpportunity)) {
-            throw new CommandException(MESSAGE_DUPLICATE_OPPORTUNITY);
+            Optional<Opportunity> conflicting = model.getConflictingOpportunity(editedOpportunity);
+            assert conflicting.isPresent() : "Conflicting opportunity must be present when hasOpportunity is true";
+            if (conflicting.get().isArchived()) {
+                throw new CommandException(MESSAGE_DUPLICATE_IN_ARCHIVE);
+            } else {
+                throw new CommandException(MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
+            }
         }
 
         boolean wasArchived = opportunityToEdit.isArchived();

@@ -45,7 +45,7 @@ public class AddCommandIntegrationTest {
     public void execute_duplicateOpportunity_throwsCommandException() {
         Opportunity opportunityInList = model.getAddressBook().getOpportunityList().get(0);
         assertCommandFailure(new AddCommand(opportunityInList), model,
-                AddCommand.MESSAGE_DUPLICATE_OPPORTUNITY);
+                AddCommand.MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
     }
 
 }

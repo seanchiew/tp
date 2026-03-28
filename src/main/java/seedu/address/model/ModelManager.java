@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -93,6 +94,14 @@ public class ModelManager implements Model {
     public boolean hasOpportunity(Opportunity opportunity) {
         requireNonNull(opportunity);
         return addressBook.hasOpportunity(opportunity);
+    }
+
+    @Override
+    public Optional<Opportunity> getConflictingOpportunity(Opportunity opportunity) {
+        requireNonNull(opportunity);
+        return addressBook.getOpportunityList().stream()
+                .filter(opportunity::isSameOpportunity)
+                .findFirst();
     }
 
     @Override

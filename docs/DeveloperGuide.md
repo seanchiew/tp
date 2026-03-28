@@ -257,6 +257,8 @@ This is implemented by storing an archived flag in each Opportunity. Archive and
 
 This approach keeps the implementation simple because it extends the existing record structure instead of introducing a separate archive data structure.
 
+Note that archived records remain subject to uniqueness enforcement. `isSameOpportunity()` does not compare the `isArchived` flag, so an archived and an active record with the same Email, Company, Role, and Cycle cannot coexist in the tracker. Attempting to add a record whose identity matches an archived entry will be rejected. The user should use `unarchive` to restore the archived entry instead.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
