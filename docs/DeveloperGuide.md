@@ -446,6 +446,11 @@ Preconditions: At least one opportunity contact exists.
 
     Use case resumes from step 3.
 
+* 4c. Edited details result in a duplicate (same Email, Company, Role and Cycle as an existing record).
+  * 4c1. System informs the user that a duplicate opportunity contact already exists.
+
+    Use case ends.
+
 **Use case: UC05 — Search for opportunity contacts by keyword**
 
 **MSS**
