@@ -47,6 +47,7 @@ public class UnarchiveCommandTest {
         expectedModel.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
     }
 
@@ -87,6 +88,7 @@ public class UnarchiveCommandTest {
         expectedModel.setOpportunity(firstOpportunityToUnarchive, unarchivedFirstOpportunity);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
     }
 
@@ -114,6 +116,7 @@ public class UnarchiveCommandTest {
         Model expectedModel = createModelWithArchivedSearchResults();
         expectedModel.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(unarchiveCommand, model, expectedMessage, expectedModel);
         assertTrue(model.getFilteredOpportunityList().isEmpty());
     }

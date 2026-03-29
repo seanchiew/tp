@@ -72,6 +72,7 @@ public class ArchiveCycleCommandTest {
         expectedModel.setOpportunity(summerSecond, archivedSummerSecond);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(archiveCycleCommand, model, expectedMessage, expectedModel);
     }
 
@@ -109,6 +110,7 @@ public class ArchiveCycleCommandTest {
         expectedModel.setOpportunity(summerFirst, archivedSummerFirst);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(archiveCycleCommand, model, expectedMessage, expectedModel);
     }
 

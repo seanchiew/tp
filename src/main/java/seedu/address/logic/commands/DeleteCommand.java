@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
             model.deleteOpportunity(opportunityToDelete);
             deletedOpportunities.append(String.format("\n%1$s", Messages.format(opportunityToDelete)));
         }
-
+        model.commitAddressBook();
         return new CommandResult(
                 String.format(MESSAGE_DELETE_OPPORTUNITY_SUCCESS, deletedOpportunities.toString()));
     }

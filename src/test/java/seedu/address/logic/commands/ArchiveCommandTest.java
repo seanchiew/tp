@@ -45,6 +45,7 @@ public class ArchiveCommandTest {
         expectedModel.setOpportunity(opportunityToArchive, archivedOpportunity);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
     }
 
@@ -72,6 +73,7 @@ public class ArchiveCommandTest {
         expectedModel.setOpportunity(opportunityToArchive, archivedOpportunity);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
     }
 
@@ -110,6 +112,7 @@ public class ArchiveCommandTest {
         expectedModel.setOpportunity(secondOpportunityToArchive, archivedSecondOpportunity);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(archiveCommand, model, expectedMessage, expectedModel);
     }
 

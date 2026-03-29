@@ -36,6 +36,7 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addOpportunity(validOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(new AddCommand(validOpportunity), model,
                 String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validOpportunity)),
                 expectedModel);

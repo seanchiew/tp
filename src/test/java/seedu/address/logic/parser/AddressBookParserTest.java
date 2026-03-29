@@ -25,6 +25,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.opportunity.Cycle;
 import seedu.address.model.opportunity.Opportunity;
@@ -154,5 +155,14 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_unarchive() throws Exception {
         assertTrue(parser.parseCommand("unarchive 1") instanceof UnarchiveCommand);
+    }
+
+    @Test
+    public void parseCommand_undo() throws Exception {
+        // EP: Valid exact command word
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
+
+        // EP: Valid command word with trailing arguments (UndoCommand ignores extraneous arguments by design)
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
     }
 }

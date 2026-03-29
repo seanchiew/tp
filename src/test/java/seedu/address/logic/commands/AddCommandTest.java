@@ -176,6 +176,21 @@ public class AddCommandTest {
         public void updateFilteredOpportunityList(Predicate<Opportunity> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -225,6 +240,11 @@ public class AddCommandTest {
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
+        }
+
+        @Override
+        public void commitAddressBook() {
+            // Do nothing to simulate a successful commit during the unit test
         }
     }
 
