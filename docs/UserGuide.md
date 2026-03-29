@@ -61,7 +61,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567`, `e/alicia.tan@stripe.com n/Alicia Tan c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 cr/recruiter p/91234567` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `undo`, `help`, `exit` and `clear`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.<br>
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -213,6 +213,18 @@ Format: `list archive`
 
 ![list archive](images/ListArchive.png)
 
+### Undoing a command: `undo`
+
+Reverts the tracker to its state before the most recent **mutating** command (e.g., `add`, `delete`, `edit`, `clear`, `archive`, `unarchive`) was executed.
+
+Format: `undo`
+
+**Caution:**
+* The `undo` command only works if there is a previous state to restore. If you have just launched the app or have already undone all recent commands, executing `undo` will fail with a "No more commands to undo!" error.
+* Read-only commands (like `list` or `find`) do not modify the tracker's state and cannot be undone.
+
+![undo](images/Undo.png)
+
 ### Clearing all entries : `clear`
 
 Clears **all** opportunity contacts from InternTrack, including archived ones, giving you a blank slate.
@@ -298,6 +310,7 @@ Action     | Format, Examples
 **Archive** | `archive INDEX [MORE_INDICES]...` or `archive cycle CYCLE`<br> e.g., `archive 1 2 3` or `archive cycle SUMMER 2026`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`
 **List Archive** | `list archive`
+**Undo** | `undo` |
 **Clear**  | `clear`
 **Help**   | `help`
 **Exit**   | `exit`

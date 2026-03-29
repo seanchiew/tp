@@ -156,47 +156,45 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### \[Proposed\] Undo/redo feature
+### Undo feature
 
-#### Proposed Implementation
+#### Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The undo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
 * `VersionedAddressBook#commit()` — Saves the current address book state in its history.
 * `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()` and `Model#undoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial tracker state, and the `currentStatePointer` pointing to that single tracker state.
 
-<puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
+<puml src="diagrams/UndoState0.puml" alt="UndoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th opportunity contact in the tracker. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the tracker after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted tracker state.
 
-<puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
+<puml src="diagrams/UndoState1.puml" alt="UndoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new opportunity contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified tracker state to be saved into the `addressBookStateList`.
 
-<puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
+<puml src="diagrams/UndoState2.puml" alt="UndoState2" />
 
 <box type="info" seamless>
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the tracker state will not be saved into the `addressBookStateList`.
 
 </box>
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the opportunity contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous tracker state, and restores the tracker to that state.
 
-<puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
+<puml src="diagrams/UndoState3.puml" alt="UndoState3" />
 
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
-than attempting to perform the undo.
+**Note:** If the `currentStatePointer` is at index 0, pointing to the initial tracker state, then there are no previous tracker states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 </box>
 
@@ -214,21 +212,13 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 <puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the tracker, such as `list`, will usually not call `Model#commitAddressBook()` or `Model#undoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
-<box type="info" seamless>
+<puml src="diagrams/UndoState4.puml" alt="UndoState4" />
 
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all tracker states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to restore the previously undone `add n/David …​` command state after a new mutation occurs. This is the behavior that most modern desktop applications follow.
 
-</box>
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-<puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
-
-<puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
+<puml src="diagrams/UndoState5.puml" alt="UndoState5" />
 
 The following activity diagram summarizes what happens when a user executes a new command:
 
@@ -236,14 +226,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 #### Design considerations:
 
-**Aspect: How undo & redo executes:**
+**Aspect: How undo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
   * Pros: Easy to implement.
   * Cons: May have performance issues in terms of memory usage.
 
-* **Alternative 2:** Individual command knows how to undo/redo by
-  itself.
+* **Alternative 2:** Individual command knows how to undo by itself.
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
@@ -511,7 +500,24 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
       Use case ends.
 
-**Use case: UC08 — Clear opportunity contact**
+**Use case: UC08 — Undo a command**
+
+**MSS**
+
+1.  User requests to undo the previous mutating command.
+2.  System restores the tracker to its previous state.
+3.  System displays a success message.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. There is no previous state to restore.
+    * 1a1. System shows an error message indicating there are no more commands to undo.
+
+      Use case ends.
+
+**Use case: UC09 — Clear opportunity contact**
 
 **MSS**
 
@@ -521,7 +527,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
    Use case ends.
 
-**Use case: UC09 — Request for help**
+**Use case: UC10 — Request for help**
 
 **MSS**
 
@@ -531,7 +537,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
    Use case ends.
 
-**Use case: UC10 — Exit the application**
+**Use case: UC11 — Exit the application**
 
 **MSS**
 
@@ -622,6 +628,22 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Undoing a command
+
+1. Undoing a valid mutating command
+
+    1. Prerequisites: Ensure the application has just launched. Execute a mutating command, e.g., `delete 1`.
+
+    2. Test case: `undo`
+       Expected: The deleted opportunity contact is restored to the list. A success message is shown in the status box.
+
+2. Undoing when there is no history
+
+    1. Prerequisites: Ensure the application has just launched and no mutating commands have been executed.
+
+    2. Test case: `undo`
+       Expected: The tracker state remains unchanged. An error message "No more commmands to undo!" is shown in the status box.
 
 ### Saving data
 
