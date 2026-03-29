@@ -70,7 +70,7 @@ public class UnarchiveCommand extends Command {
             model.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);
             unarchivedOpportunities.append(String.format("\n%1$s", Messages.format(unarchivedOpportunity)));
         }
-
+        model.commitAddressBook();
         return new CommandResult(
                 String.format(MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS, unarchivedOpportunities.toString()));
     }

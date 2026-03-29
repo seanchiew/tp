@@ -48,6 +48,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(model.getFilteredOpportunityList().get(0), editedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -70,6 +71,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(lastOpportunity, editedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -88,6 +90,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(opportunityToEdit, editedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -101,6 +104,7 @@ public class EditCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -122,6 +126,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(model.getFilteredOpportunityList().get(0), editedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
 
@@ -209,6 +214,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(bensonInList, expectedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
         assertFalse(model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().isPresent());
     }
@@ -232,6 +238,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(bensonInList, expectedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
         assertTrue(model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().isPresent());
     }
@@ -253,6 +260,7 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.setOpportunity(bensonInList, expectedOpportunity);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
         assertEquals(newPhone,
                 model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().get().value);

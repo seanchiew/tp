@@ -41,6 +41,7 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deleteOpportunity(opportunityToDelete);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
@@ -67,6 +68,7 @@ public class DeleteCommandTest {
         expectedModel.deleteOpportunity(opportunityToDelete);
         showNoOpportunity(expectedModel);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
@@ -103,6 +105,7 @@ public class DeleteCommandTest {
         expectedModel.deleteOpportunity(secondOpportunityToDelete);
         expectedModel.deleteOpportunity(firstOpportunityToDelete);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 

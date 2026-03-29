@@ -75,7 +75,9 @@ public class LogicManagerTest {
         Opportunity archivedAmy = new OpportunityBuilder(AMY).withArchived(true).build();
         model.addOpportunity(archivedAmy);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        // Initialize an empty model so history is [Empty], then sync the current state
+        Model expectedModel = new ModelManager();
+        expectedModel.setAddressBook(model.getAddressBook());
         OpportunityContainsSubstringPredicate predicate =
                 new OpportunityContainsSubstringPredicate(List.of("Amy"));
         expectedModel.setArchiveView(true);
@@ -184,6 +186,7 @@ public class LogicManagerTest {
         Opportunity expectedOpportunity = new OpportunityBuilder(AMY).build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.addOpportunity(expectedOpportunity);
+        expectedModel.commitAddressBook();
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 }

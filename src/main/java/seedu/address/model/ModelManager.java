@@ -20,7 +20,7 @@ import seedu.address.model.opportunity.Opportunity;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final VersionedAddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Opportunity> filteredOpportunities;
     private boolean isArchiveView = false;
@@ -33,7 +33,7 @@ public class ModelManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
+        this.addressBook = new VersionedAddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredOpportunities = new FilteredList<>(this.addressBook.getOpportunityList(),
                 PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
@@ -168,4 +168,21 @@ public class ModelManager implements Model {
                 && isArchiveView == otherModelManager.isArchiveView;
     }
 
+    // =========== Undo / State Management
+    // ====================================================================
+
+    @Override
+    public boolean canUndoAddressBook() {
+        return addressBook.canUndo();
+    }
+
+    @Override
+    public void undoAddressBook() {
+        addressBook.undo();
+    }
+
+    @Override
+    public void commitAddressBook() {
+        addressBook.commit();
+    }
 }

@@ -71,6 +71,7 @@ public class ArchiveCycleCommand extends Command {
 
         int archivedCount = matchingOpportunities.size();
         String archivedLabel = archivedCount == 1 ? "opportunity" : "opportunities";
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ARCHIVE_CYCLE_SUCCESS,
                 archivedCount, archivedLabel, targetCycle, archivedOpportunities.toString()));
     }

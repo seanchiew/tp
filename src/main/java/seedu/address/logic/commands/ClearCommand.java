@@ -21,6 +21,7 @@ public class ClearCommand extends Command {
         model.setArchiveView(false); // Switch back to main list after clearing
         model.setAddressBook(new AddressBook());
         model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+        model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

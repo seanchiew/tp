@@ -71,7 +71,7 @@ public class ArchiveCommand extends Command {
         }
 
         model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
-
+        model.commitAddressBook();
         return new CommandResult(
                 String.format(MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS, archivedOpportunities.toString()));
     }

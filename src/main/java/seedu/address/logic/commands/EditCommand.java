@@ -109,7 +109,7 @@ public class EditCommand extends Command {
         } else {
             model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
         }
-
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_OPPORTUNITY_SUCCESS, Messages.format(editedOpportunity)));
     }
 

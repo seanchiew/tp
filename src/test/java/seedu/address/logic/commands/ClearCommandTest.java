@@ -23,6 +23,7 @@ public class ClearCommandTest {
         Model model = new ModelManager();
         Model expectedModel = new ModelManager();
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -33,6 +34,7 @@ public class ClearCommandTest {
         expectedModel.setAddressBook(new AddressBook());
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
 
+        expectedModel.commitAddressBook();
         assertCommandSuccess(new ClearCommand(), model, ClearCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
