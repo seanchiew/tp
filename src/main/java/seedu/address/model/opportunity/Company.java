@@ -10,8 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Company {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Company names must be 1-60 characters and can only contain letters, numbers, spaces, and "
-            + "common symbols like &, ., -, ,, (, ), ', / and must not be blank";
+        "Company names must be 1-60 characters and can\n"
+            + "only contain letters, numbers, spaces, and common symbols like &, ., -, ,, (, ), ', / \n"
+            + "and must not be blank";
 
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 60;

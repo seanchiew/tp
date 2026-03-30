@@ -48,11 +48,15 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_COMPANY_DESC, Company.MESSAGE_CONSTRAINTS); // invalid company
-        assertParseFailure(parser, "1" + INVALID_ROLE_DESC, Role.MESSAGE_CONSTRAINTS); // invalid role
+        assertParseFailure(parser, "1" + INVALID_COMPANY_DESC,
+                "1. " + Company.MESSAGE_CONSTRAINTS); // invalid company
+        assertParseFailure(parser, "1" + INVALID_ROLE_DESC,
+                "1. " + Role.MESSAGE_CONSTRAINTS); // invalid role
 
-        // multiple invalid values, but only the first invalid value is captured
-        assertParseFailure(parser, "1" + INVALID_COMPANY_DESC + INVALID_ROLE_DESC, Company.MESSAGE_CONSTRAINTS);
+        // multiple invalid values are aggregated and shown together
+        assertParseFailure(parser, "1" + INVALID_COMPANY_DESC + INVALID_ROLE_DESC,
+                "1. " + Company.MESSAGE_CONSTRAINTS + "\n\n"
+                        + "2. " + Role.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -118,6 +122,7 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidPhoneValue_failure() {
         // A phone that is non-empty but invalid should still fail
-        assertParseFailure(parser, "1 " + " p/abc", Phone.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1 " + " p/abc",
+                "1. " + Phone.MESSAGE_CONSTRAINTS);
     }
 }

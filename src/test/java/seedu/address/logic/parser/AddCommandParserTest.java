@@ -129,39 +129,52 @@ public class AddCommandParserTest {
                 INVALID_NAME_DESC + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
                         + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
                         + CYCLE_DESC_BOB,
-                Name.MESSAGE_CONSTRAINTS);
+                "1. " + Name.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser,
                 NAME_DESC_BOB + INVALID_EMAIL_DESC + CONTACT_ROLE_DESC_BOB
                         + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
                         + CYCLE_DESC_BOB,
-                Email.MESSAGE_CONSTRAINTS);
+                "1. " + Email.MESSAGE_CONSTRAINTS);
 
         // invalid company
         assertParseFailure(parser,
                 NAME_DESC_BOB + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
                         + INVALID_COMPANY_DESC + ROLE_DESC_BOB + STATUS_DESC_BOB
                         + CYCLE_DESC_BOB,
-                Company.MESSAGE_CONSTRAINTS);
+                "1. " + Company.MESSAGE_CONSTRAINTS);
 
         // invalid role
         assertParseFailure(parser,
                 NAME_DESC_BOB + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
                         + COMPANY_DESC_BOB + INVALID_ROLE_DESC + STATUS_DESC_BOB
                         + CYCLE_DESC_BOB,
-                Role.MESSAGE_CONSTRAINTS);
+                "1. " + Role.MESSAGE_CONSTRAINTS);
 
         // invalid status
         assertParseFailure(parser,
                 NAME_DESC_BOB + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
                         + COMPANY_DESC_BOB + ROLE_DESC_BOB + INVALID_STATUS_DESC
                         + CYCLE_DESC_BOB,
-                Status.MESSAGE_CONSTRAINTS);
+                "1. " + Status.MESSAGE_CONSTRAINTS);
 
         // invalid cycle
         assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
                 + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB + INVALID_CYCLE_DESC,
-                Cycle.MESSAGE_CONSTRAINTS);
+                "1. " + Cycle.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_multipleInvalidValues_failure() {
+        assertParseFailure(parser,
+                NAME_DESC_BOB + INVALID_EMAIL_DESC + CONTACT_ROLE_DESC_BOB
+                        + INVALID_COMPANY_DESC + INVALID_ROLE_DESC + INVALID_STATUS_DESC
+                        + INVALID_CYCLE_DESC,
+                "1. " + Email.MESSAGE_CONSTRAINTS + "\n\n"
+                        + "2. " + Company.MESSAGE_CONSTRAINTS + "\n\n"
+                        + "3. " + Role.MESSAGE_CONSTRAINTS + "\n\n"
+                        + "4. " + Status.MESSAGE_CONSTRAINTS + "\n\n"
+                        + "5. " + Cycle.MESSAGE_CONSTRAINTS);
     }
 }

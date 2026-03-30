@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ContactRole {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Contact roles must be 1-50 characters and can only contain alphanumeric characters, "
-            + "spaces, and hyphens, and must not be blank. "
+        "Contact roles must be 1-50 characters and can\n"
+            + "only contain alphanumeric characters, spaces, and hyphens, and must not be blank.\n"
             + "Examples: recruiter, interviewer, referrer, hiring manager";
 
     public static final int MIN_LENGTH = 1;

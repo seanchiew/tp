@@ -10,10 +10,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Email {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Emails should be of the format local-part@domain and must not be blank. "
-            + "The local-part may contain alphanumeric characters and the special characters "
-            + "+, _, ., and -. The local-part must not start or end with a special character. "
-            + "The domain must consist of at least two labels separated by periods, "
+        "Emails should be of the format local-part@domain and must not be blank.\n"
+            + "The local-part may contain alphanumeric characters and the special characters +, _, ., and -.\n"
+            + "The local-part must not start or end with a special character.\n"
+            + "The domain must consist of at least two labels separated by periods,\n"
             + "and each label must be at least 1 character long.";
 
     public static final int MAX_LENGTH = 254;

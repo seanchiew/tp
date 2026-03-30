@@ -10,8 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Role {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Role names must be 1-80 characters and can only contain letters, numbers, spaces, and "
-            + "common symbols like &, ., -, ,, (, ), ', / and must not be blank";
+        "Role names must be 1-80 characters and\n"
+            + "can only contain letters, numbers, spaces, and common symbols like &, ., -, ,, (, ), ', /\n"
+            + "and must not be blank";
 
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 80;
