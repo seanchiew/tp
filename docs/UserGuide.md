@@ -69,7 +69,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 
 ### View indicator
 
-InternTrack displays a **Main** and **Archive** tab just above the opportunity list. The highlighted tab shows which list you are currently viewing. It updates automatically when you run `list`, `list archive`, or `find`. The tabs are display-only and cannot be clicked.
+InternTrack displays a **Main** and **Archive** tab just above the opportunity list. The highlighted tab shows which list you are currently viewing. It updates automatically when you run `list`, `list archive`, `find`, or `find -a` — plain `find` highlights **Main**, while `find -a` highlights **Archive**. The tabs are display-only and cannot be clicked.
 
 ![ViewIndicator](images/ViewIndicator.png)
 

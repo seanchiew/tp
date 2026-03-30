@@ -125,6 +125,14 @@ public class LogicManagerTest {
         assertFalse(logic.isArchiveView());
     }
 
+    @Test
+    public void isArchiveView_afterFindArchiveCommand_returnsTrue() throws Exception {
+        Opportunity archivedAmy = new OpportunityBuilder(AMY).withArchived(true).build();
+        model.addOpportunity(archivedAmy);
+        logic.execute("find -a Amy");
+        assertTrue(logic.isArchiveView());
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
