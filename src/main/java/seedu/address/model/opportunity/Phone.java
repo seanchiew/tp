@@ -10,7 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Phone numbers should contain 3 to 15 digits and may optionally start with '+'";
+        "Phone numbers should contain 3 to 15 digits, may optionally start with '+', "
+            + "and may use spaces, hyphens, or parentheses as separators (e.g. +65 9123 4567, +1-800-555-0100)";
 
     public static final int MIN_DIGITS = 3;
     public static final int MAX_DIGITS = 15;
@@ -28,15 +29,23 @@ public class Phone {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         checkArgument(isValidPhone(trimmedPhone), MESSAGE_CONSTRAINTS);
-        this.value = trimmedPhone;
+        this.value = normalize(trimmedPhone);
     }
 
     /**
      * Returns true if a given string is a valid phone number.
+     * Spaces, hyphens, and parentheses are treated as separators and ignored during validation.
      */
     public static boolean isValidPhone(String test) {
         requireNonNull(test);
-        return test.trim().matches(VALIDATION_REGEX);
+        return normalize(test.trim()).matches(VALIDATION_REGEX);
+    }
+
+    /**
+     * Strips spaces, hyphens, and parentheses from a phone string, retaining only digits and a leading '+'.
+     */
+    private static String normalize(String phone) {
+        return phone.replaceAll("[\\s()\\-]", "");
     }
 
     @Override
