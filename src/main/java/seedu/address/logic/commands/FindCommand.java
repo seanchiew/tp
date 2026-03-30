@@ -52,6 +52,11 @@ public class FindCommand extends Command {
     }
 
     @Override
+    public boolean isReadOnly() {
+        return true;
+    }
+
+    @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         Predicate<Opportunity> archiveScopePredicate = searchArchived

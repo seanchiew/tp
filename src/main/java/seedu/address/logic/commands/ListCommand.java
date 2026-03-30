@@ -37,6 +37,11 @@ public class ListCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE]";
 
     @Override
+    public boolean isReadOnly() {
+        return true;
+    }
+
+    @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.setArchiveView(false);

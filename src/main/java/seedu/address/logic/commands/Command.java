@@ -17,4 +17,13 @@ public abstract class Command {
      */
     public abstract CommandResult execute(Model model) throws CommandException;
 
+    /**
+     * Returns true if this command does not modify the address book data.
+     * Read-only commands should override this to return true so that
+     * {@code LogicManager} skips the autosave after execution.
+     */
+    public boolean isReadOnly() {
+        return false;
+    }
+
 }
