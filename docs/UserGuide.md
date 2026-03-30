@@ -61,8 +61,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567`, `e/alicia.tan@stripe.com n/Alicia Tan c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 cr/recruiter p/91234567` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `undo`, `help`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.<br>
+* Commands that do not take in parameters (such as `undo`, `help`, `exit`, and `clear`) strictly require no extraneous alphanumeric parameters. e.g. if the command specifies `help 123`, it will be rejected with an invalid command format error. However, harmless trailing spaces (e.g., `help   `) will be safely ignored.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>

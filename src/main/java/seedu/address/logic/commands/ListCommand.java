@@ -22,7 +22,8 @@ public class ListCommand extends Command {
     public static final String COMMAND_WORD = "list";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lists all tracked opportunities.\n"
-            + "Example: " + COMMAND_WORD;
+                                    + "Example: " + COMMAND_WORD + "\n"
+                                    + "To list archived opportunities, use: " + ListArchiveCommand.COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Showing %1$d %2$s.";
 
@@ -50,5 +51,13 @@ public class ListCommand extends Command {
         String feedback = count == 0 ? MESSAGE_EMPTY
             : String.format(MESSAGE_SUCCESS, count, Messages.getOpportunityWord(count));
         return new CommandResult(feedback);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        return other instanceof ListCommand;
     }
 }

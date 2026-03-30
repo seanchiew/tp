@@ -35,4 +35,12 @@ public class ListArchiveCommand extends Command {
             : String.format(MESSAGE_SUCCESS, count, Messages.getOpportunityWord(count));
         return new CommandResult(feedback);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        return other instanceof ListArchiveCommand;
+    }
 }

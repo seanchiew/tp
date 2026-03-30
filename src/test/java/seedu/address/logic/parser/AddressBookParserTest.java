@@ -23,6 +23,7 @@ import seedu.address.logic.commands.EditCommand.EditOpportunityDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListArchiveCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -34,6 +35,9 @@ import seedu.address.testutil.EditOpportunityDescriptorBuilder;
 import seedu.address.testutil.OpportunityBuilder;
 import seedu.address.testutil.OpportunityUtil;
 
+/**
+ * Tests the routing logic of the AddressBookParser.
+ */
 public class AddressBookParserTest {
 
     private final AddressBookParser parser = new AddressBookParser();
@@ -48,7 +52,7 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD) instanceof ClearCommand);
-        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + " 3") instanceof ClearCommand);
+        assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD + "  ") instanceof ClearCommand);
     }
 
     @Test
@@ -71,7 +75,8 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_exit() throws Exception {
         assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD) instanceof ExitCommand);
-        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + " 3") instanceof ExitCommand);
+        assertTrue(parser.parseCommand(ExitCommand.COMMAND_WORD + "  ") instanceof ExitCommand);
+
     }
 
     @Test
@@ -99,19 +104,17 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
-        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
+        assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + "  ") instanceof HelpCommand);
     }
 
     @Test
     public void parseCommand_list() throws Exception {
+        // Routes to standard ListCommand
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + "   ") instanceof ListCommand);
-    }
+        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + "  ") instanceof ListCommand);
 
-    @Test
-    public void parseCommand_listWithArgs_throwsParseException() {
-        assertThrows(ParseException.class, () -> parser.parseCommand(ListCommand.COMMAND_WORD + " 3"));
-        assertThrows(ParseException.class, () -> parser.parseCommand(ListCommand.COMMAND_WORD + " extra"));
+        // Routes to ListArchiveCommand
+        assertTrue(parser.parseCommand(ListArchiveCommand.COMMAND_WORD) instanceof ListArchiveCommand);
     }
 
     @Test
@@ -123,16 +126,13 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_mixedCaseCommandWord_returnsCommand() throws Exception {
         Opportunity validOpportunity = new OpportunityBuilder().build();
-        // Using "aDd" instead of the standard "add"
-        assertTrue(parser.parseCommand("aDd "
-            + OpportunityUtil.getOpportunityDetails(validOpportunity)) instanceof AddCommand);
 
-        // EP: Testing an argument-less command
+        assertTrue(parser.parseCommand("aDd " + OpportunityUtil
+                                        .getOpportunityDetails(validOpportunity)) instanceof AddCommand);
+
         assertTrue(parser.parseCommand("cLeAr") instanceof ClearCommand);
         assertTrue(parser.parseCommand("eXiT") instanceof ExitCommand);
         assertTrue(parser.parseCommand("lIsT") instanceof ListCommand);
-
-        // EP: Testing a command with a simple argument
         assertTrue(parser.parseCommand("dElEtE 1") instanceof DeleteCommand);
     }
 
@@ -159,10 +159,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_undo() throws Exception {
-        // EP: Valid exact command word
         assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD) instanceof UndoCommand);
-
-        // EP: Valid command word with trailing arguments (UndoCommand ignores extraneous arguments by design)
-        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + " 3") instanceof UndoCommand);
+        assertTrue(parser.parseCommand(UndoCommand.COMMAND_WORD + "  ") instanceof UndoCommand);
     }
 }

@@ -12,6 +12,8 @@ import seedu.address.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Clears all opportunity contacts.\n"
+                                                + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "All opportunities have been cleared!";
 
 
@@ -23,5 +25,13 @@ public class ClearCommand extends Command {
         model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        return other instanceof ClearCommand;
     }
 }

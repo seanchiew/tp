@@ -12,6 +12,9 @@ import seedu.address.model.exceptions.NoUndoableStateException;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+                                    + ": Reverts the tracker to its previously modified state.\n"
+                                    + "Example: " + COMMAND_WORD;
     public static final String MESSAGE_SUCCESS = "Undo successful!";
     public static final String MESSAGE_FAILURE = "No more commands to undo!";
 
@@ -30,5 +33,13 @@ public class UndoCommand extends Command {
             // Defensive programming fallback
             throw new CommandException(MESSAGE_FAILURE);
         }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        return other instanceof UndoCommand;
     }
 }
