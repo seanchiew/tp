@@ -33,7 +33,7 @@ public class Opportunity {
      */
     public Opportunity(Name name, Email email, ContactRole contactRole, Company company, Role role, Status status,
                                     Cycle cycle, boolean isArchived, Phone phone) {
-        requireAllNonNull(name, email, contactRole, company, role, status, cycle, isArchived);
+        requireAllNonNull(name, email, contactRole, company, role, status, cycle);
         this.name = name;
         this.email = email;
         this.contactRole = contactRole;
