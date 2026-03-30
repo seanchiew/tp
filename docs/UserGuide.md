@@ -67,6 +67,12 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </box>
 
+### View indicator
+
+InternTrack displays a **Main** and **Archive** tab just above the opportunity list. The highlighted tab shows which list you are currently viewing. It updates automatically when you run `list`, `list archive`, `find`, or `find -a` — plain `find` highlights **Main**, while `find -a` highlights **Archive**. The tabs are display-only and cannot be clicked.
+
+![ViewIndicator](images/ViewIndicator.png)
+
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -98,6 +104,8 @@ Examples:
 Shows all tracked unarchived opportunities.
 
 Format: `list`
+
+* The **Main** tab in the view indicator will be highlighted when this command is run.
 
 ![list](images/ListContacts.png)
 
@@ -210,6 +218,8 @@ Examples:
 Shows all opportunities that have been archived. Use this command to see the indices of archived entries before running `unarchive`.
 
 Format: `list archive`
+
+* The **Archive** tab in the view indicator will be highlighted when this command is run.
 
 ![list archive](images/ListArchive.png)
 

@@ -34,6 +34,11 @@ public interface Logic {
     ObservableList<Opportunity> getFilteredOpportunityList();
 
     /**
+     * Returns true if the current view is the archived list.
+     */
+    boolean isArchiveView();
+
+    /**
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();

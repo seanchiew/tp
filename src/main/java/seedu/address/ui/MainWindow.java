@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -34,6 +35,12 @@ public class MainWindow extends UiPart<Stage> {
     private OpportunityListPanel opportunityListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private Label mainTabLabel;
+
+    @FXML
+    private Label archiveTabLabel;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -121,6 +128,17 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        updateViewTabs();
+    }
+
+    /**
+     * Updates the Main/Archive tab highlights to reflect the current view state.
+     */
+    private void updateViewTabs() {
+        boolean isArchive = logic.isArchiveView();
+        mainTabLabel.getStyleClass().setAll(isArchive ? "view-tab" : "view-tab-active");
+        archiveTabLabel.getStyleClass().setAll(isArchive ? "view-tab-active-archive" : "view-tab");
     }
 
     /**
@@ -177,6 +195,8 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+
+            updateViewTabs();
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

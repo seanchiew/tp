@@ -1,6 +1,8 @@
 package seedu.address.logic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -18,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ListArchiveCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -102,6 +105,32 @@ public class LogicManagerTest {
     @Test
     public void getFilteredOpportunityList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> logic.getFilteredOpportunityList().remove(0));
+    }
+
+    @Test
+    public void isArchiveView_defaultState_returnsFalse() {
+        assertFalse(logic.isArchiveView());
+    }
+
+    @Test
+    public void isArchiveView_afterListArchiveCommand_returnsTrue() throws Exception {
+        logic.execute(ListArchiveCommand.COMMAND_WORD);
+        assertTrue(logic.isArchiveView());
+    }
+
+    @Test
+    public void isArchiveView_afterListCommand_returnsFalse() throws Exception {
+        logic.execute(ListArchiveCommand.COMMAND_WORD);
+        logic.execute(ListCommand.COMMAND_WORD);
+        assertFalse(logic.isArchiveView());
+    }
+
+    @Test
+    public void isArchiveView_afterFindArchiveCommand_returnsTrue() throws Exception {
+        Opportunity archivedAmy = new OpportunityBuilder(AMY).withArchived(true).build();
+        model.addOpportunity(archivedAmy);
+        logic.execute("find -a Amy");
+        assertTrue(logic.isArchiveView());
     }
 
     /**

@@ -64,6 +64,11 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public boolean isArchiveView() {
+        return model.isArchiveView();
+    }
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return model.getAddressBook();
     }
