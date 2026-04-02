@@ -167,7 +167,7 @@ The undo mechanism is facilitated by `VersionedAddressBook`. It extends `Address
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()` and `Model#undoAddressBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial tracker state, and the `currentStatePointer` pointing to that single tracker state.
 
