@@ -68,7 +68,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 
 ### View indicator
 
-InternTrack displays a **Main** and **Archive** tab just above the opportunity list. The highlighted tab shows which list you are currently viewing. It updates automatically when you run `list`, `list archive`, `find`, or `find -a` — plain `find` highlights **Main**, while `find -a` highlights **Archive**. The tabs are display-only and cannot be clicked.
+InternTrack displays a **Main** and **Archive** tab just above the opportunity list. The highlighted tab shows which list you are currently viewing. It updates automatically when you run `list`, `list archive`, `find`, or `find a/` — plain `find` highlights **Main**, while `find a/` highlights **Archive**. The tabs are display-only and cannot be clicked.
 
 ![ViewIndicator](images/ViewIndicator.png)
 
@@ -129,9 +129,9 @@ Examples:
 ### Locating opportunity contacts: `find`
 
 Finds opportunity contacts whose names contain all of the given keywords, optionally filtered by company.
-By default, `find` searches unarchived opportunities. Add `-a` immediately after `find` to search archived opportunities instead.
+By default, `find` searches unarchived opportunities. Add `a/` to search archived opportunities instead.
 
-Format: `find [-a] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
+Format: `find [a/] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
 
 * The search is case-insensitive. e.g. `jan` will match `Jane`
 * Partial words are matched for both name and company. e.g. `find jan c/Tik` matches `Jane @ TikTok`
@@ -139,14 +139,16 @@ Format: `find [-a] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MO
 * If a company filter is provided, only contacts whose company matches all given company keywords are returned.
 * If both name keywords and a company filter are provided, both conditions must match.
 * You can search by company only by leaving the name blank. e.g. `find c/Visa`
-* Use `-a` immediately after `find` to search archived opportunities instead of the active list. e.g. `find -a jan`
-* `find`, `find c/`, `find -a`, and `find -a c/` are invalid because at least one search term must be provided.
+* Use `a/` to search archived opportunities instead of the active list.
+* `a/` can be followed by a space or attached directly to the first name keyword. e.g. `find a/ jan` and `find a/jan` are both valid.
+* `find`, `find c/`, `find a/`, and `find a/ c/` are invalid because at least one search term must be provided.
 
 Examples:
 * `find Jane` returns contacts whose names contain `Jane`
-* `find -a jan` returns archived contacts whose names contain `jan`
+* `find a/jan` returns archived contacts whose names contain `jan`
 * `find jan c/Tik` returns contacts whose names contain `jan` and whose company contains `Tik`
-* `find -a c/Visa` returns archived contacts whose company contains `Visa`
+* `find c/Visa a/jan` returns archived contacts whose names contain `jan` and whose company contains `Visa`
+* `find a/ c/Visa` returns archived contacts whose company contains `Visa`
 * `find c/Visa` returns all contacts whose company contains `Visa`
 * `find jane lim` returns contacts whose names contain both `jane` and `lim`
 ![result for 'find Jane'](images/FindContact.png)
@@ -201,7 +203,7 @@ Format: `unarchive INDEX [MORE_INDICES]...`
 
 * Unarchives the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed archived opportunity contact list.
-* This works for both `list archive` results and archived search results from `find -a ...`.
+* This works for both `list archive` results and archived search results from `find a/ ...`.
 * The index **must be a positive integer** 1, 2, 3, …​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
@@ -314,7 +316,7 @@ Action     | Format, Examples
 **Add**    | `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]​` <br> e.g., `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/98765432`
 **Edit**   | `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [cy/CYCLE] [p/PHONE]​`<br> e.g.,`edit 1 p/91234567 e/johndoe@example.com`
 **List**   | `list`
-**Find**   | `find [-a] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find -a Jane c/Stripe`
+**Find**   | `find [a/] [NAME_KEYWORD [MORE_NAME_KEYWORDS]...] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find a/ Jane c/Stripe`
 **Delete** | `delete INDEX [MORE_INDICES]...`<br> e.g., `delete 1 2 3`
 **Archive** | `archive INDEX [MORE_INDICES]...` or `archive cycle CYCLE`<br> e.g., `archive 1 2 3` or `archive cycle SUMMER 2026`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`

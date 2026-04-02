@@ -167,7 +167,7 @@ The undo mechanism is facilitated by `VersionedAddressBook`. It extends `Address
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()` and `Model#undoAddressBook()` respectively.
 
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+Given below is an example usage scenario and how the undo mechanism behaves at each step.
 
 Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial tracker state, and the `currentStatePointer` pointing to that single tracker state.
 
@@ -619,10 +619,10 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all opportunities using the `list` command. Multiple opportunities in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First opportunity is deleted from the list. Details of the deleted opportunity shown in the status message. Timestamp in the status bar is updated.
+      Expected: First opportunity is deleted from the list. Details of the deleted opportunity shown in the status message.
 
    1. Test case: `delete 0`<br>
-      Expected: No opportunity is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No opportunity is deleted. Error details shown in the status message.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.

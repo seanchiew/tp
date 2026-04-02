@@ -96,7 +96,7 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_findArchived() throws Exception {
-        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " -a alex c/meta");
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " c/meta a/alex");
         assertEquals(new FindCommand(new OpportunityContainsSubstringPredicate(List.of("alex"), List.of("meta")),
                 true), command);
     }
