@@ -86,7 +86,7 @@ public class LogicManagerTest {
         expectedModel.setArchiveView(true);
         expectedModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
 
-        assertCommandSuccess("find -a Amy",
+        assertCommandSuccess("find a/ Amy",
             String.format(MESSAGE_OPPORTUNITIES_LISTED_OVERVIEW, 1, "opportunity"), expectedModel);
     }
 
@@ -129,7 +129,7 @@ public class LogicManagerTest {
     public void isArchiveView_afterFindArchiveCommand_returnsTrue() throws Exception {
         Opportunity archivedAmy = new OpportunityBuilder(AMY).withArchived(true).build();
         model.addOpportunity(archivedAmy);
-        logic.execute("find -a Amy");
+        logic.execute("find a/ Amy");
         assertTrue(logic.isArchiveView());
     }
 

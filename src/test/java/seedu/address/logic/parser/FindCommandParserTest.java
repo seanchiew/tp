@@ -24,8 +24,8 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " c/ ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " Alice c/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " -a ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " -a c/ ",
+        assertParseFailure(parser, " a/ ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " a/ c/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
@@ -65,15 +65,15 @@ public class FindCommandParserTest {
         FindCommand expectedArchivedNameAndCompanyCommand =
                 new FindCommand(new OpportunityContainsSubstringPredicate(List.of("Alice"), List.of("Tik")), true);
 
-        assertParseSuccess(parser, "-a Jan", expectedArchivedNameCommand);
-        assertParseSuccess(parser, " -a c/Visa ", expectedArchivedCompanyCommand);
-        assertParseSuccess(parser, " \n -a \t Alice \t c/Tik  ", expectedArchivedNameAndCompanyCommand);
+        assertParseSuccess(parser, "a/ Jan", expectedArchivedNameCommand);
+        assertParseSuccess(parser, " a/ c/Visa ", expectedArchivedCompanyCommand);
+        assertParseSuccess(parser, " \n a/ \t Alice \t c/Tik  ", expectedArchivedNameAndCompanyCommand);
     }
 
     @Test
     public void parse_duplicateCompanyPrefix_throwsParseException() {
         assertParseFailure(parser, "Alice c/Stripe c/Google", getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
-        assertParseFailure(parser, "-a Alice c/Stripe c/Google",
+        assertParseFailure(parser, "a/ Alice c/Stripe c/Google",
                 getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
     }
 }
