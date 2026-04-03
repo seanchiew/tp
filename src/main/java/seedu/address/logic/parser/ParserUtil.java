@@ -140,7 +140,7 @@ public class ParserUtil {
                                      .replaceAll("SEM(?:ESTER)?\\s*2", "S2");
 
         if (!Cycle.isValidCycle(normalizedStr)) {
-            throw new ParseException(Cycle.MESSAGE_CONSTRAINTS);
+            throw new ParseException(Cycle.PARSER_MESSAGE_CONSTRAINTS);
         }
 
         return new Cycle(normalizedStr);

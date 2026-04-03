@@ -89,7 +89,7 @@ Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [
 
 * `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, may optionally start with `+`, and may use spaces, hyphens, or parentheses as separators (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Separators are stripped before saving.
 * `STATUS` must be one of: `SAVED`, `APPLIED`, `OA`, `INTERVIEW`, `OFFER`, `REJECTED`, `WITHDRAWN`.
-* `cy/CYCLE` is mandatory and must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025).
+* `cy/CYCLE` is mandatory and must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025). CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
 * Archived records still count toward duplicate detection. If you try to add a record with the same Email, Company, Role, and Cycle as an archived entry, the add will be rejected. Use `unarchive` to restore the existing entry instead.
 
 Examples:
@@ -183,7 +183,7 @@ Format:
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
 * `archive cycle CYCLE` archives all active opportunity contacts with the specified cycle, regardless of the current view.
-* A cycle must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025).
+* A cycle must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025). CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
 
 Examples:
 * `list` followed by `archive 2` archives the 2nd opportunity contact in the tracker.

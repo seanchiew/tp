@@ -287,7 +287,7 @@ public class EditCommandParserTest {
         // invalid cycle
         assertInvalidValue(
                 String.valueOf(INDEX_FIRST_OPPORTUNITY.getOneBased()) + INVALID_CYCLE_DESC,
-                Cycle.MESSAGE_CONSTRAINTS);
+                Cycle.PARSER_MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertInvalidValue(
@@ -315,7 +315,7 @@ public class EditCommandParserTest {
                         Company.MESSAGE_CONSTRAINTS,
                         Role.MESSAGE_CONSTRAINTS,
                         Status.MESSAGE_CONSTRAINTS,
-                        Cycle.MESSAGE_CONSTRAINTS,
+                        Cycle.PARSER_MESSAGE_CONSTRAINTS,
                         Phone.MESSAGE_CONSTRAINTS));
     }
 

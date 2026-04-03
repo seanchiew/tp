@@ -258,7 +258,7 @@ public class AddCommandParserTest {
                 NAME_DESC_BOB + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
                         + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
                         + INVALID_CYCLE_DESC,
-                Cycle.MESSAGE_CONSTRAINTS);
+                Cycle.PARSER_MESSAGE_CONSTRAINTS);
 
         // invalid phone
         assertInvalidValue(
@@ -282,7 +282,7 @@ public class AddCommandParserTest {
                         Company.MESSAGE_CONSTRAINTS,
                         Role.MESSAGE_CONSTRAINTS,
                         Status.MESSAGE_CONSTRAINTS,
-                        Cycle.MESSAGE_CONSTRAINTS,
+                        Cycle.PARSER_MESSAGE_CONSTRAINTS,
                         Phone.MESSAGE_CONSTRAINTS));
     }
 

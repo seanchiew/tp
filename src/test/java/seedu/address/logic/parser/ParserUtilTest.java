@@ -115,6 +115,7 @@ public class ParserUtilTest {
         Cycle expectedCycle = new Cycle("S2 2025");
         assertEquals(expectedCycle, ParserUtil.parseCycle("sem 2 2025"));
         assertEquals(expectedCycle, ParserUtil.parseCycle("semester 2 2025"));
+        assertEquals(expectedCycle, ParserUtil.parseCycle("SemESTer2 2025"));
     }
 
     @Test

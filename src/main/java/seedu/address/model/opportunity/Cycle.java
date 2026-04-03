@@ -13,6 +13,11 @@ public class Cycle {
         "A cycle must be one of (SUMMER, WINTER, S1, S2) followed by a space\n"
         + "and a 4-digit year (e.g. SUMMER 2025).";
 
+    public static final String PARSER_MESSAGE_CONSTRAINTS =
+        "A cycle must be one of (SUMMER, WINTER, S1, S2) followed by a space\n"
+        + "and a 4-digit year (e.g. SUMMER 2025). CLI aliases like SEM 1, semester 2,\n"
+        + "and SemESTer1 are also accepted and normalized to S1/S2.";
+
     /*
      * The cycle must strictly match the (SUMMER|WINTER|S1|S2) keyword,
      * followed by a single space, and any 4-digit year.

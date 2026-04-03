@@ -22,7 +22,7 @@ public class ArchiveCycleCommand extends Command {
     public static final String MESSAGE_USAGE = ArchiveCommand.COMMAND_WORD + " " + SUBCOMMAND_WORD
             + ": Archives all active opportunities with the specified cycle.\n"
             + "Parameters: CYCLE\n"
-            + Cycle.MESSAGE_CONSTRAINTS + "\n"
+            + Cycle.PARSER_MESSAGE_CONSTRAINTS + "\n"
             + "Examples: " + ArchiveCommand.COMMAND_WORD + " " + SUBCOMMAND_WORD + " SUMMER 2026\n"
             + "          " + ArchiveCommand.COMMAND_WORD + " " + SUBCOMMAND_WORD + " S2 2026";
 
