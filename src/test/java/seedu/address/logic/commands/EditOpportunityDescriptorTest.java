@@ -58,6 +58,7 @@ public class EditOpportunityDescriptorTest {
                 + ", company=" + editOpportunityDescriptor.getCompany().orElse(null)
                 + ", role=" + editOpportunityDescriptor.getRole().orElse(null)
                 + ", status=" + editOpportunityDescriptor.getStatus().orElse(null)
+                + ", cycle=" + editOpportunityDescriptor.getCycle().orElse(null)
                 + ", phone=" + editOpportunityDescriptor.getPhone().orElse(null)
                 + ", clearPhone=" + editOpportunityDescriptor.isClearPhone()
                 + "}";
