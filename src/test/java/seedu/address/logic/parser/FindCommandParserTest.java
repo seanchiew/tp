@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.getErrorMessageForDuplicatePrefixes;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -24,8 +25,8 @@ public class FindCommandParserTest {
         assertParseFailure(parser, " c/ ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         assertParseFailure(parser, " Alice c/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " -a ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
-        assertParseFailure(parser, " -a c/ ",
+        assertParseFailure(parser, " a/ ", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, " a/ c/ ",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
@@ -64,16 +65,23 @@ public class FindCommandParserTest {
                 new FindCommand(new OpportunityContainsSubstringPredicate(List.of(), List.of("Visa")), true);
         FindCommand expectedArchivedNameAndCompanyCommand =
                 new FindCommand(new OpportunityContainsSubstringPredicate(List.of("Alice"), List.of("Tik")), true);
+        FindCommand expectedArchivedPreambleAndPrefixNameCommand =
+                new FindCommand(new OpportunityContainsSubstringPredicate(List.of("Jane", "Lim")), true);
 
-        assertParseSuccess(parser, "-a Jan", expectedArchivedNameCommand);
-        assertParseSuccess(parser, " -a c/Visa ", expectedArchivedCompanyCommand);
-        assertParseSuccess(parser, " \n -a \t Alice \t c/Tik  ", expectedArchivedNameAndCompanyCommand);
+        assertParseSuccess(parser, "a/Jan", expectedArchivedNameCommand);
+        assertParseSuccess(parser, "a/ Jan", expectedArchivedNameCommand);
+        assertParseSuccess(parser, " a/ c/Visa ", expectedArchivedCompanyCommand);
+        assertParseSuccess(parser, " \n a/ \t Alice \t c/Tik  ", expectedArchivedNameAndCompanyCommand);
+        assertParseSuccess(parser, "Jane a/Lim", expectedArchivedPreambleAndPrefixNameCommand);
+        assertParseSuccess(parser, "c/Visa a/Jan",
+                new FindCommand(new OpportunityContainsSubstringPredicate(List.of("Jan"), List.of("Visa")), true));
     }
 
     @Test
-    public void parse_duplicateCompanyPrefix_throwsParseException() {
+    public void parse_duplicatePrefixes_throwsParseException() {
         assertParseFailure(parser, "Alice c/Stripe c/Google", getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
-        assertParseFailure(parser, "-a Alice c/Stripe c/Google",
+        assertParseFailure(parser, "a/ Alice c/Stripe c/Google",
                 getErrorMessageForDuplicatePrefixes(PREFIX_COMPANY));
+        assertParseFailure(parser, "a/Jane a/Lim", getErrorMessageForDuplicatePrefixes(PREFIX_ARCHIVE));
     }
 }

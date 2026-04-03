@@ -1,8 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ARCHIVE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -22,22 +24,14 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        boolean searchArchived = false;
-        String argsToParse = args;
-        String trimmedArgs = args.trim();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + args, PREFIX_ARCHIVE, PREFIX_COMPANY);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ARCHIVE, PREFIX_COMPANY);
 
-        if (!trimmedArgs.isEmpty()) {
-            String[] splitArgs = trimmedArgs.split("\\s+", 2);
-            if (splitArgs[0].equals(FindCommand.ARCHIVED_FLAG)) {
-                searchArchived = true;
-                argsToParse = splitArgs.length == 1 ? "" : splitArgs[1];
-            }
-        }
+        Optional<String> archivedValue = argMultimap.getValue(PREFIX_ARCHIVE);
+        boolean searchArchived = archivedValue.isPresent();
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + argsToParse, PREFIX_COMPANY);
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_COMPANY);
-
-        List<String> nameKeywords = splitKeywords(argMultimap.getPreamble());
+        List<String> nameKeywords = new ArrayList<>(splitKeywords(argMultimap.getPreamble()));
+        archivedValue.ifPresent(value -> nameKeywords.addAll(splitKeywords(value)));
         Optional<String> companyValue = argMultimap.getValue(PREFIX_COMPANY);
         List<String> companyKeywords = companyValue.map(this::splitKeywords).orElse(List.of());
 

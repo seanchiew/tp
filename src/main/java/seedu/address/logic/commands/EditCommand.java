@@ -319,6 +319,7 @@ public class EditCommand extends Command {
                     .add("company", company)
                     .add("role", role)
                     .add("status", status)
+                    .add("cycle", cycle)
                     .add("phone", phone)
                     .add("clearPhone", clearPhone)
                     .toString();
