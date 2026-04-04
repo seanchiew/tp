@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 
 import seedu.address.model.AddressBook;
@@ -20,9 +21,13 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        model.setArchiveView(false); // Switch back to main list after clearing
+        boolean isArchiveView = model.isArchiveView();
         model.setAddressBook(new AddressBook());
-        model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+        if (isArchiveView) {
+            model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
+        } else {
+            model.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+        }
         model.commitAddressBook();
         return new CommandResult(MESSAGE_SUCCESS);
     }
