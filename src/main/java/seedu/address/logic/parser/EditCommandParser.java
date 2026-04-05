@@ -53,6 +53,23 @@ public class EditCommandParser implements Parser<EditCommand> {
 
         EditOpportunityDescriptor editOpportunityDescriptor = new EditOpportunityDescriptor();
 
+        populateDescriptor(argMultimap, editOpportunityDescriptor, errorMessages);
+
+        ParserUtil.throwCombinedParseException(errorMessages);
+
+        if (!editOpportunityDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditCommand(index, editOpportunityDescriptor);
+    }
+
+    /**
+     * Populates the given {@code EditOpportunityDescriptor} with the parsed values from {@code argMultimap}.
+     * Any parsing errors are caught and added to the {@code errorMessages} list.
+     */
+    private void populateDescriptor(ArgumentMultimap argMultimap, EditOpportunityDescriptor editOpportunityDescriptor,
+                                    List<String> errorMessages) {
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             try {
                 editOpportunityDescriptor.setName(
@@ -129,25 +146,5 @@ public class EditCommandParser implements Parser<EditCommand> {
                 }
             }
         }
-
-        if (!errorMessages.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < errorMessages.size(); i++) {
-                sb.append(i + 1)
-                        .append(". ")
-                        .append(errorMessages.get(i));
-                if (i < errorMessages.size() - 1) {
-                    sb.append("\n\n");
-                }
-            }
-            throw new ParseException(sb.toString());
-        }
-
-        if (!editOpportunityDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditCommand(index, editOpportunityDescriptor);
     }
-
 }

@@ -65,7 +65,7 @@ public class UnarchiveCommand extends Command {
 
         for (Index targetIndex : sortedIndices) {
             Opportunity opportunityToUnarchive = displayedArchivedOpportunities.get(targetIndex.getZeroBased());
-            Opportunity unarchivedOpportunity = createUnarchivedOpportunity(opportunityToUnarchive);
+            Opportunity unarchivedOpportunity = opportunityToUnarchive.unarchive();
 
             model.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);
             unarchivedOpportunities.append(String.format("\n%1$s", Messages.format(unarchivedOpportunity)));
@@ -73,26 +73,6 @@ public class UnarchiveCommand extends Command {
         model.commitAddressBook();
         return new CommandResult(
                 String.format(MESSAGE_UNARCHIVE_OPPORTUNITY_SUCCESS, unarchivedOpportunities.toString()));
-    }
-
-    /**
-     * Creates and returns an unarchived {@code Opportunity} based on {@code opportunityToUnarchive}.
-     * Only {@code isArchived} is changed to {@code false}.
-     */
-    private static Opportunity createUnarchivedOpportunity(Opportunity opportunityToUnarchive) {
-        assert opportunityToUnarchive != null;
-
-        return new Opportunity(
-                opportunityToUnarchive.getName(),
-                opportunityToUnarchive.getEmail(),
-                opportunityToUnarchive.getContactRole(),
-                opportunityToUnarchive.getCompany(),
-                opportunityToUnarchive.getRole(),
-                opportunityToUnarchive.getStatus(),
-                opportunityToUnarchive.getCycle(),
-                false,
-                opportunityToUnarchive.getPhone().orElse(null)
-        );
     }
 
     @Override

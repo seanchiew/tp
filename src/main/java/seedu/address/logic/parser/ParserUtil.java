@@ -2,6 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -159,5 +161,26 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Checks if the provided list of error messages is empty.
+     * If not, combines them into a single numbered list and throws a ParseException.
+     *
+     * @param errorMessages The list of error messages to check and format.
+     * @throws ParseException if the errorMessages list is not empty.
+     */
+    public static void throwCombinedParseException(List<String> errorMessages) throws ParseException {
+        requireNonNull(errorMessages);
+        if (!errorMessages.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < errorMessages.size(); i++) {
+                sb.append(i + 1).append(". ").append(errorMessages.get(i));
+                if (i < errorMessages.size() - 1) {
+                    sb.append("\n\n");
+                }
+            }
+            throw new ParseException(sb.toString());
+        }
     }
 }

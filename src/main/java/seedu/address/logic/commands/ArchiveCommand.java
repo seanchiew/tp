@@ -64,7 +64,7 @@ public class ArchiveCommand extends Command {
 
         StringBuilder archivedOpportunities = new StringBuilder();
         for (Opportunity opportunityToArchive : opportunitiesToArchive) {
-            Opportunity archivedOpportunity = createArchivedOpportunity(opportunityToArchive);
+            Opportunity archivedOpportunity = opportunityToArchive.archive();
             model.setOpportunity(opportunityToArchive, archivedOpportunity);
 
             archivedOpportunities.append(String.format("\n%1$s", Messages.format(archivedOpportunity)));
@@ -74,26 +74,6 @@ public class ArchiveCommand extends Command {
         model.commitAddressBook();
         return new CommandResult(
                 String.format(MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS, archivedOpportunities.toString()));
-    }
-
-    /**
-     * Creates and returns an archived {@code Opportunity} based on {@code opportunityToArchive}.
-     * Only {@code isArchived} is changed to {@code true}.
-     */
-    private static Opportunity createArchivedOpportunity(Opportunity opportunityToArchive) {
-        assert opportunityToArchive != null;
-
-        return new Opportunity(
-                opportunityToArchive.getName(),
-                opportunityToArchive.getEmail(),
-                opportunityToArchive.getContactRole(),
-                opportunityToArchive.getCompany(),
-                opportunityToArchive.getRole(),
-                opportunityToArchive.getStatus(),
-                opportunityToArchive.getCycle(),
-                true,
-                opportunityToArchive.getPhone().orElse(null)
-        );
     }
 
     @Override

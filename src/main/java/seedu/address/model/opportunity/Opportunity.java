@@ -110,6 +110,22 @@ public class Opportunity {
     }
 
     /**
+     * Creates and returns a copy of this opportunity with its archive status
+     * set to true.
+     */
+    public Opportunity archive() {
+        return new Opportunity(name, email, contactRole, company, role, status, cycle, true, phone);
+    }
+
+    /**
+     * Creates and returns a copy of this opportunity with its archive status
+     * set to false.
+     */
+    public Opportunity unarchive() {
+        return new Opportunity(name, email, contactRole, company, role, status, cycle, false, phone);
+    }
+
+    /**
      * Returns true if both opportunities have the same identity and data
      * fields. This defines a stronger notion of equality between two
      * opportunities.

@@ -128,18 +128,7 @@ public class AddCommandParser implements Parser<AddCommand> {
             }
         }
 
-        if (!errorMessages.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < errorMessages.size(); i++) {
-                sb.append(i + 1)
-                        .append(". ")
-                        .append(errorMessages.get(i));
-                if (i < errorMessages.size() - 1) {
-                    sb.append("\n\n");
-                }
-            }
-            throw new ParseException(sb.toString());
-        }
+        ParserUtil.throwCombinedParseException(errorMessages);
 
         // Newly added opportunities are not archived by default
         Opportunity opportunity = new Opportunity(name, email, contactRole, company, role, status, cycle, false, phone);

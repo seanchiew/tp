@@ -60,8 +60,8 @@ public class ArchiveCycleCommandTest {
 
         ArchiveCycleCommand archiveCycleCommand = new ArchiveCycleCommand(SUMMER_2026);
 
-        Opportunity archivedSummerFirst = createArchivedOpportunity(summerFirst);
-        Opportunity archivedSummerSecond = createArchivedOpportunity(summerSecond);
+        Opportunity archivedSummerFirst = summerFirst.archive();
+        Opportunity archivedSummerSecond = summerSecond.archive();
         String expectedMessage = String.format(ArchiveCycleCommand.MESSAGE_ARCHIVE_CYCLE_SUCCESS,
                 2, "opportunities", SUMMER_2026,
                 "\n" + Messages.format(archivedSummerFirst)
@@ -102,7 +102,7 @@ public class ArchiveCycleCommandTest {
         model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
 
         ArchiveCycleCommand archiveCycleCommand = new ArchiveCycleCommand(SUMMER_2026);
-        Opportunity archivedSummerFirst = createArchivedOpportunity(summerFirst);
+        Opportunity archivedSummerFirst = summerFirst.archive();
         String expectedMessage = String.format(ArchiveCycleCommand.MESSAGE_ARCHIVE_CYCLE_SUCCESS,
                 1, "opportunity", SUMMER_2026, "\n" + Messages.format(archivedSummerFirst));
 
@@ -165,9 +165,4 @@ public class ArchiveCycleCommandTest {
         return new ModelManager(addressBook, new UserPrefs());
     }
 
-    private Opportunity createArchivedOpportunity(Opportunity opportunityToArchive) {
-        return new OpportunityBuilder(opportunityToArchive)
-                .withArchived(true)
-                .build();
-    }
 }

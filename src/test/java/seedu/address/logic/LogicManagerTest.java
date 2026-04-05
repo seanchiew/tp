@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.ListArchiveCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -70,7 +69,7 @@ public class LogicManagerTest {
     @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = ListCommand.COMMAND_WORD;
-        assertCommandSuccess(listCommand, ListCommand.MESSAGE_EMPTY, model);
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_EMPTY_ACTIVE, model);
     }
 
     @Test
@@ -113,14 +112,19 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void isArchiveView_afterListArchiveCommand_returnsTrue() throws Exception {
-        logic.execute(ListArchiveCommand.COMMAND_WORD);
+    public void isArchiveView_afterListArchive_returnsTrue() throws Exception {
+        // Simulate user typing "list archive"
+        logic.execute(ListCommand.COMMAND_WORD + " archive");
         assertTrue(logic.isArchiveView());
     }
 
     @Test
     public void isArchiveView_afterListCommand_returnsFalse() throws Exception {
-        logic.execute(ListArchiveCommand.COMMAND_WORD);
+        // First switch to archive view
+        logic.execute(ListCommand.COMMAND_WORD + " archive");
+        assertTrue(logic.isArchiveView()); // Sanity check
+
+        // Then simulate user typing "list" to switch back to active view
         logic.execute(ListCommand.COMMAND_WORD);
         assertFalse(logic.isArchiveView());
     }

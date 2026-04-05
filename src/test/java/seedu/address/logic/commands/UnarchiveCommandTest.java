@@ -36,7 +36,7 @@ public class UnarchiveCommandTest {
 
         Opportunity opportunityToUnarchive = getDisplayedArchivedOpportunities(model)
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        Opportunity unarchivedOpportunity = createUnarchivedOpportunity(opportunityToUnarchive);
+        Opportunity unarchivedOpportunity = opportunityToUnarchive.unarchive();
 
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
@@ -69,8 +69,8 @@ public class UnarchiveCommandTest {
         Opportunity secondOpportunityToUnarchive = getDisplayedArchivedOpportunities(model)
                 .get(INDEX_SECOND_OPPORTUNITY.getZeroBased());
 
-        Opportunity unarchivedFirstOpportunity = createUnarchivedOpportunity(firstOpportunityToUnarchive);
-        Opportunity unarchivedSecondOpportunity = createUnarchivedOpportunity(secondOpportunityToUnarchive);
+        Opportunity unarchivedFirstOpportunity = firstOpportunityToUnarchive.unarchive();
+        Opportunity unarchivedSecondOpportunity = secondOpportunityToUnarchive.unarchive();
 
         // Pass indices in ascending order to test the descending sort in execute()
         UnarchiveCommand unarchiveCommand =
@@ -106,7 +106,7 @@ public class UnarchiveCommandTest {
         Model model = createModelWithArchivedSearchResults();
         Opportunity opportunityToUnarchive = model.getFilteredOpportunityList()
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        Opportunity unarchivedOpportunity = createUnarchivedOpportunity(opportunityToUnarchive);
+        Opportunity unarchivedOpportunity = opportunityToUnarchive.unarchive();
 
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
@@ -153,7 +153,7 @@ public class UnarchiveCommandTest {
         // Has archived entries in storage but user is on unarchived view — guard should still trigger
         Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         Opportunity original = model.getAddressBook().getOpportunityList().get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        model.setOpportunity(original, createArchivedOpportunity(original));
+        model.setOpportunity(original, original.archive());
         // Stays on unarchived view (default filter)
 
         UnarchiveCommand unarchiveCommand = new UnarchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
@@ -199,7 +199,7 @@ public class UnarchiveCommandTest {
 
         for (Index index : indicesToArchive) {
             Opportunity originalOpportunity = model.getAddressBook().getOpportunityList().get(index.getZeroBased());
-            Opportunity archivedOpportunity = createArchivedOpportunity(originalOpportunity);
+            Opportunity archivedOpportunity = originalOpportunity.archive();
             model.setOpportunity(originalOpportunity, archivedOpportunity);
         }
 
@@ -251,45 +251,5 @@ public class UnarchiveCommandTest {
                 new OpportunityContainsSubstringPredicate(List.of("Ben"), List.of("Tik"));
         model.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES.and(predicate));
         return model;
-    }
-
-    /**
-     * Creates an archived copy of the given opportunity.
-     *
-     * @param opportunityToArchive the opportunity to archive
-     * @return an archived copy of the given opportunity
-     */
-    private Opportunity createArchivedOpportunity(Opportunity opportunity) {
-        return new Opportunity(
-                opportunity.getName(),
-                opportunity.getEmail(),
-                opportunity.getContactRole(),
-                opportunity.getCompany(),
-                opportunity.getRole(),
-                opportunity.getStatus(),
-                opportunity.getCycle(),
-                true,
-                opportunity.getPhone().orElse(null)
-        );
-    }
-
-    /**
-     * Creates an unarchived copy of the given opportunity.
-     *
-     * @param opportunity the opportunity to unarchive
-     * @return an unarchived copy of the given opportunity
-     */
-    private Opportunity createUnarchivedOpportunity(Opportunity opportunity) {
-        return new Opportunity(
-                opportunity.getName(),
-                opportunity.getEmail(),
-                opportunity.getContactRole(),
-                opportunity.getCompany(),
-                opportunity.getRole(),
-                opportunity.getStatus(),
-                opportunity.getCycle(),
-                false,
-                opportunity.getPhone().orElse(null)
-        );
     }
 }

@@ -23,7 +23,6 @@ import seedu.address.logic.commands.EditCommand.EditOpportunityDescriptor;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListArchiveCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.UnarchiveCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -109,12 +108,13 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_list() throws Exception {
-        // Routes to standard ListCommand
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
-        assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + "  ") instanceof ListCommand);
+        // Routes to standard ListCommand (active view)
+        assertEquals(new ListCommand(false), parser.parseCommand(ListCommand.COMMAND_WORD));
+        assertEquals(new ListCommand(false), parser.parseCommand(ListCommand.COMMAND_WORD + "  "));
 
-        // Routes to ListArchiveCommand
-        assertTrue(parser.parseCommand(ListArchiveCommand.COMMAND_WORD) instanceof ListArchiveCommand);
+        // Routes to ListCommand (archive view)
+        assertEquals(new ListCommand(true), parser.parseCommand(
+                        ListCommand.COMMAND_WORD + " " + ListCommand.ARCHIVE_KEYWORD));
     }
 
     @Test

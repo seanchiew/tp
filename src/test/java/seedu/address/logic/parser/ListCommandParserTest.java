@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.ListArchiveCommand;
 import seedu.address.logic.commands.ListCommand;
 
 public class ListCommandParserTest {
@@ -20,10 +19,14 @@ public class ListCommandParserTest {
     }
 
     @Test
-    public void parse_archiveArg_returnsListArchiveCommand() {
+    public void parse_archiveArg_returnsListCommandWithArchiveView() {
         // EP (Valid Partition 2): The exact string "archive" (with or without surrounding spaces)
-        assertParseSuccess(parser, "archive", new ListArchiveCommand());
-        assertParseSuccess(parser, " archive  ", new ListArchiveCommand());
+        assertParseSuccess(parser, "archive", new ListCommand(true));
+        assertParseSuccess(parser, " archive  ", new ListCommand(true));
+
+        // Tests case-insensitivity
+        assertParseSuccess(parser, " ARCHIVE ", new ListCommand(true));
+        assertParseSuccess(parser, " ArCHivE ", new ListCommand(true));
     }
 
     @Test

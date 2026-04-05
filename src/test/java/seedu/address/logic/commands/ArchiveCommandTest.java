@@ -35,7 +35,7 @@ public class ArchiveCommandTest {
     public void execute_validIndexUnfilteredList_success() {
         Opportunity opportunityToArchive = model.getFilteredOpportunityList()
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        Opportunity archivedOpportunity = createArchivedOpportunity(opportunityToArchive);
+        Opportunity archivedOpportunity = opportunityToArchive.archive();
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
@@ -63,7 +63,7 @@ public class ArchiveCommandTest {
 
         Opportunity opportunityToArchive = model.getFilteredOpportunityList()
                 .get(INDEX_FIRST_OPPORTUNITY.getZeroBased());
-        Opportunity archivedOpportunity = createArchivedOpportunity(opportunityToArchive);
+        Opportunity archivedOpportunity = opportunityToArchive.archive();
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY));
 
         String expectedMessage = String.format(ArchiveCommand.MESSAGE_ARCHIVE_OPPORTUNITY_SUCCESS,
@@ -97,8 +97,8 @@ public class ArchiveCommandTest {
         Opportunity secondOpportunityToArchive = model.getFilteredOpportunityList()
                 .get(INDEX_SECOND_OPPORTUNITY.getZeroBased());
 
-        Opportunity archivedFirstOpportunity = createArchivedOpportunity(firstOpportunityToArchive);
-        Opportunity archivedSecondOpportunity = createArchivedOpportunity(secondOpportunityToArchive);
+        Opportunity archivedFirstOpportunity = firstOpportunityToArchive.archive();
+        Opportunity archivedSecondOpportunity = secondOpportunityToArchive.archive();
 
         ArchiveCommand archiveCommand = new ArchiveCommand(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY));
 
@@ -162,23 +162,4 @@ public class ArchiveCommandTest {
         assertEquals(expected, archiveCommand.toString());
     }
 
-    /**
-     * Creates an archived copy of the given opportunity.
-     *
-     * @param opportunityToArchive the opportunity to archive
-     * @return an archived copy of the given opportunity
-     */
-    private Opportunity createArchivedOpportunity(Opportunity opportunityToArchive) {
-        return new Opportunity(
-                opportunityToArchive.getName(),
-                opportunityToArchive.getEmail(),
-                opportunityToArchive.getContactRole(),
-                opportunityToArchive.getCompany(),
-                opportunityToArchive.getRole(),
-                opportunityToArchive.getStatus(),
-                opportunityToArchive.getCycle(),
-                true,
-                opportunityToArchive.getPhone().orElse(null)
-        );
-    }
 }

@@ -134,7 +134,7 @@ public class TypicalOpportunities {
             .withCycle(VALID_CYCLE_BOB)
             .build();
 
-    public static final String KEYWORD_MATCHING_MEIER = "Stripe"; // A keyword that matches the company of ALICE
+    public static final String KEYWORD_MATCHING_STRIPE = "Stripe"; // A keyword that matches the company of ALICE
 
     private TypicalOpportunities() {} // prevents instantiation
 
