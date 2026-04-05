@@ -5,6 +5,7 @@ skinparam ArrowFontStyle plain
 box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":UndoCommandParser" as UndoCommandParser LOGIC_COLOR
 participant "u:UndoCommand" as UndoCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
@@ -19,12 +20,28 @@ activate LogicManager
 LogicManager -> AddressBookParser : parseCommand("undo")
 activate AddressBookParser
 
+create UndoCommandParser
+AddressBookParser -> UndoCommandParser
+activate UndoCommandParser
+
+UndoCommandParser --> AddressBookParser
+deactivate UndoCommandParser
+
+AddressBookParser -> UndoCommandParser : parse("")
+activate UndoCommandParser
+
 create UndoCommand
-AddressBookParser -> UndoCommand
+UndoCommandParser -> UndoCommand
 activate UndoCommand
 
-UndoCommand --> AddressBookParser
+UndoCommand --> UndoCommandParser :
 deactivate UndoCommand
+
+UndoCommandParser --> AddressBookParser : u
+deactivate UndoCommandParser
+'Hidden arrow to position the destroy marker below the end of the activation bar.
+UndoCommandParser -[hidden]-> AddressBookParser
+destroy UndoCommandParser
 
 AddressBookParser --> LogicManager : u
 deactivate AddressBookParser

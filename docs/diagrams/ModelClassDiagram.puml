@@ -29,17 +29,27 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 AddressBook .up.|> ReadOnlyAddressBook
-VersionedAddressBook -up-|> AddressBook
-
 ModelManager .up.|> Model
-Model .right.> ReadOnlyUserPrefs
-Model .left.> ReadOnlyAddressBook
-ModelManager -left-> "1" VersionedAddressBook
-ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 
-AddressBook *--> "1" UniqueOpportunityList
-UniqueOpportunityList --> "~* all" Opportunity
+Model .left.> ReadOnlyAddressBook
+Model .right.> ReadOnlyUserPrefs
+
+' Force a strict horizontal row: AddressBook <- VersionedAddressBook <- ModelManager -> UserPrefs
+VersionedAddressBook -left-|> AddressBook
+ModelManager -left-> "1" VersionedAddressBook
+ModelManager -right-> "1" UserPrefs
+
+' VersionedAddressBook safely points diagonal-up to ReadOnlyAddressBook without crossing AddressBook
+VersionedAddressBook *-up-> "1..*" ReadOnlyAddressBook
+
+' Drop data structures straight down from their respective owners
+AddressBook *-down-> "1" UniqueOpportunityList
+ModelManager -down-> "~* filtered" Opportunity
+
+' Shoot across the bottom row safely
+UniqueOpportunityList -right-> "~* all" Opportunity
+
 Opportunity *--> "1" Name
 Opportunity *--> "1" Email
 Opportunity *--> "1" ContactRole
@@ -48,8 +58,8 @@ Opportunity *--> "1" Role
 Opportunity *--> "1" Status
 Opportunity *--> "1" Cycle
 Opportunity *--> "0..1" Phone
-VersionedAddressBook *--> "1..*" ReadOnlyAddressBook
 
+' Keep properties horizontally aligned at the bottom
 Name -[hidden]right-> Email
 Email -[hidden]right-> ContactRole
 ContactRole -[hidden]right-> Company
@@ -58,5 +68,4 @@ Role -[hidden]right-> Status
 Status -[hidden]right-> Cycle
 Cycle -[hidden]right-> Phone
 
-ModelManager --> "~* filtered" Opportunity
 @enduml
