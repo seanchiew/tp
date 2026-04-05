@@ -18,6 +18,11 @@ import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
  */
 public class FindCommandParser implements Parser<FindCommand> {
 
+    public static final String MESSAGE_ARCHIVE_FLAG_WITH_VALUE =
+            "The a/ flag cannot have a value.\n"
+            + "Use 'find KEYWORD a/' to search archived opportunities, "
+            + "or 'find KEYWORD' to search active opportunities.";
+
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns a FindCommand object for execution.
@@ -28,10 +33,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ARCHIVE, PREFIX_COMPANY);
 
         Optional<String> archivedValue = argMultimap.getValue(PREFIX_ARCHIVE);
+        if (archivedValue.isPresent() && !archivedValue.get().trim().isEmpty()) {
+            throw new ParseException(MESSAGE_ARCHIVE_FLAG_WITH_VALUE);
+        }
         boolean searchArchived = archivedValue.isPresent();
 
         List<String> nameKeywords = new ArrayList<>(splitKeywords(argMultimap.getPreamble()));
-        archivedValue.ifPresent(value -> nameKeywords.addAll(splitKeywords(value)));
         Optional<String> companyValue = argMultimap.getValue(PREFIX_COMPANY);
         List<String> companyKeywords = companyValue.map(this::splitKeywords).orElse(List.of());
 
