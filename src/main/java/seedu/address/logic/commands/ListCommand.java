@@ -97,6 +97,11 @@ public class ListCommand extends Command {
     }
 
     @Override
+    public int hashCode() {
+        return Boolean.hashCode(isArchiveView);
+    }
+
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("isArchiveView", isArchiveView)

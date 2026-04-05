@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showOpportunityAtIndex;
 import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OPPORTUNITY;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalOpportunities.getTypicalOpportunities;
@@ -86,6 +87,32 @@ public class ListCommandTest {
         assertCommandSuccess(new ListCommand(true), testModel,
                             String.format(ListCommand.MESSAGE_SUCCESS_ARCHIVED, 2,
                                 Messages.getOpportunityWord(2)), expectedTestModel);
+    }
+
+    @Test
+    public void execute_afterFilteredView_showsOnlyArchived() {
+        // Simulate user having run a find command (filtered view), then running list archive
+        AddressBook ab = new AddressBook();
+        Opportunity archived = new OpportunityBuilder().withName("Alice Tan")
+                .withCompany("Stripe").withRole("SWE Intern").withArchived(true).build();
+        Opportunity unarchived = new OpportunityBuilder().withName("Bob Lim")
+                .withEmail("bob@tiktok.com").withCompany("TikTok")
+                .withRole("Backend Intern").withArchived(false).build();
+        ab.addOpportunity(archived);
+        ab.addOpportunity(unarchived);
+
+        Model filteredModel = new ModelManager(ab, new UserPrefs());
+        // Simulate an active find filter showing only unarchived opportunities
+        filteredModel.updateFilteredOpportunityList(PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES);
+
+        Model expectedFilteredModel = new ModelManager(ab, new UserPrefs());
+        expectedFilteredModel.setArchiveView(true);
+        expectedFilteredModel.updateFilteredOpportunityList(PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES);
+
+        // list archive should reset the filter and show only archived opportunities
+        assertCommandSuccess(new ListCommand(true), filteredModel,
+                            String.format(ListCommand.MESSAGE_SUCCESS_ARCHIVED, 1,
+                                Messages.getOpportunityWord(1)), expectedFilteredModel);
     }
 
 }

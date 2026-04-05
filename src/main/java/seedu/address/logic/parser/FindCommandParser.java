@@ -24,9 +24,6 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
-        // Hack: ArgumentTokenizer expects prefixes to be preceded by whitespace.
-        // By prepending a space to args, we trick the tokenizer into capturing the 'a/' flag
-        // safely without throwing errors regarding missing preambles or unrecognized prefixes.
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + args, PREFIX_ARCHIVE, PREFIX_COMPANY);
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_ARCHIVE, PREFIX_COMPANY);
 
