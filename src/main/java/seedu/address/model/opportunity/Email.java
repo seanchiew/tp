@@ -28,7 +28,7 @@ public class Email {
      *     - each label can contain hyphens in between
      */
     public static final String VALIDATION_REGEX =
-        "[\\w]([\\w.+\\-]*[\\w])?@[\\w][\\w\\-]*(\\.[\\w][\\w\\-]*)+";
+        "[a-zA-Z0-9]([\\w.+\\-]*[a-zA-Z0-9])?@[\\w][\\w\\-]*(\\.[\\w][\\w\\-]*)+";
 
     public final String value;
 
