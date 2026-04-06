@@ -95,10 +95,6 @@ public class OpportunityTest {
         // different archived status -> returns false
         editedAlice = new OpportunityBuilder(ALICE).withArchived(!ALICE.isArchived()).build();
         assertFalse(ALICE.equals(editedAlice));
-
-        // different archived status -> returns false
-        editedAlice = new OpportunityBuilder(ALICE).withArchived(!ALICE.isArchived()).build();
-        assertFalse(ALICE.equals(editedAlice));
     }
 
     @Test
