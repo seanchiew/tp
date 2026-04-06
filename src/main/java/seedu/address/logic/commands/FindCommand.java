@@ -1,14 +1,13 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
-import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
-
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
+import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
+import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 import seedu.address.model.opportunity.Opportunity;
 import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 
@@ -23,10 +22,10 @@ public class FindCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds opportunities by name and/or company.\n"
             + "Parameters: [" + ARCHIVED_FLAG + "[NAME_KEYWORD...]] [c/COMPANY_KEYWORD...]\n"
-            + "  - Active search:   find NAME          e.g. find alice\n"
-            + "  - Archived search: find a/NAME        e.g. find a/jan\n"
-            + "  - Company filter:  find c/COMPANY     e.g. find c/stripe\n"
-            + "  - Archived + company only: find a/ c/COMPANY   e.g. find a/ c/stripe\n"
+            + "  - Active search: find NAME (e.g. find alice)\n"
+            + "  - Archived search: find a/NAME (e.g. find a/jan)\n"
+            + "  - Company filter: find c/COMPANY (e.g. find c/stripe)\n"
+            + "  - Archived + company only: find a/ c/COMPANY (e.g. find a/ c/stripe)\n"
             + "Note: name keywords must follow a/, not precede it (e.g. 'find a/jan', not 'find jan a/').";
 
     private final OpportunityContainsSubstringPredicate predicate;
