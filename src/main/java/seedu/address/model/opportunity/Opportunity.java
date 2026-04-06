@@ -160,7 +160,8 @@ public class Opportunity {
     public String toString() {
         return new ToStringBuilder(this).add("name", name).add("email", email).add("contactRole", contactRole)
                                         .add("company", company).add("role", role).add("status", status)
-                                        .add("cycle", cycle).add("phone", phone).toString();
+                                        .add("cycle", cycle).add("isArchived", isArchived).add("phone", phone)
+                                        .toString();
     }
 
 }
