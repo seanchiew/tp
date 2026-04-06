@@ -581,8 +581,6 @@ Preconditions: At least one opportunity contact exists in the archived list.
 * **Company**: The organisation associated with the tracked contact or opportunity.
 * **Role**: The internship position associated with the opportunity.
 * **Status / Stage**: The current progress state of the user’s interaction with a contact or the associated opportunity (e.g. SAVED, APPLIED, OA, INTERVIEW, OFFER, REJECTED, WITHDRAWN).
-* **Deadline**: The date/time by which a submission, follow-up, or action is due for a tracked record.
-* **Outcome**: A terminal result of the tracked interaction or associated opportunity (e.g. OFFER, REJECTED, WITHDRAWN).
 * **Keyword**: A text fragment used to search or filter records.
 * **Duplicate records**: Multiple records sharing the same Email, Company, Role, and Cycle.
 * **Index**: A temporary 1-based position number shown in a displayed list.
