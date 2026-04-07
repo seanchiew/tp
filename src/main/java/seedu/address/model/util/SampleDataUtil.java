@@ -18,7 +18,16 @@ import seedu.address.model.opportunity.Status;
 public class SampleDataUtil {
     public static Opportunity[] getSampleOpportunities() {
         return new Opportunity[] {
-            new Opportunity(
+            stripeSweSample(),
+            tiktokBackendSample(),
+            accentureTechConsultantSample(),
+            nusResearchInternSample(),
+            spGroupAnalystSample()
+        };
+    }
+
+    private static Opportunity stripeSweSample() {
+        return new Opportunity(
                 new Name("Jane Lim"),
                 new Email("jane.lim@stripe.com"),
                 new ContactRole("recruiter"),
@@ -27,8 +36,11 @@ public class SampleDataUtil {
                 new Status("APPLIED"),
                 new Cycle("SUMMER 2026"),
                 false,
-                new Phone("91234567")),
-            new Opportunity(
+                new Phone("91234567"));
+    }
+
+    private static Opportunity tiktokBackendSample() {
+        return new Opportunity(
                 new Name("David Tan"),
                 new Email("david.tan@tiktok.com"),
                 new ContactRole("hiring manager"),
@@ -37,8 +49,11 @@ public class SampleDataUtil {
                 new Status("INTERVIEW"),
                 new Cycle("S1 2026"),
                 false,
-                null),
-            new Opportunity(
+                null);
+    }
+
+    private static Opportunity accentureTechConsultantSample() {
+        return new Opportunity(
                 new Name("Sarah Chen"),
                 new Email("sarah.chen@accenture.com"),
                 new ContactRole("recruiter"),
@@ -47,8 +62,11 @@ public class SampleDataUtil {
                 new Status("OA"),
                 new Cycle("S2 2026"),
                 false,
-                new Phone("87654321")),
-            new Opportunity(
+                new Phone("87654321"));
+    }
+
+    private static Opportunity nusResearchInternSample() {
+        return new Opportunity(
                 new Name("John Lee"),
                 new Email("john.lee@nus.edu.sg"),
                 new ContactRole("referrer"),
@@ -57,8 +75,11 @@ public class SampleDataUtil {
                 new Status("SAVED"),
                 new Cycle("WINTER 2026"),
                 false,
-                null),
-            new Opportunity(
+                null);
+    }
+
+    private static Opportunity spGroupAnalystSample() {
+        return new Opportunity(
                 new Name("Amy Wong"),
                 new Email("amy.wong@spgroup.com.sg"),
                 new ContactRole("interviewer"),
@@ -67,8 +88,7 @@ public class SampleDataUtil {
                 new Status("OFFER"),
                 new Cycle("SUMMER 2027"),
                 false,
-                new Phone("98887777"))
-        };
+                new Phone("98887777"));
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {

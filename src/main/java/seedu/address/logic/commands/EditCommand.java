@@ -90,15 +90,7 @@ public class EditCommand extends Command {
         Opportunity opportunityToEdit = lastShownList.get(index.getZeroBased());
         Opportunity editedOpportunity = createEditedOpportunity(opportunityToEdit, editOpportunityDescriptor);
 
-        if (!opportunityToEdit.isSameOpportunity(editedOpportunity) && model.hasOpportunity(editedOpportunity)) {
-            Optional<Opportunity> conflicting = model.getConflictingOpportunity(editedOpportunity);
-            assert conflicting.isPresent() : "Conflicting opportunity must be present when hasOpportunity is true";
-            if (conflicting.get().isArchived()) {
-                throw new CommandException(MESSAGE_DUPLICATE_IN_ARCHIVE);
-            } else {
-                throw new CommandException(MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
-            }
-        }
+        checkForConflict(model, opportunityToEdit, editedOpportunity);
 
         boolean wasArchived = opportunityToEdit.isArchived();
 
@@ -111,6 +103,20 @@ public class EditCommand extends Command {
         }
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_EDIT_OPPORTUNITY_SUCCESS, Messages.format(editedOpportunity)));
+    }
+
+    private void checkForConflict(Model model, Opportunity opportunityToEdit, Opportunity editedOpportunity)
+            throws CommandException {
+        if (!opportunityToEdit.isSameOpportunity(editedOpportunity) && model.hasOpportunity(editedOpportunity)) {
+            Opportunity conflicting = model.getConflictingOpportunity(editedOpportunity)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Conflicting opportunity must be present when hasOpportunity is true"));
+            if (conflicting.isArchived()) {
+                throw new CommandException(MESSAGE_DUPLICATE_IN_ARCHIVE);
+            } else {
+                throw new CommandException(MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
+            }
+        }
     }
 
     /**

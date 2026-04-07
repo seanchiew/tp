@@ -76,22 +76,41 @@ class JsonAdaptedOpportunity {
      * @throws IllegalValueException if there were any data constraints violated in the adapted opportunity.
      */
     public Opportunity toModelType() throws IllegalValueException {
+        final Name modelName = toModelName();
+        final Email modelEmail = toModelEmail();
+        final ContactRole modelContactRole = toModelContactRole();
+        final Company modelCompany = toModelCompany();
+        final Role modelRole = toModelRole();
+        final Status modelStatus = toModelStatus();
+        final Cycle modelCycle = toModelCycle();
+        final boolean modelIsArchived = (isArchived != null) ? isArchived : false;
+        final Phone modelPhone = toModelPhone();
+
+        return new Opportunity(modelName, modelEmail, modelContactRole,
+                modelCompany, modelRole, modelStatus, modelCycle, modelIsArchived, modelPhone);
+    }
+
+    private Name toModelName() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        return new Name(name);
+    }
 
+    private Email toModelEmail() throws IllegalValueException {
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        return new Email(email);
+    }
 
+    private ContactRole toModelContactRole() throws IllegalValueException {
         if (contactRole == null) {
             throw new IllegalValueException(
                     String.format(MISSING_FIELD_MESSAGE_FORMAT, ContactRole.class.getSimpleName()));
@@ -99,52 +118,57 @@ class JsonAdaptedOpportunity {
         if (!ContactRole.isValidContactRole(contactRole)) {
             throw new IllegalValueException(ContactRole.MESSAGE_CONSTRAINTS);
         }
-        final ContactRole modelContactRole = new ContactRole(contactRole);
+        return new ContactRole(contactRole);
+    }
 
+    private Company toModelCompany() throws IllegalValueException {
         if (company == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Company.class.getSimpleName()));
         }
         if (!Company.isValidCompany(company)) {
             throw new IllegalValueException(Company.MESSAGE_CONSTRAINTS);
         }
-        final Company modelCompany = new Company(company);
+        return new Company(company);
+    }
 
+    private Role toModelRole() throws IllegalValueException {
         if (role == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Role.class.getSimpleName()));
         }
         if (!Role.isValidRole(role)) {
             throw new IllegalValueException(Role.MESSAGE_CONSTRAINTS);
         }
-        final Role modelRole = new Role(role);
+        return new Role(role);
+    }
 
+    private Status toModelStatus() throws IllegalValueException {
         if (status == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Status.class.getSimpleName()));
         }
         if (!Status.isValidStatus(status)) {
             throw new IllegalValueException(Status.MESSAGE_CONSTRAINTS);
         }
-        final Status modelStatus = new Status(status);
+        return new Status(status);
+    }
 
+    private Cycle toModelCycle() throws IllegalValueException {
         if (cycle == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Cycle.class.getSimpleName()));
         }
         if (!Cycle.isValidCycle(cycle)) {
             throw new IllegalValueException(Cycle.MESSAGE_CONSTRAINTS);
         }
-        final Cycle modelCycle = new Cycle(cycle);
+        return new Cycle(cycle);
+    }
 
-        final boolean modelIsArchived = (isArchived != null) ? isArchived : false;
-
-        Phone modelPhone = null;
-        if (phone != null) {
-            if (!Phone.isValidPhone(phone)) {
-                throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-            }
-            modelPhone = new Phone(phone);
+    private Phone toModelPhone() throws IllegalValueException {
+        if (phone == null) {
+            return null;
         }
-
-        return new Opportunity(modelName, modelEmail, modelContactRole,
-                modelCompany, modelRole, modelStatus, modelCycle, modelIsArchived, modelPhone);
+        if (!Phone.isValidPhone(phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+        }
+        return new Phone(phone);
     }
 
 }
