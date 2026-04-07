@@ -263,7 +263,7 @@ public class EditCommandTest {
         expectedModel.commitAddressBook();
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
         assertEquals(newPhone,
-                model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().get().value);
+                model.getFilteredOpportunityList().get(indexBenson.getZeroBased()).getPhone().get().getValue());
     }
 
     @Test

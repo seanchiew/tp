@@ -40,8 +40,8 @@ public class UniqueOpportunityListTest {
     @Test
     public void contains_opportunityWithSameIdentityFieldsInList_returnsTrue() {
         uniqueOpportunityList.add(ALICE);
-        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
-                                        .withRole(ALICE.getRole().roleName).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().getCompanyName())
+                                        .withRole(ALICE.getRole().getRoleName()).build();
         assertTrue(uniqueOpportunityList.contains(editedAlice));
     }
 
@@ -104,8 +104,8 @@ public class UniqueOpportunityListTest {
     @Test
     public void setOpportunity_editedOpportunityHasSameIdentity_success() {
         uniqueOpportunityList.add(ALICE);
-        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
-                                        .withRole(ALICE.getRole().roleName).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().getCompanyName())
+                                        .withRole(ALICE.getRole().getRoleName()).build();
         uniqueOpportunityList.setOpportunity(ALICE, editedAlice);
         UniqueOpportunityList expectedUniqueOpportunityList = new UniqueOpportunityList();
         expectedUniqueOpportunityList.add(editedAlice);

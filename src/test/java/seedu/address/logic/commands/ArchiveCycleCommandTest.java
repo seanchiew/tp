@@ -56,7 +56,7 @@ public class ArchiveCycleCommandTest {
                 .build();
 
         Model model = createModel(summerFirst, summerSecond, winterOnly, archivedSummer);
-        model.updateFilteredOpportunityList(opportunity -> opportunity.getName().fullName.contains("Summer One"));
+        model.updateFilteredOpportunityList(opportunity -> opportunity.getName().getFullName().contains("Summer One"));
 
         ArchiveCycleCommand archiveCycleCommand = new ArchiveCycleCommand(SUMMER_2026);
 

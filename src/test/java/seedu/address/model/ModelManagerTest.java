@@ -117,7 +117,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getCompany().companyName.split("\\s+");
+        String[] keywords = ALICE.getCompany().getCompanyName().split("\\s+");
         modelManager.updateFilteredOpportunityList(new OpportunityContainsSubstringPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
