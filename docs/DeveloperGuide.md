@@ -257,6 +257,38 @@ This approach keeps the implementation simple because it extends the existing re
 
 Note that archived records remain subject to uniqueness enforcement. `isSameOpportunity()` does not compare the `isArchived` flag, so an archived and an active record with the same Email, Company, Role, and Cycle cannot coexist in the tracker. Attempting to add a record whose identity matches an archived entry will be rejected. The user should use `unarchive` to restore the archived entry instead.
 
+### Input validation philosophy
+
+InternTrack follows a balanced approach to input validation that avoids overzealous restrictions while maintaining data integrity and CLI parsing correctness.
+
+#### Allowed punctuation in Name and ContactRole fields
+
+**Rationale for allowing common punctuation:**
+
+The `Name` and `ContactRole` fields accept a wide range of punctuation marks because:
+1. **Real-world usage**: Names like "Mr. John Doe, Jr." and roles like "Sr. HR & Talent Acquisition Manager" are common in professional contexts
+2. **No parsing conflicts**: Characters like periods (`.`), commas (`,`), parentheses (`(` `)`), apostrophes (`'`), hyphens (`-`), and ampersands (`&`) do not interfere with the CLI prefix parsing logic
+3. **Avoiding feature flaws**: Blocking these characters would constitute overzealous input validation, potentially flagged as a usability issue
+
+**Allowed characters:**
+* **Name field**: Alphabetic characters, digits, spaces, and punctuation: `'` `-` `.` `,` `(` `)`
+  * Examples: `Dr. Mary-Anne O'Connor, Ph.D.`, `李明 (Li Ming)`
+* **ContactRole field**: Alphanumeric characters, spaces, and punctuation: `-` `'` `.` `,` `(` `)` `&`
+  * Examples: `Sr. VP, R&D (Mobile & Web)`, `Director's Assistant`
+
+**Rationale for blocking forward slash (`/`):**
+
+The forward slash character is specifically blocked in both fields because:
+1. **CLI prefix delimiter**: InternTrack uses `/` as the prefix delimiter (e.g., `n/`, `cr/`, `c/`)
+2. **Parsing ambiguity**: A value like `SWE/ML` preceded by whitespace could be misinterpreted as two separate command prefixes
+3. **Legitimate technical constraint**: This restriction is based on a real parsing concern, not an arbitrary preference
+4. **Available alternatives**: Users can express the same meaning using hyphens (`SWE-ML`) or parentheses (`SWE (ML)`)
+
+The `ArgumentTokenizer` class requires a space before a prefix to recognize it (see `findPrefixPosition()` method). While this mitigates some risk, blocking `/` entirely provides a clear separation between prefixes and field values, preventing edge cases and maintaining parser simplicity.
+
+**Design decision:** We prefer to be permissive with harmless characters while maintaining strict boundaries on the one character (`/`) that genuinely conflicts with our CLI syntax. This strikes a balance between user flexibility and technical correctness.
+
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**

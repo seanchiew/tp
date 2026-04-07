@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Name {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Names must be 1-60 characters and can only contain alphabetic characters (including accented "
-            + "and Unicode letters), digits, spaces, hyphens, and apostrophes, and must not be blank";
+        "Names must be 1-60 characters and can contain alphabetic characters (including accented "
+            + "and Unicode letters), digits, spaces, and the punctuation marks: ' - . , ( ), and must not be blank";
 
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 60;
@@ -20,7 +20,7 @@ public class Name {
      * The first character of the name must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{IsAlphabetic}][\\p{IsAlphabetic}0-9 '\\-]*";
+    public static final String VALIDATION_REGEX = "[\\p{IsAlphabetic}][\\p{IsAlphabetic}0-9 '\\-.,()]*";
 
     public final String fullName;
 

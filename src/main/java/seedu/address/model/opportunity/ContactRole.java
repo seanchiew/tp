@@ -10,9 +10,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class ContactRole {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Contact roles must be 1-50 characters and can\n"
-            + "only contain alphanumeric characters, spaces, and hyphens, and must not be blank.\n"
-            + "Examples: recruiter, interviewer, referrer, hiring manager";
+        "Contact roles must be 1-50 characters and can contain alphanumeric characters, "
+            + "spaces, and the punctuation marks: - ' . , ( ) &, and must not be blank.\n"
+            + "Examples: recruiter, Sr. Recruiter, HR & Talent Acquisition, hiring manager (tech)";
 
     public static final int MIN_LENGTH = 1;
     public static final int MAX_LENGTH = 50;
@@ -21,7 +21,7 @@ public class ContactRole {
      * The first character must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
+    public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-'.,()&]*";
 
     public final String contactRoleName;
 

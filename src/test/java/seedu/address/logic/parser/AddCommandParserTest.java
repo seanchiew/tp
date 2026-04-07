@@ -337,4 +337,126 @@ public class AddCommandParserTest {
                         Status.MESSAGE_CONSTRAINTS,
                         Phone.MESSAGE_CONSTRAINTS));
     }
+
+    @Test
+    public void parse_nameWithNewPunctuation_success() {
+        // name with period
+        Opportunity expectedOpportunity = new OpportunityBuilder(BOB)
+                .withName("Mr. John Doe")
+                .build();
+        assertParseSuccess(parser,
+                " n/Mr. John Doe" + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+
+        // name with comma and period
+        expectedOpportunity = new OpportunityBuilder(BOB)
+                .withName("John Doe, Jr.")
+                .build();
+        assertParseSuccess(parser,
+                " n/John Doe, Jr." + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+
+        // name with parentheses
+        expectedOpportunity = new OpportunityBuilder(BOB)
+                .withName("Mary (Mei Ling)")
+                .build();
+        assertParseSuccess(parser,
+                " n/Mary (Mei Ling)" + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+
+        // name with all new punctuation combined
+        expectedOpportunity = new OpportunityBuilder(BOB)
+                .withName("Dr. O'Brien-Smith, Jr. (PhD)")
+                .build();
+        assertParseSuccess(parser,
+                " n/Dr. O'Brien-Smith, Jr. (PhD)" + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+    }
+
+    @Test
+    public void parse_contactRoleWithNewPunctuation_success() {
+        // contact role with period
+        Opportunity expectedOpportunity = new OpportunityBuilder(BOB)
+                .withContactRole("Sr. Recruiter")
+                .build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + EMAIL_DESC_BOB + " cr/Sr. Recruiter"
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+
+        // contact role with ampersand
+        expectedOpportunity = new OpportunityBuilder(BOB)
+                .withContactRole("HR & Recruiting")
+                .build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + EMAIL_DESC_BOB + " cr/HR & Recruiting"
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+
+        // contact role with parentheses and comma
+        expectedOpportunity = new OpportunityBuilder(BOB)
+                .withContactRole("VP, Engineering (Tech)")
+                .build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + EMAIL_DESC_BOB + " cr/VP, Engineering (Tech)"
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+
+        // contact role with all new punctuation combined
+        expectedOpportunity = new OpportunityBuilder(BOB)
+                .withContactRole("Sr. Director's Assistant, R&D (AI)")
+                .build();
+        assertParseSuccess(parser,
+                NAME_DESC_BOB + EMAIL_DESC_BOB + " cr/Sr. Director's Assistant, R&D (AI)"
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+    }
+
+    @Test
+    public void parse_nameAndContactRoleWithCombinedPunctuation_success() {
+        // both name and contact role with comprehensive punctuation
+        Opportunity expectedOpportunity = new OpportunityBuilder(BOB)
+                .withName("Dr. Mary-Anne O'Connor, Ph.D.")
+                .withContactRole("Sr. VP, R&D (Mobile & Web)")
+                .build();
+        assertParseSuccess(parser,
+                " n/Dr. Mary-Anne O'Connor, Ph.D." + EMAIL_DESC_BOB
+                        + " cr/Sr. VP, R&D (Mobile & Web)"
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                new AddCommand(expectedOpportunity));
+    }
+
+    @Test
+    public void parse_nameWithForwardSlash_failure() {
+        // name with forward slash should still be rejected
+        assertInvalidValue(
+                " n/John/Doe" + EMAIL_DESC_BOB + CONTACT_ROLE_DESC_BOB
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                Name.MESSAGE_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_contactRoleWithForwardSlash_failure() {
+        // contact role with forward slash should still be rejected
+        assertInvalidValue(
+                NAME_DESC_BOB + EMAIL_DESC_BOB + " cr/Tech/HR"
+                        + COMPANY_DESC_BOB + ROLE_DESC_BOB + STATUS_DESC_BOB
+                        + CYCLE_DESC_BOB,
+                ContactRole.MESSAGE_CONSTRAINTS);
+    }
 }
+

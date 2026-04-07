@@ -87,6 +87,11 @@ Adds an opportunity contact to InternTrack.
 
 Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]​`
 
+* `NAME` can contain alphabetic characters, digits, spaces, and common punctuation marks: `'` (apostrophe), `-` (hyphen), `.` (period), `,` (comma), `(` `)` (parentheses). Maximum length: 60 characters.
+  * Examples: `John Smith`, `Mr. John Doe`, `Mary (Mei Ling)`, `Dr. O'Brien-Smith, Jr.`
+* `CONTACT_ROLE` can contain alphanumeric characters, spaces, and punctuation marks: `-` (hyphen), `'` (apostrophe), `.` (period), `,` (comma), `(` `)` (parentheses), `&` (ampersand). Maximum length: 50 characters.
+  * Examples: `recruiter`, `Sr. Recruiter`, `HR & Talent Acquisition`, `VP, Engineering (Tech)`
+* **Note:** Forward slash (`/`) is not allowed in names or contact roles as it conflicts with the CLI syntax.
 * `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, may optionally start with `+`, and may use spaces, hyphens, or parentheses as separators (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Separators are stripped before saving.
 * `STATUS` must be one of: `SAVED`, `APPLIED`, `OA`, `INTERVIEW`, `OFFER`, `REJECTED`, `WITHDRAWN`. Matching is case-insensitive, so inputs like `saved` or `interview` are also accepted and stored in uppercase.
 * `cy/CYCLE` is mandatory and must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025). CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
@@ -95,6 +100,7 @@ Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [
 Examples:
 * `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/98765432`
 * `add n/Bob Tan e/bob@google.com cr/hiring manager c/Google r/Backend Engineer s/INTERVIEW cy/WINTER 2025`
+* `add n/Dr. Mary O'Connor, Ph.D. e/mary@meta.com cr/Sr. VP, R&D (AI) c/Meta r/Research Scientist s/OFFER cy/S1 2026 p/+1-650-555-0100`
 
 ![add](images/AddContact.png)
 
