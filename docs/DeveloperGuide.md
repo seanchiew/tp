@@ -280,7 +280,7 @@ The `Name` and `ContactRole` fields accept a wide range of punctuation marks bec
 
 **Rationale for allowing punctuation at the start:**
 
-Users may add opportunities before gathering complete contact information. They should be able to use placeholder values like `"..."`, `"(TBD)"`, or `"???"` for unknown names or roles, then update these fields later when the information becomes available. Preventing this would limit legitimate use cases and constitute overzealous validation.
+Users may add opportunities before gathering complete contact information. They should be able to use placeholder values like `"..."` or `"(TBD)"` for unknown names or roles, then update these fields later when the information becomes available. Preventing this would limit legitimate use cases and constitute overzealous validation.
 
 **Validation safety:**
 - Empty strings and whitespace-only strings are still prevented through trim() and length validation
@@ -291,7 +291,7 @@ Users may add opportunities before gathering complete contact information. They 
 
 The forward slash character is specifically blocked in both fields because:
 1. **CLI prefix delimiter**: InternTrack uses `/` as the prefix delimiter (e.g., `n/`, `cr/`, `c/`)
-2. **Known-prefix edge cases**: The parser only recognizes the prefixes pattern and are preceded by whitespace (for example, `e/` or `cr/`). Blocking `/` avoids field values that could accidentally resemble such prefix boundaries
+2. **Known-prefix edge cases**: The parser only recognizes the prefixes pattern when they are preceded by whitespace (for example, `e/` or `cr/`). Blocking `/` avoids field values that could accidentally resemble such prefix boundaries
 3. **Legitimate technical constraint**: This restriction is based on a real parsing concern, not an arbitrary preference
 4. **Available alternatives**: Users can express the same meaning using hyphens (`SWE-ML`) or parentheses (`SWE (ML)`)
 
