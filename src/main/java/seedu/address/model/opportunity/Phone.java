@@ -30,7 +30,7 @@ public class Phone {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         checkArgument(isValidPhone(trimmedPhone), MESSAGE_CONSTRAINTS);
-        this.value = normalize(trimmedPhone);
+        this.value = trimmedPhone;
     }
 
     public String getValue() {
