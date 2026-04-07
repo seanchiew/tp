@@ -322,7 +322,7 @@ Action     | Format, Examples
 **Archive** | `archive INDEX [MORE_INDICES]...` or `archive cycle CYCLE`<br> e.g., `archive 1 2 3` or `archive cycle SUMMER 2026`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`
 **List Archive** | `list archive`
-**Undo** | `undo` |
+**Undo** | `undo`
 **Clear**  | `clear`
 **Help**   | `help`
 **Exit**   | `exit`
