@@ -22,8 +22,8 @@ public class PhoneTest {
     public void isValidPhone_tooFewDigits_returnsFalse() {
         assertFalse(Phone.isValidPhone("12"));
         assertFalse(Phone.isValidPhone("+1"));
-        assertFalse(Phone.isValidPhone("+"));   // plus only, no digits
-        assertFalse(Phone.isValidPhone(""));    // empty
+        assertFalse(Phone.isValidPhone("+")); // plus only, no digits
+        assertFalse(Phone.isValidPhone("")); // empty
     }
 
     @Test
@@ -39,10 +39,10 @@ public class PhoneTest {
 
     @Test
     public void isValidPhone_leadingOrTrailingSeparators_returnsFalse() {
-        assertFalse(Phone.isValidPhone("--(123)"));    // leading hyphens
-        assertFalse(Phone.isValidPhone("(123)"));      // leading paren
-        assertFalse(Phone.isValidPhone("91234567-"));  // trailing hyphen
-        assertFalse(Phone.isValidPhone("()()123"));    // leading parens
+        assertFalse(Phone.isValidPhone("--(123)")); // leading hyphens
+        assertFalse(Phone.isValidPhone("(123)")); // leading paren
+        assertFalse(Phone.isValidPhone("91234567-")); // trailing hyphen
+        assertFalse(Phone.isValidPhone("()()123")); // leading parens
     }
 
     @Test
