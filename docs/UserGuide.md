@@ -135,9 +135,9 @@ Format: `find [a/[NAME_KEYWORD [MORE_NAME_KEYWORDS]...]] [c/COMPANY_KEYWORD [MOR
 
 * The search is case-insensitive. e.g. `jan` will match `Jane`
 * Partial words are matched for both name and company. e.g. `find jan c/Tik` matches `Jane @ TikTok`
-* If name keywords are provided, contacts whose names match any of the given name keywords are returned.
-* If a company filter is provided, contacts whose company matches any of the given company keywords are returned.
-* If both name keywords and a company filter are provided, both conditions must match.
+* Multiple name keywords use **OR** matching — a contact is returned if their name matches any of the keywords. e.g. `find alice bob` returns contacts named "Alice Tan" or "Bob Lim".
+* Multiple company keywords also use **OR** matching. e.g. `find c/Stripe Accenture` returns contacts at Stripe or Accenture.
+* When both name and company filters are provided, **both** conditions must be satisfied (AND between fields). e.g. `find alice bob c/Stripe Accenture` returns contacts whose name contains "alice" or "bob", AND whose company contains "Stripe" or "Accenture".
 * You can search by company only by leaving the name blank. e.g. `find c/Visa`
 * Use `a/KEYWORD` to search archived opportunities by name, or `a/ c/COMPANY` to search by company only.
 * `a/` can be followed by a space or attached directly to the first name keyword. e.g. `find a/ jan` and `find a/jan` are both valid. Name keywords must follow `a/`, not precede it. e.g. `find jan a/` is invalid.

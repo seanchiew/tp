@@ -768,12 +768,26 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `find Jane`<br>
       Expected: Only active opportunity contacts whose names match `Jane` are shown. The `Main` tab in the view indicator is highlighted.
 
+1. Finding active opportunity contacts by multiple name keywords (OR matching)
+
+   1. Prerequisites: Ensure the active list contains at least one contact named `Jane` and at least one named `Bob`.
+
+   1. Test case: `find Jane Bob`<br>
+      Expected: All active opportunity contacts whose names contain `Jane` **or** `Bob` are shown. The `Main` tab in the view indicator is highlighted.
+
 1. Finding active opportunity contacts by company only
 
    1. Prerequisites: Ensure the active list contains at least one contact whose company contains `Stripe`.
 
    1. Test case: `find c/Stripe`<br>
       Expected: Only active opportunity contacts whose company matches `Stripe` are shown. The `Main` tab in the view indicator is highlighted.
+
+1. Finding active opportunity contacts by multiple company keywords (OR matching)
+
+   1. Prerequisites: Ensure the active list contains contacts at `Stripe` and at `Google`.
+
+   1. Test case: `find c/Stripe Google`<br>
+      Expected: All active opportunity contacts whose company contains `Stripe` **or** `Google` are shown. The `Main` tab in the view indicator is highlighted.
 
 1. Finding archived opportunity contacts by company only
 
@@ -787,7 +801,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: Ensure there is at least one archived opportunity contact whose name contains `Jane` and whose company contains `Stripe`.
 
    1. Test case: `find a/ Jane c/Stripe`<br>
-      Expected: Only archived opportunity contacts matching both filters are shown. The `Archive` tab in the view indicator is highlighted.
+      Expected: Only archived opportunity contacts whose name matches `Jane` AND whose company matches `Stripe` are shown (AND between fields). The `Archive` tab in the view indicator is highlighted.
 
 1. Rejecting `find a/` without any search term
 
