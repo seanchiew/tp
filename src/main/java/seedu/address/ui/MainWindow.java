@@ -206,11 +206,11 @@ public class MainWindow extends UiPart<Stage> {
 
             updateViewTabs();
 
-            if (commandResult.isShowHelp()) {
+            if (commandResult.shouldShowHelp()) {
                 handleHelp();
             }
 
-            if (commandResult.isExit()) {
+            if (commandResult.shouldExit()) {
                 handleExit();
             }
 

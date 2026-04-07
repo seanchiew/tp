@@ -60,7 +60,7 @@ public class EditOpportunityDescriptorTest {
                 + ", status=" + editOpportunityDescriptor.getStatus().orElse(null)
                 + ", cycle=" + editOpportunityDescriptor.getCycle().orElse(null)
                 + ", phone=" + editOpportunityDescriptor.getPhone().orElse(null)
-                + ", clearPhone=" + editOpportunityDescriptor.isClearPhone()
+                + ", clearPhone=" + editOpportunityDescriptor.shouldClearPhone()
                 + "}";
         assertEquals(expected, editOpportunityDescriptor.toString());
     }

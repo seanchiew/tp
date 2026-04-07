@@ -137,7 +137,7 @@ public class EditCommandParser implements Parser<EditCommand> {
             String rawPhone = argMultimap.getValue(PREFIX_PHONE).get();
             if (rawPhone.trim().isEmpty()) {
                 // Empty value signals intent to clear the optional phone field
-                editOpportunityDescriptor.setClearPhone(true);
+                editOpportunityDescriptor.setShouldClearPhone(true);
             } else {
                 try {
                     editOpportunityDescriptor.setPhone(ParserUtil.parsePhone(rawPhone));
