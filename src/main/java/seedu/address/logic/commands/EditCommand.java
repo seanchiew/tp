@@ -108,9 +108,10 @@ public class EditCommand extends Command {
     private void checkForConflict(Model model, Opportunity opportunityToEdit, Opportunity editedOpportunity)
             throws CommandException {
         if (!opportunityToEdit.isSameOpportunity(editedOpportunity) && model.hasOpportunity(editedOpportunity)) {
-            Optional<Opportunity> conflicting = model.getConflictingOpportunity(editedOpportunity);
-            assert conflicting.isPresent() : "Conflicting opportunity must be present when hasOpportunity is true";
-            if (conflicting.get().isArchived()) {
+            Opportunity conflicting = model.getConflictingOpportunity(editedOpportunity)
+                    .orElseThrow(() -> new IllegalStateException(
+                            "Conflicting opportunity must be present when hasOpportunity is true"));
+            if (conflicting.isArchived()) {
                 throw new CommandException(MESSAGE_DUPLICATE_IN_ARCHIVE);
             } else {
                 throw new CommandException(MESSAGE_DUPLICATE_IN_ACTIVE_LIST);
