@@ -27,7 +27,7 @@ public class Status {
         "WITHDRAWN"
     );
 
-    public final String statusName;
+    private final String statusName;
 
     /**
      * Constructs a {@code Status}.
@@ -39,6 +39,10 @@ public class Status {
         String upperCasedStatus = status.trim().toUpperCase();
         checkArgument(isValidStatus(upperCasedStatus), MESSAGE_CONSTRAINTS);
         this.statusName = upperCasedStatus;
+    }
+
+    public String getStatusName() {
+        return statusName;
     }
 
     /**

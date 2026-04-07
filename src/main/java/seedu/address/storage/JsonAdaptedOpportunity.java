@@ -59,15 +59,15 @@ class JsonAdaptedOpportunity {
      * Converts a given {@code Opportunity} into this class for Jackson use.
      */
     public JsonAdaptedOpportunity(Opportunity source) {
-        name = source.getName().fullName;
-        email = source.getEmail().value;
-        contactRole = source.getContactRole().contactRoleName;
-        company = source.getCompany().companyName;
-        role = source.getRole().roleName;
-        status = source.getStatus().statusName;
-        cycle = source.getCycle().value;
+        name = source.getName().getFullName();
+        email = source.getEmail().getValue();
+        contactRole = source.getContactRole().getContactRoleName();
+        company = source.getCompany().getCompanyName();
+        role = source.getRole().getRoleName();
+        status = source.getStatus().getStatusName();
+        cycle = source.getCycle().getValue();
         isArchived = source.isArchived();
-        phone = source.getPhone().map(p -> p.value).orElse(null);
+        phone = source.getPhone().map(p -> p.getValue()).orElse(null);
     }
 
     /**

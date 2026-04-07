@@ -30,14 +30,14 @@ public class OpportunityUtil {
      */
     public static String getOpportunityDetails(Opportunity opportunity) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + opportunity.getName().fullName + " ");
-        sb.append(PREFIX_EMAIL + opportunity.getEmail().value + " ");
-        sb.append(PREFIX_CONTACT_ROLE + opportunity.getContactRole().contactRoleName + " ");
-        sb.append(PREFIX_COMPANY + opportunity.getCompany().companyName + " ");
-        sb.append(PREFIX_ROLE + opportunity.getRole().roleName + " ");
-        sb.append(PREFIX_STATUS + opportunity.getStatus().statusName + " ");
-        sb.append(PREFIX_CYCLE + opportunity.getCycle().value + " ");
-        opportunity.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE + phone.value + " "));
+        sb.append(PREFIX_NAME + opportunity.getName().getFullName() + " ");
+        sb.append(PREFIX_EMAIL + opportunity.getEmail().getValue() + " ");
+        sb.append(PREFIX_CONTACT_ROLE + opportunity.getContactRole().getContactRoleName() + " ");
+        sb.append(PREFIX_COMPANY + opportunity.getCompany().getCompanyName() + " ");
+        sb.append(PREFIX_ROLE + opportunity.getRole().getRoleName() + " ");
+        sb.append(PREFIX_STATUS + opportunity.getStatus().getStatusName() + " ");
+        sb.append(PREFIX_CYCLE + opportunity.getCycle().getValue() + " ");
+        opportunity.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE + phone.getValue() + " "));
         return sb.toString();
     }
 
@@ -46,16 +46,16 @@ public class OpportunityUtil {
      */
     public static String getEditOpportunityDescriptorDetails(EditOpportunityDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.fullName).append(" "));
-        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.value).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.getFullName()).append(" "));
+        descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_EMAIL).append(email.getValue()).append(" "));
         descriptor.getContactRole().ifPresent(cr -> sb.append(PREFIX_CONTACT_ROLE)
-                .append(cr.contactRoleName).append(" "));
+                .append(cr.getContactRoleName()).append(" "));
         descriptor.getCompany().ifPresent(company -> sb.append(PREFIX_COMPANY)
-                .append(company.companyName).append(" "));
-        descriptor.getRole().ifPresent(role -> sb.append(PREFIX_ROLE).append(role.roleName).append(" "));
-        descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.statusName).append(" "));
-        descriptor.getCycle().ifPresent(cycle -> sb.append(PREFIX_CYCLE).append(cycle.value).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.value).append(" "));
+                .append(company.getCompanyName()).append(" "));
+        descriptor.getRole().ifPresent(role -> sb.append(PREFIX_ROLE).append(role.getRoleName()).append(" "));
+        descriptor.getStatus().ifPresent(status -> sb.append(PREFIX_STATUS).append(status.getStatusName()).append(" "));
+        descriptor.getCycle().ifPresent(cycle -> sb.append(PREFIX_CYCLE).append(cycle.getValue()).append(" "));
+        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PHONE).append(phone.getValue()).append(" "));
         return sb.toString();
     }
 }

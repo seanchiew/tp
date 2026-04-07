@@ -19,7 +19,7 @@ public class Phone {
 
     public static final String VALIDATION_REGEX = "\\+?\\d{3,15}";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code Phone}.
@@ -31,6 +31,10 @@ public class Phone {
         String trimmedPhone = phone.trim();
         checkArgument(isValidPhone(trimmedPhone), MESSAGE_CONSTRAINTS);
         this.value = normalize(trimmedPhone);
+    }
+
+    public String getValue() {
+        return value;
     }
 
     /**

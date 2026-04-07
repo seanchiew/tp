@@ -23,7 +23,7 @@ public class ContactRole {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} \\-]*";
 
-    public final String contactRoleName;
+    private final String contactRoleName;
 
     /**
      * Constructs a {@code ContactRole}.
@@ -35,6 +35,10 @@ public class ContactRole {
         String trimmedContactRole = contactRole.trim();
         checkArgument(isValidContactRole(trimmedContactRole), MESSAGE_CONSTRAINTS);
         this.contactRoleName = trimmedContactRole;
+    }
+
+    public String getContactRoleName() {
+        return contactRoleName;
     }
 
     /**

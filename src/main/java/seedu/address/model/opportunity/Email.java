@@ -31,7 +31,7 @@ public class Email {
     public static final String VALIDATION_REGEX =
         "[\\w]((?:[\\w+\\-]|\\.(?!\\.))*[\\w])?@[\\w][\\w\\-]*(\\.[\\w][\\w\\-]*)+";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs an {@code Email}.
@@ -43,6 +43,10 @@ public class Email {
         String trimmedEmail = email.trim();
         checkArgument(isValidEmail(trimmedEmail), MESSAGE_CONSTRAINTS);
         this.value = trimmedEmail;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     /**

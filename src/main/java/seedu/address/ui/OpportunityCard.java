@@ -21,8 +21,6 @@ public class OpportunityCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Opportunity opportunity;
-
     @FXML
     private HBox cardPane;
     @FXML
@@ -49,19 +47,18 @@ public class OpportunityCard extends UiPart<Region> {
      */
     public OpportunityCard(Opportunity opportunity, int displayedIndex) {
         super(FXML);
-        this.opportunity = opportunity;
         id.setText(displayedIndex + ". ");
-        name.setText(opportunity.getName().fullName);
-        company.setText(opportunity.getCompany().companyName);
-        contactRole.setText(opportunity.getContactRole().contactRoleName);
-        role.setText(opportunity.getRole().roleName);
-        email.setText(opportunity.getEmail().value);
-        status.setText(opportunity.getStatus().statusName);
-        status.getStyleClass().setAll("status-badge", getStatusStyleClass(opportunity.getStatus().statusName));
-        cycle.setText(opportunity.getCycle().value);
+        name.setText(opportunity.getName().getFullName());
+        company.setText(opportunity.getCompany().getCompanyName());
+        contactRole.setText(opportunity.getContactRole().getContactRoleName());
+        role.setText(opportunity.getRole().getRoleName());
+        email.setText(opportunity.getEmail().getValue());
+        status.setText(opportunity.getStatus().getStatusName());
+        status.getStyleClass().setAll("status-badge", getStatusStyleClass(opportunity.getStatus().getStatusName()));
+        cycle.setText(opportunity.getCycle().getValue());
         opportunity.getPhone().ifPresentOrElse(
                 p -> {
-                    phone.setText(p.value);
+                    phone.setText(p.getValue());
                     phone.setVisible(true);
                     phone.setManaged(true);
                 }, () -> {

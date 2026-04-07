@@ -22,7 +22,7 @@ public class Name {
      */
     public static final String VALIDATION_REGEX = "[\\p{IsAlphabetic}][\\p{IsAlphabetic}0-9 '\\-]*";
 
-    public final String fullName;
+    private final String fullName;
 
     /**
      * Constructs a {@code Name}.
@@ -34,6 +34,10 @@ public class Name {
         String trimmedName = name.trim();
         checkArgument(isValidName(trimmedName), MESSAGE_CONSTRAINTS);
         this.fullName = trimmedName;
+    }
+
+    public String getFullName() {
+        return fullName;
     }
 
     /**

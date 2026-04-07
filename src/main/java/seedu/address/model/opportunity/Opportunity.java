@@ -103,9 +103,9 @@ public class Opportunity {
         }
 
         return otherOpportunity != null
-                && otherOpportunity.getEmail().value.equalsIgnoreCase(getEmail().value)
-                && otherOpportunity.getCompany().companyName.equalsIgnoreCase(getCompany().companyName)
-                && otherOpportunity.getRole().roleName.equalsIgnoreCase(getRole().roleName)
+                && otherOpportunity.getEmail().getValue().equalsIgnoreCase(getEmail().getValue())
+                && otherOpportunity.getCompany().getCompanyName().equalsIgnoreCase(getCompany().getCompanyName())
+                && otherOpportunity.getRole().getRoleName().equalsIgnoreCase(getRole().getRoleName())
                 && otherOpportunity.getCycle().equals(getCycle());
     }
 

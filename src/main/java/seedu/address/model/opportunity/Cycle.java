@@ -27,7 +27,7 @@ public class Cycle {
      */
     public static final String VALIDATION_REGEX = "^(SUMMER|WINTER|S1|S2)\\s\\d{4}$";
 
-    public final String value;
+    private final String value;
 
     /**
      * Constructs a {@code Cycle}.
@@ -38,6 +38,10 @@ public class Cycle {
         requireNonNull(cycle);
         checkArgument(isValidCycle(cycle), MESSAGE_CONSTRAINTS);
         this.value = cycle;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     /**

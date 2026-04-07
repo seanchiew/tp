@@ -23,7 +23,7 @@ public class Role {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} &.,()'\\-/]*";
 
-    public final String roleName;
+    private final String roleName;
 
     /**
      * Constructs a {@code Role}.
@@ -35,6 +35,10 @@ public class Role {
         String trimmedRole = role.trim();
         checkArgument(isValidRole(trimmedRole), MESSAGE_CONSTRAINTS);
         this.roleName = trimmedRole;
+    }
+
+    public String getRoleName() {
+        return roleName;
     }
 
     /**

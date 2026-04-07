@@ -22,7 +22,7 @@ public class Company {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} &.,()'\\-]*";
 
-    public final String companyName;
+    private final String companyName;
 
     /**
      * Constructs a {@code Company}.
@@ -34,6 +34,10 @@ public class Company {
         String trimmedCompany = company.trim();
         checkArgument(isValidCompany(trimmedCompany), MESSAGE_CONSTRAINTS);
         this.companyName = trimmedCompany;
+    }
+
+    public String getCompanyName() {
+        return companyName;
     }
 
     /**

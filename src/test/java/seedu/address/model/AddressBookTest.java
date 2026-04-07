@@ -43,8 +43,8 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateOpportunities_throwsDuplicateOpportunityException() {
-        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
-                                        .withRole(ALICE.getRole().roleName).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().getCompanyName())
+                                        .withRole(ALICE.getRole().getRoleName()).build();
         List<Opportunity> newOpportunities = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newOpportunities);
 
@@ -70,8 +70,8 @@ public class AddressBookTest {
     @Test
     public void hasOpportunity_opportunityWithSameIdentityFieldsInAddressBook_returnsTrue() {
         addressBook.addOpportunity(ALICE);
-        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().companyName)
-                                        .withRole(ALICE.getRole().roleName).build();
+        Opportunity editedAlice = new OpportunityBuilder(ALICE).withCompany(ALICE.getCompany().getCompanyName())
+                                        .withRole(ALICE.getRole().getRoleName()).build();
         assertTrue(addressBook.hasOpportunity(editedAlice));
     }
 
