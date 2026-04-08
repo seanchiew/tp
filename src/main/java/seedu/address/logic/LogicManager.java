@@ -58,11 +58,11 @@ public class LogicManager implements Logic {
         if (!command.isReadOnly()) {
             try {
                 storage.saveAddressBook(model.getAddressBook());
-            } catch (AccessDeniedException e) {
-                model.restoreState(stateBeforeExecution);
-                throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
             } catch (IOException ioe) {
                 model.restoreState(stateBeforeExecution);
+                if (ioe instanceof AccessDeniedException) {
+                    throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, ioe.getMessage()), ioe);
+                }
                 throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
             }
         }

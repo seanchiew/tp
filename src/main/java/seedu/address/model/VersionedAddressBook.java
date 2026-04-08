@@ -33,8 +33,7 @@ public class VersionedAddressBook extends AddressBook {
      * Copy constructor.
      */
     public VersionedAddressBook(VersionedAddressBook toCopy) {
-        super(toCopy);
-        requireNonNull(toCopy);
+        super(requireNonNull(toCopy));
 
         addressBookStateList = new ArrayList<>();
         copyStateListFrom(toCopy.addressBookStateList);

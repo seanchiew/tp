@@ -309,7 +309,7 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 **A:** InternTrack stores its data in `data/addressbook.json`, where the `data` folder is created in the same directory as the application JAR file. For example, if the JAR file is placed in Desktop, the data file will be stored in `Desktop/data/addressbook.json`.
 
 **Q: Are my changes saved automatically?**
-**A:** InternTrack attempts to save automatically after every state-changing operation(e.g., add, delete, edit, archive, unarchive).
+**A:** InternTrack attempts to save automatically after every state-changing operation (e.g., add, delete, edit, archive, unarchive).
 
 **Q: Does InternTrack need internet access to work?**
 **A:** No. InternTrack is designed to support all core functions fully offline.
@@ -324,7 +324,7 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 **A:** If the data file cannot be read due to a loading error, InternTrack starts with an empty data set instead of crashing.
 
 **Q: What happens if the data file cannot be written?**
-**A:** InternTrack will inform you that the save operation has failed. In that case, the latest changes may not be persisted to the data file.
+**A:** InternTrack will inform you that the save operation has failed. In that case, the command will fail, and the attempted changes will be reverted and not applied.
 
 **Q: Do I need to use the GUI to access core features?**
 **A:** No. All core features can be completed using keyboard-only input.
