@@ -46,16 +46,23 @@ public class LogicManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
 
-        CommandResult commandResult;
         Command command = addressBookParser.parseCommand(commandText);
-        commandResult = command.execute(model);
+        Model.ModelState stateBeforeExecution = null;
+
+        if (!command.isReadOnly()) {
+            stateBeforeExecution = model.getStateSnapshot();
+        }
+
+        CommandResult commandResult = command.execute(model);
 
         if (!command.isReadOnly()) {
             try {
                 storage.saveAddressBook(model.getAddressBook());
             } catch (AccessDeniedException e) {
+                model.restoreState(stateBeforeExecution);
                 throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
             } catch (IOException ioe) {
+                model.restoreState(stateBeforeExecution);
                 throw new CommandException(String.format(FILE_OPS_ERROR_FORMAT, ioe.getMessage()), ioe);
             }
         }

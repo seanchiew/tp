@@ -643,8 +643,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 **MSS**
 
 1. User requests to exit the application.
-2. System saves any unsaved data.
-3. System closes the application.
+2. System closes the application.
 
    Use case ends.
 

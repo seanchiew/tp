@@ -123,4 +123,22 @@ public interface Model {
      * Saves the current address book state for undo.
      */
     void commitAddressBook();
+
+    /**
+     * Snapshot of model state needed to roll back a mutating command if saving fails.
+     */
+    record ModelState(
+            VersionedAddressBook addressBookSnapshot,
+            Predicate<Opportunity> filteredListPredicate,
+            boolean isArchiveView) { }
+
+    /**
+     * Returns a snapshot of the current model state.
+     */
+    ModelState getStateSnapshot();
+
+    /**
+     * Restores the model to a previously captured snapshot.
+     */
+    void restoreState(ModelState modelState);
 }

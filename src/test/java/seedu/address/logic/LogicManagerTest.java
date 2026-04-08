@@ -216,10 +216,10 @@ public class LogicManagerTest {
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = OpportunityUtil.getAddCommand(AMY);
-        Opportunity expectedOpportunity = new OpportunityBuilder(AMY).build();
+
+        // After rollback, model should remain unchanged
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addOpportunity(expectedOpportunity);
-        expectedModel.commitAddressBook();
+
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 }

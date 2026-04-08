@@ -151,6 +151,33 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ModelState getStateSnapshot() {
+        Predicate<? super Opportunity> currentPredicate = filteredOpportunities.getPredicate();
+        Predicate<Opportunity> snapshotPredicate;
+
+        if (currentPredicate == null) {
+            snapshotPredicate = PREDICATE_SHOW_ALL_OPPORTUNITIES;
+        } else {
+            snapshotPredicate = opportunity -> currentPredicate.test(opportunity);
+        }
+
+        return new ModelState(
+                new VersionedAddressBook(addressBook),
+                snapshotPredicate,
+                isArchiveView
+        );
+    }
+
+    @Override
+    public void restoreState(ModelState modelState) {
+        requireNonNull(modelState);
+
+        addressBook.restore(modelState.addressBookSnapshot());
+        filteredOpportunities.setPredicate(modelState.filteredListPredicate());
+        isArchiveView = modelState.isArchiveView();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
