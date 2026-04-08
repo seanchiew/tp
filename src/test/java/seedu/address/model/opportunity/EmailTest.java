@@ -60,4 +60,25 @@ public class EmailTest {
     public void isValidEmail_emptyString_returnsFalse() {
         assertFalse(Email.isValidEmail(""));
     }
+
+    @Test
+    public void isValidEmail_domainWithUnderscore_returnsFalse() {
+        assertFalse(Email.isValidEmail("john@foo_bar.com"));
+        assertFalse(Email.isValidEmail("john@_foo.com"));
+        assertFalse(Email.isValidEmail("john@foo_.com"));
+    }
+
+    @Test
+    public void isValidEmail_domainWithLeadingOrTrailingHyphen_returnsFalse() {
+        assertFalse(Email.isValidEmail("john@-foo.com"));
+        assertFalse(Email.isValidEmail("john@foo-.com"));
+        assertFalse(Email.isValidEmail("john@foo.-bar.com"));
+        assertFalse(Email.isValidEmail("john@foo.bar-.com"));
+    }
+
+    @Test
+    public void isValidEmail_domainWithHyphenInMiddle_returnsTrue() {
+        assertTrue(Email.isValidEmail("john@foo-bar.com"));
+        assertTrue(Email.isValidEmail("john@my-company.co.uk"));
+    }
 }
