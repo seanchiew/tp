@@ -60,4 +60,39 @@ public class EmailTest {
     public void isValidEmail_emptyString_returnsFalse() {
         assertFalse(Email.isValidEmail(""));
     }
+
+    @Test
+    public void isValidEmail_domainWithUnderscore_returnsFalse() {
+        assertFalse(Email.isValidEmail("john@foo_bar.com"));
+        assertFalse(Email.isValidEmail("john@_foo.com"));
+        assertFalse(Email.isValidEmail("john@foo_.com"));
+    }
+
+    @Test
+    public void isValidEmail_domainWithLeadingOrTrailingHyphen_returnsFalse() {
+        assertFalse(Email.isValidEmail("john@-foo.com"));
+        assertFalse(Email.isValidEmail("john@foo-.com"));
+        assertFalse(Email.isValidEmail("john@foo.-bar.com"));
+        assertFalse(Email.isValidEmail("john@foo.bar-.com"));
+    }
+
+    @Test
+    public void isValidEmail_domainWithHyphenInMiddle_returnsTrue() {
+        assertTrue(Email.isValidEmail("john@foo-bar.com"));
+        assertTrue(Email.isValidEmail("john@my-company.co.uk"));
+    }
+
+    @Test
+    public void isValidEmail_exceedsMaxLength_returnsFalse() {
+        // 255-character email: local part padded to push total over 254
+        String longLocal = "a".repeat(243);
+        assertFalse(Email.isValidEmail(longLocal + "@example.com")); // 255 chars total
+    }
+
+    @Test
+    public void isValidEmail_exactlyMaxLength_returnsTrue() {
+        // 254-character email
+        String longLocal = "a".repeat(242);
+        assertTrue(Email.isValidEmail(longLocal + "@example.com")); // 254 chars total
+    }
 }

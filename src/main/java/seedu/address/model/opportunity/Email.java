@@ -14,8 +14,10 @@ public class Email {
             + "The local-part may contain alphanumeric characters and the special characters: + _ . -\n"
             + "The local-part must not start or end with + . or -\n"
             + "The local-part must not contain consecutive dots (..)\n"
-            + "The domain must consist of at least two labels separated by periods,\n"
-            + "and each label must be at least 1 character long.";
+            + "The domain must consist of at least two labels separated by periods.\n"
+            + "Each domain label must start and end with an alphanumeric character, "
+            + "and may only contain alphanumeric characters and hyphens in between.\n"
+            + "Maximum length: 254 characters.";
 
     public static final int MAX_LENGTH = 254;
 
@@ -25,11 +27,13 @@ public class Email {
      * This is followed by a '@' and then a domain name.
      * The domain name must:
      *     - consist of at least two labels separated by periods
-     *     - each label must start and end with alphanumeric characters
-     *     - each label can contain hyphens in between
+     *     - each label must start and end with an alphanumeric character (a-z, A-Z, 0-9)
+     *     - each label may contain hyphens in between, but not at the start or end
+     *     - underscores are not allowed in any domain label
      */
     public static final String VALIDATION_REGEX =
-        "[\\w]((?:[\\w+\\-]|\\.(?!\\.))*[\\w])?@[\\w][\\w\\-]*(\\.[\\w][\\w\\-]*)+";
+        "[\\w]((?:[\\w+\\-]|\\.(?!\\.))*[\\w])?@[A-Za-z0-9]([A-Za-z0-9\\-]*[A-Za-z0-9])?"
+        + "(\\.[A-Za-z0-9]([A-Za-z0-9\\-]*[A-Za-z0-9])?)+";
 
     private final String value;
 

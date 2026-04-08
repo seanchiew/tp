@@ -92,10 +92,10 @@ Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [
   * Examples: `John Smith`, `Mr. John Doe`, `Mary (Mei Ling)`, `Dr. O'Brien-Smith, Jr.`, `R&D Team`, `@John`, `???`
   * Supports Unicode: `李明`, `Müller`
   * Placeholder examples: `...`, `(TBD)`, `---`, `???` (when name is unknown)
-* `EMAIL` must be a valid email address in the format `local@domain` (e.g. `jane@stripe.com`).
-  * The local part may contain alphanumeric characters and the special characters `+`, `_`, `.`, `-`.
-  * The domain must contain at least one `.` and end with at least 2 characters (e.g. `.com`, `.sg`).
-  * Examples: `jane@stripe.com`, `bob.tan+work@google.com`, `recruiter_hr@company.org`
+* `EMAIL` must be a valid email address in the format `local@domain` (e.g. `jane@stripe.com`). Maximum length: 254 characters.
+  * The local part may contain alphanumeric characters and the special characters `+`, `_`, `.`, `-`. It must not start or end with `.`, `+`, or `-`, and must not contain consecutive dots (`..`).
+  * The domain must consist of at least two labels separated by `.` (e.g. `stripe.com`). Each label must start and end with an alphanumeric character, and may only contain alphanumeric characters and hyphens in between.
+  * Examples: `jane@stripe.com`, `bob.tan+work@google.com`, `user_name@mail.example.co.uk`
 * `CONTACT_ROLE` can contain any characters except forward slash (`/`). Maximum length: 50 characters.
   * The forward slash is reserved for CLI command syntax.
   * Examples: `recruiter`, `Sr. Recruiter`, `HR & Talent Acquisition`, `VP, Engineering (Tech)`, `C++ Developer`
