@@ -144,7 +144,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseField_invalidValue_returnsNullAndAppendsError() {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" n/ ", PREFIX_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + PREFIX_NAME + " ", PREFIX_NAME);
         List<String> errors = new ArrayList<>();
         assertNull(ParserUtil.parseField(argMultimap, PREFIX_NAME, ParserUtil::parseName, errors));
         assertEquals(1, errors.size());
@@ -152,7 +152,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseField_validValue_returnsParsedValueAndNoErrors() throws Exception {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" n/John Doe", PREFIX_NAME);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + PREFIX_NAME + "John Doe", PREFIX_NAME);
         List<String> errors = new ArrayList<>();
         Name result = ParserUtil.parseField(argMultimap, PREFIX_NAME, ParserUtil::parseName, errors);
         assertEquals(new Name("John Doe"), result);
