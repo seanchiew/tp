@@ -16,7 +16,8 @@ public class Email {
             + "The local-part must not contain consecutive dots (..)\n"
             + "The domain must consist of at least two labels separated by periods.\n"
             + "Each domain label must start and end with an alphanumeric character, "
-            + "and may only contain alphanumeric characters and hyphens in between.";
+            + "and may only contain alphanumeric characters and hyphens in between.\n"
+            + "Maximum length: 254 characters.";
 
     public static final int MAX_LENGTH = 254;
 
