@@ -164,6 +164,24 @@ public class ParserUtil {
     }
 
     /**
+     * Attempts to parse the value for {@code prefix} from {@code argMultimap} using {@code parser}.
+     * Returns the parsed result, or {@code null} if the prefix is absent or if parsing fails.
+     * Any {@link ParseException} message is appended to {@code errorMessages}.
+     */
+    public static <T> T parseField(ArgumentMultimap argMultimap, Prefix prefix,
+                                   FieldParser<T> parser, List<String> errorMessages) {
+        if (!argMultimap.getValue(prefix).isPresent()) {
+            return null;
+        }
+        try {
+            return parser.parse(argMultimap.getValue(prefix).get());
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+            return null;
+        }
+    }
+
+    /**
      * Checks if the provided list of error messages is empty.
      * If not, combines them into a single numbered list and throws a ParseException.
      *
