@@ -1,15 +1,22 @@
 package seedu.address.logic.parser;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OPPORTUNITY;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.opportunity.Company;
 import seedu.address.model.opportunity.Cycle;
+import seedu.address.model.opportunity.Name;
 import seedu.address.model.opportunity.Role;
 
 public class ParserUtilTest {
@@ -125,6 +132,31 @@ public class ParserUtilTest {
         assertEquals(expectedCycle, ParserUtil.parseCycle("sem   2    2025"));
         // Tests missing internal space in the alias
         assertEquals(expectedCycle, ParserUtil.parseCycle("semester2 2025"));
+    }
+
+    @Test
+    public void parseField_prefixAbsent_returnsNullAndNoErrors() {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize("", PREFIX_NAME);
+        List<String> errors = new ArrayList<>();
+        assertNull(ParserUtil.parseField(argMultimap, PREFIX_NAME, ParserUtil::parseName, errors));
+        assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    public void parseField_invalidValue_returnsNullAndAppendsError() {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + PREFIX_NAME + " ", PREFIX_NAME);
+        List<String> errors = new ArrayList<>();
+        assertNull(ParserUtil.parseField(argMultimap, PREFIX_NAME, ParserUtil::parseName, errors));
+        assertEquals(1, errors.size());
+    }
+
+    @Test
+    public void parseField_validValue_returnsParsedValueAndNoErrors() throws Exception {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(" " + PREFIX_NAME + "John Doe", PREFIX_NAME);
+        List<String> errors = new ArrayList<>();
+        Name result = ParserUtil.parseField(argMultimap, PREFIX_NAME, ParserUtil::parseName, errors);
+        assertEquals(new Name("John Doe"), result);
+        assertTrue(errors.isEmpty());
     }
 
 }

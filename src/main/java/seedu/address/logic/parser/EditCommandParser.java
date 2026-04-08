@@ -13,6 +13,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -70,97 +71,34 @@ public class EditCommandParser implements Parser<EditCommand> {
      */
     private void populateDescriptor(ArgumentMultimap argMultimap, EditOpportunityDescriptor editOpportunityDescriptor,
                                     List<String> errorMessages) {
-        parseAndSetName(argMultimap, editOpportunityDescriptor, errorMessages);
-        parseAndSetEmail(argMultimap, editOpportunityDescriptor, errorMessages);
-        parseAndSetContactRole(argMultimap, editOpportunityDescriptor, errorMessages);
-        parseAndSetCompany(argMultimap, editOpportunityDescriptor, errorMessages);
-        parseAndSetRole(argMultimap, editOpportunityDescriptor, errorMessages);
-        parseAndSetStatus(argMultimap, editOpportunityDescriptor, errorMessages);
-        parseAndSetCycle(argMultimap, editOpportunityDescriptor, errorMessages);
+        parseAndSetField(argMultimap, PREFIX_NAME, ParserUtil::parseName,
+                editOpportunityDescriptor::setName, errorMessages);
+        parseAndSetField(argMultimap, PREFIX_EMAIL, ParserUtil::parseEmail,
+                editOpportunityDescriptor::setEmail, errorMessages);
+        parseAndSetField(argMultimap, PREFIX_CONTACT_ROLE, ParserUtil::parseContactRole,
+                editOpportunityDescriptor::setContactRole, errorMessages);
+        parseAndSetField(argMultimap, PREFIX_COMPANY, ParserUtil::parseCompany,
+                editOpportunityDescriptor::setCompany, errorMessages);
+        parseAndSetField(argMultimap, PREFIX_ROLE, ParserUtil::parseRole,
+                editOpportunityDescriptor::setRole, errorMessages);
+        parseAndSetField(argMultimap, PREFIX_STATUS, ParserUtil::parseStatus,
+                editOpportunityDescriptor::setStatus, errorMessages);
+        parseAndSetField(argMultimap, PREFIX_CYCLE, ParserUtil::parseCycle,
+                editOpportunityDescriptor::setCycle, errorMessages);
         parseAndSetPhone(argMultimap, editOpportunityDescriptor, errorMessages);
     }
 
-    private void parseAndSetName(ArgumentMultimap argMultimap, EditOpportunityDescriptor descriptor,
-                                 List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            return;
-        }
-        try {
-            descriptor.setName(ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-        }
-    }
-
-    private void parseAndSetEmail(ArgumentMultimap argMultimap, EditOpportunityDescriptor descriptor,
-                                  List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            return;
-        }
-        try {
-            descriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get()));
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-        }
-    }
-
-    private void parseAndSetContactRole(ArgumentMultimap argMultimap, EditOpportunityDescriptor descriptor,
-                                        List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_CONTACT_ROLE).isPresent()) {
-            return;
-        }
-        try {
-            descriptor.setContactRole(ParserUtil.parseContactRole(argMultimap.getValue(PREFIX_CONTACT_ROLE).get()));
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-        }
-    }
-
-    private void parseAndSetCompany(ArgumentMultimap argMultimap, EditOpportunityDescriptor descriptor,
-                                    List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
-            return;
-        }
-        try {
-            descriptor.setCompany(ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get()));
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-        }
-    }
-
-    private void parseAndSetRole(ArgumentMultimap argMultimap, EditOpportunityDescriptor descriptor,
-                                 List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_ROLE).isPresent()) {
-            return;
-        }
-        try {
-            descriptor.setRole(ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get()));
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-        }
-    }
-
-    private void parseAndSetStatus(ArgumentMultimap argMultimap, EditOpportunityDescriptor descriptor,
-                                   List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            return;
-        }
-        try {
-            descriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-        }
-    }
-
-    private void parseAndSetCycle(ArgumentMultimap argMultimap, EditOpportunityDescriptor descriptor,
-                                  List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_CYCLE).isPresent()) {
-            return;
-        }
-        try {
-            descriptor.setCycle(ParserUtil.parseCycle(argMultimap.getValue(PREFIX_CYCLE).get()));
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
+    /**
+     * Parses the value for {@code prefix} using {@code parser} and, if successful, passes the result to
+     * {@code setter}. If the prefix is absent, nothing happens. Any {@link ParseException} is collected
+     * into {@code errorMessages}.
+     */
+    private <T> void parseAndSetField(ArgumentMultimap argMultimap, Prefix prefix,
+                                      FieldParser<T> parser, Consumer<T> setter,
+                                      List<String> errorMessages) {
+        T value = ParserUtil.parseField(argMultimap, prefix, parser, errorMessages);
+        if (value != null) {
+            setter.accept(value);
         }
     }
 

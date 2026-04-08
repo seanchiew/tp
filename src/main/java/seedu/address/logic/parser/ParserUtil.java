@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
@@ -161,6 +162,29 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
+    }
+
+    /**
+     * Attempts to parse the value for {@code prefix} from {@code argMultimap} using {@code parser}.
+     * Returns the parsed result, or {@code null} if the prefix is absent or if parsing fails.
+     * Any {@link ParseException} message is appended to {@code errorMessages}.
+     */
+    static <T> T parseField(ArgumentMultimap argMultimap, Prefix prefix,
+                            FieldParser<T> parser, List<String> errorMessages) {
+        requireNonNull(argMultimap);
+        requireNonNull(prefix);
+        requireNonNull(parser);
+        requireNonNull(errorMessages);
+        Optional<String> value = argMultimap.getValue(prefix);
+        if (!value.isPresent()) {
+            return null;
+        }
+        try {
+            return parser.parse(value.get());
+        } catch (ParseException pe) {
+            errorMessages.add(pe.getMessage());
+            return null;
+        }
     }
 
     /**

@@ -46,14 +46,15 @@ public class AddCommandParser implements Parser<AddCommand> {
         checkRequiredPrefixes(argMultimap, errorMessages);
         checkNoDuplicatePrefixes(argMultimap, errorMessages);
 
-        Name name = parseName(argMultimap, errorMessages);
-        Email email = parseEmail(argMultimap, errorMessages);
-        ContactRole contactRole = parseContactRole(argMultimap, errorMessages);
-        Company company = parseCompany(argMultimap, errorMessages);
-        Role role = parseRole(argMultimap, errorMessages);
-        Status status = parseStatus(argMultimap, errorMessages);
-        Cycle cycle = parseCycle(argMultimap, errorMessages);
-        Phone phone = parsePhone(argMultimap, errorMessages);
+        Name name = ParserUtil.parseField(argMultimap, PREFIX_NAME, ParserUtil::parseName, errorMessages);
+        Email email = ParserUtil.parseField(argMultimap, PREFIX_EMAIL, ParserUtil::parseEmail, errorMessages);
+        ContactRole contactRole = ParserUtil.parseField(argMultimap, PREFIX_CONTACT_ROLE,
+                ParserUtil::parseContactRole, errorMessages);
+        Company company = ParserUtil.parseField(argMultimap, PREFIX_COMPANY, ParserUtil::parseCompany, errorMessages);
+        Role role = ParserUtil.parseField(argMultimap, PREFIX_ROLE, ParserUtil::parseRole, errorMessages);
+        Status status = ParserUtil.parseField(argMultimap, PREFIX_STATUS, ParserUtil::parseStatus, errorMessages);
+        Cycle cycle = ParserUtil.parseField(argMultimap, PREFIX_CYCLE, ParserUtil::parseCycle, errorMessages);
+        Phone phone = ParserUtil.parseField(argMultimap, PREFIX_PHONE, ParserUtil::parsePhone, errorMessages);
 
         ParserUtil.throwCombinedParseException(errorMessages);
 
@@ -77,102 +78,6 @@ public class AddCommandParser implements Parser<AddCommand> {
                     PREFIX_COMPANY, PREFIX_ROLE, PREFIX_STATUS, PREFIX_CYCLE, PREFIX_PHONE);
         } catch (ParseException pe) {
             errorMessages.add(pe.getMessage());
-        }
-    }
-
-    private Name parseName(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
-        }
-    }
-
-    private Email parseEmail(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
-        }
-    }
-
-    private ContactRole parseContactRole(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_CONTACT_ROLE).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parseContactRole(argMultimap.getValue(PREFIX_CONTACT_ROLE).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
-        }
-    }
-
-    private Company parseCompany(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_COMPANY).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parseCompany(argMultimap.getValue(PREFIX_COMPANY).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
-        }
-    }
-
-    private Role parseRole(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_ROLE).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parseRole(argMultimap.getValue(PREFIX_ROLE).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
-        }
-    }
-
-    private Status parseStatus(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_STATUS).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
-        }
-    }
-
-    private Cycle parseCycle(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_CYCLE).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parseCycle(argMultimap.getValue(PREFIX_CYCLE).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
-        }
-    }
-
-    private Phone parsePhone(ArgumentMultimap argMultimap, List<String> errorMessages) {
-        if (!argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            return null;
-        }
-        try {
-            return ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
-        } catch (ParseException pe) {
-            errorMessages.add(pe.getMessage());
-            return null;
         }
     }
 
