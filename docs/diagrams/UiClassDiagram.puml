@@ -19,6 +19,7 @@ Class CommandBox
 
 package Model <<Rectangle>> {
 Class HiddenModel #FFFFFF
+Class Opportunity
 }
 
 package Logic <<Rectangle>> {
@@ -47,7 +48,7 @@ OpportunityCard --|> UiPart
 StatusBarFooter --|> UiPart
 HelpWindow --|> UiPart
 
-OpportunityCard ..> Model
+OpportunityCard ..> Opportunity
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
