@@ -2,9 +2,9 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.beans.binding.Bindings;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -46,8 +46,9 @@ public class OpportunityListPanel extends UiPart<Region> {
                 Node card = new OpportunityCard(opportunity, getIndex() + 1).getRoot();
                 if (card instanceof Region) {
                     Region cardRegion = (Region) card;
-                    cardRegion.prefWidthProperty().bind(Bindings.createDoubleBinding(
-                            () -> Math.max(0, getWidth() - snappedLeftInset() - snappedRightInset()),
+                    cardRegion.prefWidthProperty().bind(
+                            Bindings.createDoubleBinding(() -> Math.max(0,
+                                            getWidth() - snappedLeftInset() - snappedRightInset()),
                             widthProperty(), paddingProperty()));
                 }
                 setGraphic(card);
