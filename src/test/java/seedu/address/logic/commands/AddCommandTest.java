@@ -191,6 +191,16 @@ public class AddCommandTest {
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public Model.StateSnapshot getStateSnapshot() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void restoreState(Model.StateSnapshot stateSnapshot) {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**

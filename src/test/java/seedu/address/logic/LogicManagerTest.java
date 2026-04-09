@@ -137,6 +137,39 @@ public class LogicManagerTest {
         assertTrue(logic.isArchiveView());
     }
 
+    @Test
+    public void execute_storageThrowsException_restoresViewState() throws Exception {
+        model.addOpportunity(AMY);
+        model.commitAddressBook();
+        model.updateFilteredOpportunityList(new OpportunityContainsSubstringPredicate(List.of("zzz"), List.of()));
+        model.setArchiveView(true);
+
+        Path addressBookPath = temporaryFolder.resolve("ExceptionAddressBook.json");
+        JsonAddressBookStorage addressBookStorage = new JsonAddressBookStorage(addressBookPath) {
+            @Override
+            public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath)
+                    throws IOException {
+                throw new IOException("dummy exception");
+            }
+        };
+        JsonUserPrefsStorage userPrefsStorage =
+                new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
+        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        logic = new LogicManager(model, storage);
+
+        Opportunity addedOpportunity = new OpportunityBuilder(AMY)
+                .withEmail("different@example.com")
+                .build();
+        String addCommand = OpportunityUtil.getAddCommand(addedOpportunity);
+
+        String expectedMessage = String.format(LogicManager.FILE_OPS_ERROR_FORMAT, "dummy exception");
+        assertThrows(CommandException.class, expectedMessage, () -> logic.execute(addCommand));
+
+        assertTrue(logic.isArchiveView());
+        assertEquals(0, logic.getFilteredOpportunityList().size());
+        assertFalse(model.hasOpportunity(addedOpportunity));
+    }
+
     /**
      * Executes the command and confirms that
      * - no exceptions are thrown <br>
@@ -216,10 +249,10 @@ public class LogicManagerTest {
 
         // Triggers the saveAddressBook method by executing an add command
         String addCommand = OpportunityUtil.getAddCommand(AMY);
-        Opportunity expectedOpportunity = new OpportunityBuilder(AMY).build();
+
+        // After rollback, model should remain unchanged
         ModelManager expectedModel = new ModelManager();
-        expectedModel.addOpportunity(expectedOpportunity);
-        expectedModel.commitAddressBook();
+
         assertCommandFailure(addCommand, CommandException.class, expectedMessage, expectedModel);
     }
 }

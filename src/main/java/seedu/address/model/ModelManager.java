@@ -151,6 +151,38 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public StateSnapshot getStateSnapshot() {
+        Predicate<? super Opportunity> currentPredicate = filteredOpportunities.getPredicate();
+        Predicate<Opportunity> snapshotPredicate;
+
+        if (currentPredicate == null) {
+            snapshotPredicate = PREDICATE_SHOW_ALL_OPPORTUNITIES;
+        } else {
+            snapshotPredicate = opportunity -> currentPredicate.test(opportunity);
+        }
+
+        return new ModelStateSnapshot(
+                addressBook,
+                snapshotPredicate,
+                isArchiveView
+        );
+    }
+
+    @Override
+    public void restoreState(StateSnapshot stateSnapshot) {
+        requireNonNull(stateSnapshot);
+
+        if (!(stateSnapshot instanceof ModelStateSnapshot)) {
+            throw new IllegalArgumentException("Unsupported state snapshot type");
+        }
+
+        ModelStateSnapshot modelState = (ModelStateSnapshot) stateSnapshot;
+        addressBook.restore(modelState.addressBookSnapshot);
+        filteredOpportunities.setPredicate(modelState.filteredListPredicate);
+        isArchiveView = modelState.isArchiveView;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -184,5 +216,22 @@ public class ModelManager implements Model {
     @Override
     public void commitAddressBook() {
         addressBook.commit();
+    }
+
+    /**
+     * Internal immutable snapshot implementation.
+     */
+    private static final class ModelStateSnapshot implements StateSnapshot {
+        private final VersionedAddressBook addressBookSnapshot;
+        private final Predicate<Opportunity> filteredListPredicate;
+        private final boolean isArchiveView;
+
+        private ModelStateSnapshot(VersionedAddressBook addressBookSnapshot,
+                                   Predicate<Opportunity> filteredListPredicate,
+                                   boolean isArchiveView) {
+            this.addressBookSnapshot = new VersionedAddressBook(addressBookSnapshot);
+            this.filteredListPredicate = filteredListPredicate;
+            this.isArchiveView = isArchiveView;
+        }
     }
 }

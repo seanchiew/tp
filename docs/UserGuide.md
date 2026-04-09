@@ -284,7 +284,7 @@ Format: `exit`
 
 ### Saving the data
 
-InternTrack data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+InternTrack attempts to save data to disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
@@ -303,13 +303,13 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 ## FAQ
 
 **Q: How do I transfer my data to another computer?**
-**A:** Install InternTrack on the other computer, then replace the data file created there with the data file from your current computer.
+**A:** Install InternTrack on the other computer, then replace the `data/addressbook.json` file there with the one from your current computer.
 
 **Q: Where does InternTrack store my data?**
 **A:** InternTrack stores its data in `data/addressbook.json`, where the `data` folder is created in the same directory as the application JAR file. For example, if the JAR file is placed in Desktop, the data file will be stored in `Desktop/data/addressbook.json`.
 
 **Q: Are my changes saved automatically?**
-**A:** Yes. InternTrack automatically saves after every state-changing operation(e.g., add, delete, edit, archive, unarchive).
+**A:** InternTrack attempts to save automatically after every state-changing operation (e.g., add, delete, edit, archive, unarchive).
 
 **Q: Does InternTrack need internet access to work?**
 **A:** No. InternTrack is designed to support all core functions fully offline.
@@ -320,8 +320,11 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 **Q: Can an archived record be restored?**
 **A:** Yes. First use the `list archive` command to view archived opportunity contacts, then use the `unarchive` command to restore the selected archived opportunity record to the active list.
 
-**Q: What happens if the data file cannot be read or written?**
-**A:** InternTrack will not crash and will inform you that the storage operation has failed.
+**Q: What happens if the data file cannot be read?**
+**A:** If the data file cannot be read due to a loading error, InternTrack starts with an empty data set instead of crashing.
+
+**Q: What happens if the data file cannot be written?**
+**A:** InternTrack will inform you that the save operation has failed. In that case, the command will fail, and the attempted changes will be reverted and not applied.
 
 **Q: Do I need to use the GUI to access core features?**
 **A:** No. All core features can be completed using keyboard-only input.

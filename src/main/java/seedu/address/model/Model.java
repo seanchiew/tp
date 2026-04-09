@@ -123,4 +123,19 @@ public interface Model {
      * Saves the current address book state for undo.
      */
     void commitAddressBook();
+
+    /**
+     * Opaque snapshot of model state needed to roll back a mutating command if saving fails.
+     */
+    interface StateSnapshot { }
+
+    /**
+     * Returns a snapshot of the current model state.
+     */
+    StateSnapshot getStateSnapshot();
+
+    /**
+     * Restores the model to a previously captured snapshot.
+     */
+    void restoreState(StateSnapshot stateSnapshot);
 }

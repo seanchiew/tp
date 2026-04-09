@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,17 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     /**
+     * Copy constructor.
+     */
+    public VersionedAddressBook(VersionedAddressBook toCopy) {
+        super(requireNonNull(toCopy));
+
+        addressBookStateList = new ArrayList<>();
+        copyStateListFrom(toCopy.addressBookStateList);
+        currentStatePointer = toCopy.currentStatePointer;
+    }
+
+    /**
      * Saves a copy of the current {@code AddressBook} state at the end of the
      * state list. Undone states are purged from the history.
      */
@@ -35,6 +48,24 @@ public class VersionedAddressBook extends AddressBook {
         removeStatesAfterCurrentPointer();
         addressBookStateList.add(new AddressBook(this));
         currentStatePointer++;
+    }
+
+    /**
+     * Restores both the current data and the undo history from {@code toRestore}.
+     */
+    public void restore(VersionedAddressBook toRestore) {
+        requireNonNull(toRestore);
+
+        resetData(toRestore);
+        addressBookStateList.clear();
+        copyStateListFrom(toRestore.addressBookStateList);
+        currentStatePointer = toRestore.currentStatePointer;
+    }
+
+    private void copyStateListFrom(List<ReadOnlyAddressBook> states) {
+        for (ReadOnlyAddressBook state : states) {
+            addressBookStateList.add(new AddressBook(state));
+        }
     }
 
     private void removeStatesAfterCurrentPointer() {
