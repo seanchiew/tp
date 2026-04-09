@@ -55,8 +55,8 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 * Items in square brackets are optional.<br>
   e.g `n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE_NUMBER]` can be used as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567` or as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `INDEX [MORE_INDICES]...` can be used as ` ` (i.e. 0 times), `1`, `1 2`, `1 2 3` etc.
+* Items with `...` after them can be used multiple times, including zero times for the repeated portion.<br>
+  e.g. in `INDEX [MORE_INDICES]...`, the first `INDEX` is required, while `[MORE_INDICES]...` means zero or more additional indices. So valid inputs include `1`, `1 2`, `1 2 3` etc.
 
 * Parameters can be in any order.<br>
   e.g. if the command specifies `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567`, `e/alicia.tan@stripe.com n/Alicia Tan c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 cr/recruiter p/91234567` is also acceptable.
@@ -108,7 +108,7 @@ Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [
   * Note: Use `-`, `&`, or `()` instead of `/` for compound roles (e.g., `SWE-ML` instead of `SWE/ML`)
 * **Important:** Forward slash (`/`) is not allowed in NAME, CONTACT_ROLE, COMPANY, or ROLE fields as it conflicts with the CLI syntax.
 * **Tip:** If you don't yet know a contact's name or role, use a placeholder like `...` or `(TBD)` and update it later with the `edit` command.
-* `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, must start and end with a digit, and may optionally have `+` at the very start immediately followed by a digit. Spaces, hyphens, and parentheses may be used as separators **between digits** only (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Leading and trailing whitespace is trimmed before saving; otherwise, the entered phone-number formatting is preserved.
+* `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, and must either start with a digit or start with `+` immediately followed by a digit. They must end with a digit. Spaces, hyphens, and parentheses are allowed within the phone number (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Leading and trailing whitespace is trimmed before saving; otherwise, the entered phone-number formatting is preserved.
 * `STATUS` must be one of: `SAVED`, `APPLIED`, `OA`, `INTERVIEW`, `OFFER`, `REJECTED`, `WITHDRAWN`. Matching is case-insensitive, so inputs like `saved` or `interview` are also accepted and stored in uppercase.
 * `cy/CYCLE` is mandatory and must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025). CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
 * Archived records still count toward duplicate detection. If you try to add a record with the same Email, Company, Role, and Cycle as an archived entry, the add will be rejected. Use `unarchive` to restore the existing entry instead.
@@ -139,7 +139,7 @@ Edits an existing opportunity contact in InternTrack.
 
 Format: `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [cy/CYCLE] [p/PHONE]​`
 
-* Edits the opportunity contact at the specified `INDEX`. The index refers to the index number shown in the displayed opportunity contact list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the opportunity contact at the specified `INDEX`. The index refers to the index number shown in the displayed opportunity contact list. The index **must be a positive integer** 1, 2, 3, ...​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * An edit that results in the same Email, Company, Role, and Cycle as an existing record in the tracker will be rejected.
@@ -156,7 +156,11 @@ Examples:
 Finds opportunity contacts whose names contain any of the given keywords, optionally filtered by company.
 By default, `find` searches unarchived opportunities. Use `a/KEYWORD` or `a/ c/COMPANY` to search archived opportunities instead.
 
-Format: `find [a/[NAME_KEYWORD [MORE_NAME_KEYWORDS]...]] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
+Format:
+* `find NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
+* `find c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`
+* `find a/NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`
+* `find a/ c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`
 
 * The search is case-insensitive. e.g. `jan` will match `Jane`
 * Partial words are matched for both name and company. e.g. `find jan c/Tik` matches `Jane @ TikTok`
@@ -186,7 +190,7 @@ Format: `delete INDEX [MORE_INDICES]...`
 
 * Deletes the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed opportunity contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
 
@@ -206,7 +210,7 @@ Format:
 
 * Archives the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed unarchived / active opportunity contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
 * `archive cycle CYCLE` archives all active opportunity contacts with the specified cycle.
@@ -230,7 +234,7 @@ Format: `unarchive INDEX [MORE_INDICES]...`
 * Unarchives the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed archived opportunity contact list.
 * This works for both `list archive` results and archived search results from `find a/ ...`.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
 
@@ -345,7 +349,7 @@ Action     | Format, Examples
 **Add**    | `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]​` <br> e.g., `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/98765432`
 **Edit**   | `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [cy/CYCLE] [p/PHONE]​`<br> e.g.,`edit 1 p/91234567 e/johndoe@example.com`
 **List**   | `list`
-**Find**   | `find [a/[NAME_KEYWORD [MORE_NAME_KEYWORDS]...]] [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br> e.g., `find a/Jane c/Stripe`
+**Find**   | `find NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br>`find c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`<br>`find a/NAME_KEYWORD [MORE_NAME_KEYWORDS]... [c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]`<br>`find a/ c/COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...`<br>e.g., `find Jane`<br>e.g., `find c/Stripe`<br>e.g., `find a/Jane c/Stripe`<br>e.g., `find a/ c/Stripe`
 **Delete** | `delete INDEX [MORE_INDICES]...`<br> e.g., `delete 1 2 3`
 **Archive** | `archive INDEX [MORE_INDICES]...` or `archive cycle CYCLE`<br> e.g., `archive 1 2 3` or `archive cycle SUMMER 2026`
 **Unarchive** | `unarchive INDEX [MORE_INDICES]...`<br> e.g., `unarchive 1 2 3`

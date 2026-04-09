@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ARCHIVE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMPANY;
 import static seedu.address.model.Model.PREDICATE_SHOW_ARCHIVED_OPPORTUNITIES;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 
@@ -19,15 +21,31 @@ import seedu.address.model.opportunity.OpportunityContainsSubstringPredicate;
 public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
-    public static final String ARCHIVED_FLAG = "a/";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds opportunities by name and/or company.\n"
-            + "Parameters: [" + ARCHIVED_FLAG + "[NAME_KEYWORD...]] [c/COMPANY_KEYWORD...]\n"
-            + "  - Active search: find NAME (e.g. find alice)\n"
-            + "  - Archived search: find a/NAME (e.g. find a/jan)\n"
-            + "  - Company filter: find c/COMPANY (e.g. find c/stripe)\n"
-            + "  - Archived + company only: find a/ c/COMPANY (e.g. find a/ c/stripe)\n"
-            + "Note: name keywords must follow a/, not precede it (e.g. 'find a/jan', not 'find jan a/').";
+            + "Format:\n"
+            + "  " + COMMAND_WORD
+            + " NAME_KEYWORD [MORE_NAME_KEYWORDS]... ["
+            + PREFIX_COMPANY + "COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]\n"
+            + "  " + COMMAND_WORD
+            + " " + PREFIX_COMPANY + "COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...\n"
+            + "  " + COMMAND_WORD
+            + " " + PREFIX_ARCHIVE + "NAME_KEYWORD [MORE_NAME_KEYWORDS]... ["
+            + PREFIX_COMPANY + "COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...]\n"
+            + "  " + COMMAND_WORD
+            + " " + PREFIX_ARCHIVE + " " + PREFIX_COMPANY
+            + "COMPANY_KEYWORD [MORE_COMPANY_KEYWORDS]...\n"
+            + "Examples:\n"
+            + "  " + COMMAND_WORD + " alice\n"
+            + "  " + COMMAND_WORD + " alice bob " + PREFIX_COMPANY + "stripe\n"
+            + "  " + COMMAND_WORD + " " + PREFIX_COMPANY + "stripe google\n"
+            + "  " + COMMAND_WORD + " " + PREFIX_ARCHIVE + "jan "
+            + PREFIX_COMPANY + "stripe\n"
+            + "  " + COMMAND_WORD + " " + PREFIX_ARCHIVE + " "
+            + PREFIX_COMPANY + "stripe\n"
+            + "Note: archived name keywords must follow " + PREFIX_ARCHIVE
+            + ", not precede it (e.g. 'find " + PREFIX_ARCHIVE + "jan', not 'find jan "
+            + PREFIX_ARCHIVE + "').";
 
     private final OpportunityContainsSubstringPredicate predicate;
     private final boolean searchArchived;

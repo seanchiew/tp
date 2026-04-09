@@ -10,10 +10,11 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Phone {
 
     public static final String MESSAGE_CONSTRAINTS =
-        "Phone numbers should contain 3 to 15 digits and must start and end with a digit.\n"
-            + "'+' is only allowed at the very start, immediately followed by a digit.\n"
-            + "Spaces, hyphens, and parentheses may be used as separators between digits only.\n"
-            + "(e.g. +65 9123 4567, +1-800-555-0100, +1 (212) 555-0199)";
+            "Phone numbers should contain 3 to 15 digits, "
+            + "start with a digit or with '+' immediately followed by a digit, "
+            + "and end with a digit.\n"
+            + "Spaces, hyphens, and parentheses are allowed within the phone number "
+            + "(e.g. +65 9123 4567, +1-800-555-0100, +1 (212) 555-0199).";
 
     public static final int MIN_DIGITS = 3;
     public static final int MAX_DIGITS = 15;
