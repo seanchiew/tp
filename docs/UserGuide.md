@@ -55,7 +55,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 * Items in square brackets are optional.<br>
   e.g `n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE_NUMBER]` can be used as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567` or as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
 
-* Items with `…` after them can be used multiple times, including zero times for the repeated portion.<br>
+* Items with `...` after them can be used multiple times, including zero times for the repeated portion.<br>
   e.g. in `INDEX [MORE_INDICES]...`, the first `INDEX` is required, while `[MORE_INDICES]...` means zero or more additional indices. So valid inputs include `1`, `1 2`, `1 2 3` etc.
 
 * Parameters can be in any order.<br>
@@ -139,7 +139,7 @@ Edits an existing opportunity contact in InternTrack.
 
 Format: `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s/STATUS] [cy/CYCLE] [p/PHONE]​`
 
-* Edits the opportunity contact at the specified `INDEX`. The index refers to the index number shown in the displayed opportunity contact list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the opportunity contact at the specified `INDEX`. The index refers to the index number shown in the displayed opportunity contact list. The index **must be a positive integer** 1, 2, 3, ...​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * An edit that results in the same Email, Company, Role, and Cycle as an existing record in the tracker will be rejected.
@@ -190,7 +190,7 @@ Format: `delete INDEX [MORE_INDICES]...`
 
 * Deletes the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed opportunity contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
 
@@ -210,7 +210,7 @@ Format:
 
 * Archives the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed unarchived / active opportunity contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
 * `archive cycle CYCLE` archives all active opportunity contacts with the specified cycle.
@@ -234,7 +234,7 @@ Format: `unarchive INDEX [MORE_INDICES]...`
 * Unarchives the opportunity contact(s) at the specified `INDEX`es.
 * The index refers to the index number shown in the displayed archived opportunity contact list.
 * This works for both `list archive` results and archived search results from `find a/ ...`.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, ...​
 * If multiple indices are provided, they must be separated by spaces.
 * Duplicate indices are not allowed.
 
