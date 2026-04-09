@@ -2,7 +2,7 @@
 
 # InternTrack
 
-![Ui](docs/images/Ui.png)
+![Ui](docs/images/release_v1.5/Ui.png)
 
 
 InternTrack is a lightweight desktop app for **managing application-related contacts**, optimized for fast keyboard input while still providing the benefits of a graphical interface.
@@ -20,9 +20,10 @@ InternTrack helps users reduce fragmented information, missed follow-ups, and me
 6. **Archive opportunity records** — Hide selected opportunity records from the unarchived / active list without deleting them, either by index or by cycle.
 7. **List archived records** — View all records currently in the archive.
 8. **Unarchive opportunity records** — Unarchive selected archived opportunity records to the active list.
-9. **Clear all opportunity records** — Remove all tracked records in one shot.
-10. **Help command** — Open quick access to the user guide from within the app.
-11. **Exit command** — Close the app quickly using the keyboard.
-12. **Persistence across sessions** — Ensure tracked data remains available across app restarts.
+9. **Undo command** — Reverts the tracker to its state before the most recent mutating command.
+10. **Clear all opportunity records** — Remove all tracked records in one shot.
+11. **Help command** — Open quick access to the user guide from within the app.
+12. **Exit command** — Close the app quickly using the keyboard.
+13. **Persistence across sessions** — Ensure tracked data remains available across app restarts.
 
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](http://se-education.org)
