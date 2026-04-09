@@ -170,6 +170,7 @@ Format:
 * You can search by company only by leaving the name blank. e.g. `find c/Visa`
 * Use `a/KEYWORD` to search archived opportunities by name, or `a/ c/COMPANY` to search by company only.
 * `a/` can be followed by a space or attached directly to the first name keyword. e.g. `find a/ jan` and `find a/jan` are both valid. Name keywords must follow `a/`, not precede it. e.g. `find jan a/` is invalid.
+* `a/` may be attached only to archived **name** keywords, e.g. `find a/jane`. For archived **company-only** search, a space is required: `find a/ c/Stripe`. `find a/c/Stripe` is invalid.
 * `find`, `find c/`, `find a/`, `find google a/`, and `find a/ c/` are invalid because at least one search term must be provided after `a/` or as a standalone keyword.
 
 Examples:
@@ -180,6 +181,7 @@ Examples:
 * `find a/ c/Visa` returns archived contacts whose company contains `Visa`
 * `find c/Visa` returns all contacts whose company contains `Visa`
 * `find jane lim` returns contacts whose names contain `jane` or `lim` (or both)
+
 ![result for 'find Jane'](images/release_v1.5/Find.png)
 
 ### Deleting an opportunity contact : `delete`

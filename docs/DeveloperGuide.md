@@ -682,14 +682,20 @@ Preconditions: At least one opportunity contact exists in the archived list.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Instructions for manual testing**
+## Appendix: Instructions for manual testing
 
 Given below are instructions to test the app manually.
 
 <box type="info" seamless>
 
-**Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+**Note:**
+These instructions complement the User Guide.
+Refer to the UG for full command formats, accepted values, and standard examples.
+The test cases below focus on:
+* one fast end-to-end path through the main features
+* view-dependent behavior
+* invalid inputs and edge cases
+* persistence and file-recovery behavior
 
 </box>
 
@@ -711,70 +717,117 @@ testers are expected to do more *exploratory* testing.
 
 1. Exiting the application
 
+   1. Prerequisites: The application is running.
+
    1. Test case: `exit`<br>
       Expected: The application closes.
 
    1. Test case: `exit 123`<br>
       Expected: The application does not close. An invalid command format error is shown.
 
-### Viewing help
+### Fast end-to-end smoke test
 
-1. Test case: `help`<br>
-   Expected: The help window opens or a help message containing the help link is shown.
+1. Start from a fresh launch.
 
-1. Test case: `help 123`<br>
-   Expected: No help window is opened. An invalid command format error is shown.
+1. Run the following commands in order:
 
-### Viewing active and archived lists
+   1. `list`
 
-1. Test case: `list`<br>
-   Expected: All unarchived opportunity contacts are shown. The `Main` tab is highlighted.
+   1. `add n/Alex Tan e/alex.tan@test.com cr/recruiter c/Grab r/SWE Intern s/SAVED cy/SUMMER 2026 p/+65 9123 4567`
 
-1. Test case: `list archive`<br>
-   Expected: All archived opportunity contacts are shown. The `Archive` tab is highlighted.
+   1. `find Alex`
 
-1. Rejecting invalid list commands: `list 123`, `list archive 123`<br>
-   Expected: The list is not changed. An invalid command format error is shown.
+   1. `edit 1 s/INTERVIEW p/+65-9000-1111`
 
-### Adding an opportunity contact
+   1. `archive 1`
 
-1. Adding a new opportunity contact
+   1. `list archive`
 
-   1. Test case: `add n/Alex Tan e/alex.tan@test.com cr/recruiter c/Grab r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567`<br>
-      Expected: A new opportunity contact is added to the active list. A success message is shown.
+   1. `unarchive 1`
+
+   1. `list`
+
+   1. `delete 1`
+
+   1. `undo`
+
+1. Expected:
+   * Each command succeeds.
+   * The view indicator updates correctly between `Main` and `Archive`.
+   * The deleted contact is restored after `undo`.
+
+### Help and list commands
+
+1. Help window
+
+   1. Prerequisites: The application is running.
+
+   1. Test case: `help`<br>
+      Expected: The help window opens or a help message containing the help link is shown.
+
+   1. Test case: `help 123`<br>
+      Expected: No help window is opened. An invalid command format error is shown.
+
+1. List commands
+
+   1. Test case: `list`<br>
+      Expected: All unarchived opportunity contacts are shown. The `Main` tab is highlighted.
+
+   1. Test case: `list archive`<br>
+      Expected: All archived opportunity contacts are shown. The `Archive` tab is highlighted.
+
+   1. Test case: `list 123`<br>
+      Expected: The displayed list is unchanged. An invalid command format error is shown.
+
+   1. Test case: `list archive 123`<br>
+      Expected: The displayed list is unchanged. An invalid command format error is shown.
+
+### Add and edit edge cases
+
+1. Adding a record with Unicode and placeholders
+
+   1. Test case: `add n/李明 e/liming@test.com cr/(TBD) c/北京公司 r/C++ Developer s/APPLIED cy/WINTER 2026 p/+65 8888 7777`<br>
+      Expected: A new opportunity contact is added successfully.<br><br>
 
 1. Rejecting an add command with an invalid email
 
-   1. Test case: `add n/Chris e/not-an-email cr/recruiter c/Meta r/SWE Intern s/SAVED cy/SUMMER 2026`<br>
-      Expected: No opportunity contact is added. Error details are shown in the status message.
+   1. Test case: `add n/Chris Tan e/not-an-email cr/recruiter c/Meta r/SWE Intern s/SAVED cy/SUMMER 2026`<br>
+      Expected: No opportunity contact is added. Error details are shown in the status message.<br><br>
 
 1. Rejecting an add command with an invalid status
 
    1. Test case: `add n/Dan Lim e/dan.lim@test.com cr/recruiter c/TikTok r/Data Analyst s/PENDING cy/SUMMER 2026`<br>
-      Expected: No opportunity contact is added. Error details are shown in the status message.
+      Expected: No opportunity contact is added. Error details are shown in the status message.<br><br>
 
-1. Rejecting a duplicate opportunity contact
+1. Rejecting a duplicate against an active record
 
-   1. Prerequisites: An opportunity contact with email `alex.tan@test.com`, company `Grab`, role `SWE Intern`, and cycle `SUMMER 2026` already exists (e.g. from the test case above).
+   1. Prerequisites: Ensure this active record exists:
+      `add n/Active Dup e/active.dup@test.com cr/recruiter c/Grab r/SWE Intern s/SAVED cy/SUMMER 2026`
 
-   1. Test case: `add n/Another Alex e/alex.tan@test.com cr/recruiter c/Grab r/SWE Intern s/OA cy/SUMMER 2026`<br>
-      Expected: No opportunity contact is added. An error message about a duplicate entry is shown.
+   1. Test case:
+      `add n/Another Active Dup e/active.dup@test.com cr/hiring manager c/Grab r/SWE Intern s/APPLIED cy/SUMMER 2026`<br>
+      Expected: No opportunity contact is added. A duplicate-entry error is shown.
 
-1. Rejecting a duplicate against an archived entry
+1. Rejecting a duplicate against an archived record
 
-   1. Prerequisites: An archived opportunity contact with email `jane.lim@stripe.com`, company `Stripe`, role `SWE Intern`, and cycle `SUMMER 2026` already exists.
+   1. Prerequisites:
+      1. Add this record:
+         `add n/Archived Dup e/archived.dup@test.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`
+      1. Find it:
+         `find Archived Dup`
+      1. Archive it:
+         `archive 1`<br><br>
 
-   1. Test case: `add n/Jane Lim e/jane.lim@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/91234567`<br>
-      Expected: No opportunity contact is added. An error message about a duplicate entry is shown.
-
-### Editing an opportunity contact
+   1. Test case:
+      `add n/Another Archived Dup e/archived.dup@test.com cr/hiring manager c/Stripe r/SWE Intern s/OFFER cy/SUMMER 2026`<br>
+      Expected: No opportunity contact is added. A duplicate-entry error is shown.
 
 1. Editing an existing opportunity contact
 
    1. Prerequisites: List all active opportunity contacts using the `list` command. Ensure there is at least one entry.
 
    1. Test case: `edit 1 p/90001111 s/INTERVIEW`<br>
-      Expected: The first opportunity contact is updated with the new phone and status. A success message is shown.
+      Expected: The first opportunity contact is updated with the new phone number and status. A success message is shown.
 
 1. Clearing the phone number of an opportunity contact
 
@@ -783,24 +836,29 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `edit 1 p/`<br>
       Expected: The phone number of the first displayed opportunity contact is cleared. A success message is shown.
 
-1. Editing with an invalid index
+1. Rejecting invalid edit commands
 
    1. Test case: `edit 0 s/OFFER`<br>
       Expected: No opportunity contact is edited. Error details are shown in the status message.
 
-1. Editing without providing any fields
-
    1. Test case: `edit 1`<br>
-      Expected: No opportunity contact is edited. Error details are shown in the status message.
+      Expected: No opportunity contact is edited. An invalid command format error is shown.
 
 1. Editing into a duplicate opportunity contact
 
-   1. Prerequisites: At least two contacts exist such that editing one to match the other in email, company, role, and cycle would create a duplicate.
+   1. Prerequisites:
+      1. Add the first record:
+         `add n/Alex Tan e/alex.dup@test.com cr/recruiter c/Grab r/SWE Intern s/SAVED cy/SUMMER 2026`
+      1. Add the second record:
+         `add n/Ben Lim e/ben.unique@test.com cr/hiring manager c/Stripe r/Data Analyst s/APPLIED cy/WINTER 2026`
+      1. Run:
+         `list`<br><br>
 
-   1. Test case: Edit one contact so that its email, company, role, and cycle become identical to another existing contact.<br>
-      Expected: No opportunity contact is edited. An error message about a duplicate entry is shown.
+   1. Test case:
+      `edit 2 e/alex.dup@test.com c/Grab r/SWE Intern cy/SUMMER 2026`<br>
+      Expected: No opportunity contact is edited. A duplicate-entry error is shown because the edited record now matches the first record in email, company, role, and cycle.
 
-### Locating opportunity contacts
+### Find command edge cases
 
 1. Finding active opportunity contacts by name
 
@@ -809,35 +867,54 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `find Jane`<br>
       Expected: Only active opportunity contacts whose names match `Jane` are shown. The `Main` tab is highlighted.
 
-1. Finding archived opportunity contacts by company
+1. OR matching for multiple name keywords
+
+   1. Prerequisites: Ensure the active list contains at least one contact named `Jane` and at least one named `David`.
+
+   1. Test case: `find Jane David`<br>
+      Expected: All active opportunity contacts whose names contain `Jane` or `David` are shown. The `Main` tab is highlighted.
+
+1. Company-only search
+
+   1. Prerequisites: Ensure the active list contains at least one contact whose company contains `Stripe`.
+
+   1. Test case: `find c/Stripe`<br>
+      Expected: Only active opportunity contacts whose company matches `Stripe` are shown. The `Main` tab is highlighted.
+
+1. Archived company-only search
 
    1. Prerequisites: Ensure there is at least one archived opportunity contact whose company contains `Stripe`.
 
    1. Test case: `find a/ c/Stripe`<br>
       Expected: Only archived opportunity contacts whose company matches `Stripe` are shown. The `Archive` tab is highlighted.
 
-1. Finding archived opportunity contacts by name and company
+1. Rejecting an invalid archived company-only search
+
+   1. Test case: `find a/c/Stripe`<br>
+      Expected: No search is performed. An invalid command format error is shown because archived company-only search must be written as `find a/ c/Stripe`.<br><br>
+
+1. Archived search by name and company
 
    1. Prerequisites: Ensure there is at least one archived opportunity contact whose name contains `Jane` and whose company contains `Stripe`.
 
-   1. Test case: `find a/ Jane c/Stripe`<br>
-      Expected: Only archived opportunity contacts whose name matches `Jane` AND whose company matches `Stripe` are shown. The `Archive` tab is highlighted.
+   1. Test case: `find a/Jane c/Stripe`<br>
+      Expected: Only archived opportunity contacts whose name contains `Jane` and whose company contains `Stripe` are shown. The `Archive` tab is highlighted.
 
 1. Rejecting invalid find commands
 
    1. Test case: `find a/`<br>
-      Expected: No search is performed. An invalid command format error with usage instructions is shown.
+      Expected: No search is performed. An invalid command format error is shown.
 
    1. Test case: `find google a/`<br>
-      Expected: No search is performed. An error is shown — keywords must appear after `a/`, not before.
+      Expected: No search is performed. An invalid command format error is shown.
 
    1. Test case: `find alice a/bob`<br>
-      Expected: No search is performed. An error is shown — keywords cannot appear on both sides of `a/`.
+      Expected: No search is performed. An invalid command format error is shown.
 
    1. Other invalid commands to try: `find`, `find c/`<br>
       Expected: No search is performed. Error details are shown in the status message.
 
-### Deleting an opportunity contact
+### Delete, archive, and unarchive edge cases
 
 1. Deleting an opportunity contact
 
@@ -846,55 +923,56 @@ testers are expected to do more *exploratory* testing.
    1. Test case: `delete 1`<br>
       Expected: The first displayed opportunity contact is deleted. Details of the deleted opportunity contact are shown.
 
-1. Rejecting invalid delete commands
-
-   1. Test case: `delete 0`<br>
-      Expected: No opportunity contact is deleted. Error details are shown in the status message.
+1. Duplicate indices
 
    1. Test case: `delete 1 1`<br>
+      Expected: No opportunity contact is deleted. Error details are shown in the status message.
+
+   1. Test case: `archive 1 1`<br>
+      Expected: No opportunity contact is archived. Error details are shown in the status message.
+
+   1. Test case: `unarchive 1 1`<br>
+      Expected: No opportunity contact is unarchived. Error details are shown in the status message.
+
+1. Other invalid delete commands
+
+   1. Test case: `delete 0`<br>
       Expected: No opportunity contact is deleted. Error details are shown in the status message.
 
    1. Other incorrect commands to try: `delete`, `delete x`, `delete 999`<br>
       Expected: No opportunity contact is deleted. Error details are shown in the status message.
 
-### Archiving an opportunity contact
-
-1. Archiving an opportunity contact by index
+1. Archiving by index
 
    1. Prerequisites: List all active opportunity contacts using the `list` command. Ensure there is at least one entry.
 
    1. Test case: `archive 1`<br>
       Expected: The first active opportunity contact is archived and no longer shown in the active list. A success message is shown.
 
-1. Archiving all active opportunity contacts in a cycle
+1. Cycle-based archive
 
-   1. Prerequisites: Ensure there is at least one active opportunity contact with cycle `SUMMER 2026`. The displayed list must be the active list.
+   1. Prerequisites: Ensure there is at least one active opportunity contact with cycle `SUMMER 2026`.
 
    1. Test case: `archive cycle SUMMER 2026`<br>
       Expected: All active opportunity contacts with cycle `SUMMER 2026` are archived. A success message is shown.
 
-1. Rejecting invalid archive commands
-
-   1. Test case: `archive 0`<br>
-      Expected: No opportunity contact is archived. Error details are shown in the status message.
-
-   1. Test case: `archive 1 1`<br>
-      Expected: No opportunity contact is archived. Error details are shown in the status message.
-
    1. Test case: `archive cycle INVALID 2026`<br>
       Expected: No opportunity contact is archived. Error details are shown in the status message.
 
-1. Archiving while viewing the archived list
+1. Wrong-view restrictions
 
-   1. Prerequisites: Show archived opportunity contacts using the `list archive` command.
+   1. Prerequisites: Show archived opportunities using `list archive`.
 
    1. Test case: `archive 1`<br>
-      Expected: No opportunity contact is archived. Error details are shown — archiving only works from the active list.
+      Expected: No opportunity contact is archived. Error details are shown because archiving by index only works in the active list.
 
    1. Test case: `archive cycle SUMMER 2026`<br>
-      Expected: No opportunity contact is archived. Error details are shown — cycle archiving also only works from the active list.
+      Expected: No opportunity contact is archived. Error details are shown because cycle-based archiving also only works in the active list.
 
-### Unarchiving an opportunity contact
+   1. Prerequisites: Show active opportunities using `list`.
+
+   1. Test case: `unarchive 1`<br>
+      Expected: No opportunity contact is unarchived. Error details are shown because unarchiving only works in the archived list.
 
 1. Unarchiving from the archived list
 
@@ -905,41 +983,33 @@ testers are expected to do more *exploratory* testing.
 
 1. Unarchiving from archived find results
 
-   1. Prerequisites: Run `find a/ c/Stripe` and ensure there is at least one archived result shown.
+   1. Prerequisites: Run `find a/Jane c/Stripe` and ensure there is at least one archived result shown.
 
    1. Test case: `unarchive 1`<br>
       Expected: The first displayed archived opportunity contact is restored to the active list. A success message is shown.
 
-1. Rejecting invalid unarchive commands
-
-   1. Test case: `unarchive 0`<br>
-      Expected: No opportunity contact is unarchived. Error details are shown in the status message.
-
-   1. Test case: `unarchive 1 1`<br>
-      Expected: No opportunity contact is unarchived. Error details are shown in the status message.
-
-1. Unarchiving while viewing the active list
-
-   1. Prerequisites: Show active opportunity contacts using the `list` command.
-
-   1. Test case: `unarchive 1`<br>
-      Expected: No opportunity contact is unarchived. Error details are shown — unarchiving only works from the archived list.
-
-### Undoing a command
+### Undo edge cases
 
 1. Undoing a mutating command
 
-   1. Prerequisites: Ensure the active list has at least one opportunity contact (run `list` to check). Execute any mutating command, e.g. `delete 1`.
+   1. Prerequisites: Execute a valid mutating command such as `add`, `edit`, `delete`, `archive`, `unarchive`, or `clear`.
 
    1. Test case: `undo`<br>
-      Expected: The previous state is restored. A success message is shown in the status box.
+      Expected: The most recent change is reverted. A success message is shown.
+
+1. Read-only commands do not consume undo history
+
+   1. Prerequisites: Execute a valid `add` command, then execute a read-only command such as `list` or `find`.
+
+   1. Test case: `undo`<br>
+      Expected: The earlier mutating command is undone.
 
 1. Undoing when there is no history
 
    1. Prerequisites: Ensure the application has just launched and no mutating commands have been executed.
 
    1. Test case: `undo`<br>
-      Expected: The tracker state remains unchanged. An error message `"No more commands to undo!"` is shown in the status box.
+      Expected: The tracker state remains unchanged. An error message `"No more commands to undo!"` is shown.
 
 1. Rejecting an invalid undo command
 
@@ -948,37 +1018,68 @@ testers are expected to do more *exploratory* testing.
 
 ### Clearing all entries
 
-1. Clearing all opportunity contacts
+1. Clearing all entries
 
    1. Prerequisites: Ensure the tracker contains at least one opportunity contact.
 
    1. Test case: `clear`<br>
       Expected: All opportunity contacts, including archived ones, are removed. A success message is shown.
 
-1. Rejecting an invalid clear command
+   1. Test case: `undo` immediately after `clear`<br>
+      Expected: All cleared opportunity contacts are restored.
 
    1. Test case: `clear 123`<br>
-      Expected: No opportunity contacts are removed. Error details are shown in the status message.
+      Expected: No opportunity contacts are removed. An invalid command format error is shown.
 
-### Saving data
+### Saving data and file recovery
 
-1. Data persistence after archiving and unarchiving
+1. Persistence after state-changing commands
 
-   1. Prerequisites: Ensure there is at least one active opportunity contact and at least one archived opportunity contact.
+   1. Perform one valid `add`, one valid `edit`, one valid `archive` or `unarchive`, and one valid `delete`.
 
-   1. Test case: Execute a valid `archive` command on an active contact, and a valid `unarchive` command on an archived contact. Close the application. Reopen it.<br>
-      Expected: The archive state changes are retained.
+   1. Close the application and reopen it.<br>
+      Expected: All successful state changes are retained.
 
-1. Dealing with a missing data file
+1. Missing data file
 
-   1. To simulate a missing data file, close the app, delete the data file `data/addressbook.json`, and then reopen the app.
+   1. Close the app.
 
-   1. Expected: The app does not crash and loads sample data. The missing file will only be recreated on the next successful save (e.g., after an `add` or `edit` command).
+   1. Delete `data/addressbook.json`.
 
-   1. See the [User Guide](UserGuide.md#faq) for how to locate the data file.
+   1. Reopen the app.<br>
+      Expected: The app does not crash and loads sample data.
 
-1. Dealing with a corrupted data file
+   1. Execute a valid mutating command such as an `add`.
 
-   1. To simulate a corrupted data file, close the app and edit `data/addressbook.json` so that it is no longer valid JSON. Then reopen the app.
+   1. Check the `data` folder.<br>
+      Expected: `addressbook.json` is recreated after the successful save.
 
-   1. Expected: The app does not crash. It handles the corrupted file gracefully according to the storage behavior implemented by the app.
+1. Corrupted data file
+
+   1. Close the app.
+
+   1. Edit `data/addressbook.json` so that it is no longer valid JSON.
+
+   1. Reopen the app.<br>
+      Expected: The app does not crash. No previously saved opportunity contacts are loaded. The app starts with an empty data set because the invalid file content is discarded.
+
+   1. Execute a valid mutating command such as:
+      `add n/Test User e/test@example.com cr/recruiter c/TestCo r/SWE Intern s/SAVED cy/SUMMER 2026`
+
+   1. Close and reopen the app again.<br>
+      Expected: The newly added contact is present, showing that the corrupted file has been replaced by a valid saved data file.
+
+1. Optional: save failure when the data file is not writable
+
+   1. Prerequisites: Ensure `data/addressbook.json` already exists.
+
+   1. Make `data/addressbook.json` read-only using your operating system's file permissions.
+
+   1. Reopen the app and execute a valid mutating command such as:
+      `add n/Test User e/test@example.com cr/recruiter c/TestCo r/SWE Intern s/SAVED cy/SUMMER 2026`<br>
+      Expected: The app does not crash. The command is reverted, and a clear error message is shown indicating that the storage operation failed.
+
+   1. Restore write permission to `data/addressbook.json`.
+
+   1. Execute the same `add` command again.<br>
+      Expected: The command now succeeds and the new contact is saved normally.
