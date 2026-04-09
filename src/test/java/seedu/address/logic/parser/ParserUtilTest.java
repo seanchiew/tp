@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_OPPORTUNITY;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_OPPORTUNITY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +47,17 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_OPPORTUNITY, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void parseIndices_invalidInput_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseIndices("1 a"));
+    }
+
+    @Test
+    public void parseIndices_validInput_success() throws Exception {
+        assertEquals(List.of(INDEX_FIRST_OPPORTUNITY, INDEX_SECOND_OPPORTUNITY),
+                ParserUtil.parseIndices(" 1 \t 2 "));
     }
 
     @Test

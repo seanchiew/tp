@@ -2,8 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -36,25 +34,16 @@ public class DeleteCommand extends Command {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
-        }
 
         List<Opportunity> lastShownList = model.getFilteredOpportunityList();
 
-        for (Index targetIndex : targetIndices) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
-            }
-        }
-
-        // Sort indices in descending order to prvent shifting index trap
-        List<Index> sortedIndices = new ArrayList<>(targetIndices);
-        sortedIndices.sort((index1, index2) -> index2.getZeroBased() - index1.getZeroBased());
+        // Sort indices in descending order so the success message lists later indices first.
+        List<Index> sortedIndices = IndexCommandUtil.getIndicesInDescendingOrder(targetIndices);
+        List<Opportunity> opportunitiesToDelete = IndexCommandUtil.getItemsAtIndices(
+                sortedIndices, lastShownList, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
 
         StringBuilder deletedOpportunities = new StringBuilder();
-        for (Index targetIndex : sortedIndices) {
-            Opportunity opportunityToDelete = lastShownList.get(targetIndex.getZeroBased());
+        for (Opportunity opportunityToDelete : opportunitiesToDelete) {
             model.deleteOpportunity(opportunityToDelete);
             deletedOpportunities.append(String.format("\n%1$s", Messages.format(opportunityToDelete)));
         }

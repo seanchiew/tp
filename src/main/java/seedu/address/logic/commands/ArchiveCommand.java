@@ -3,8 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_UNARCHIVED_OPPORTUNITIES;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -48,19 +46,9 @@ public class ArchiveCommand extends Command {
             throw new CommandException(MESSAGE_NOT_IN_UNARCHIVED_VIEW);
         }
 
-        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
-        }
-
         List<Opportunity> lastShownList = model.getFilteredOpportunityList();
-        List<Opportunity> opportunitiesToArchive = new ArrayList<>();
-
-        for (Index targetIndex : targetIndices) {
-            if (targetIndex.getZeroBased() >= lastShownList.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
-            }
-            opportunitiesToArchive.add(lastShownList.get(targetIndex.getZeroBased()));
-        }
+        List<Opportunity> opportunitiesToArchive = IndexCommandUtil.getItemsAtIndices(
+                targetIndices, lastShownList, Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
 
         StringBuilder archivedOpportunities = new StringBuilder();
         for (Opportunity opportunityToArchive : opportunitiesToArchive) {

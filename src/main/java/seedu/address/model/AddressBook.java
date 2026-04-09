@@ -15,18 +15,7 @@ import seedu.address.model.opportunity.UniqueOpportunityList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniqueOpportunityList opportunities;
-
-    /*
-     * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
-     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
-     *
-     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
-     *   among constructors.
-     */
-    {
-        opportunities = new UniqueOpportunityList();
-    }
+    private final UniqueOpportunityList opportunities = new UniqueOpportunityList();
 
     public AddressBook() {}
 
@@ -34,7 +23,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Creates an AddressBook using the Opportunities in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
         resetData(toBeCopied);
     }
 

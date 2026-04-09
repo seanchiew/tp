@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
@@ -44,27 +43,18 @@ public class UnarchiveCommand extends Command {
             throw new CommandException(MESSAGE_NOT_IN_ARCHIVE_VIEW);
         }
 
-        if (new HashSet<>(targetIndices).size() != targetIndices.size()) {
-            throw new CommandException(Messages.MESSAGE_DUPLICATE_INDICES);
-        }
-
         List<Opportunity> displayedArchivedOpportunities = new ArrayList<>(model.getFilteredOpportunityList());
 
-        for (Index targetIndex : targetIndices) {
-            if (targetIndex.getZeroBased() >= displayedArchivedOpportunities.size()) {
-                throw new CommandException(Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
-            }
-        }
-
-        // Sort indices in descending order to prevent index mismatch
-        // due to shifting when unarchiving multiple opportunities
-        List<Index> sortedIndices = new ArrayList<>(targetIndices);
-        sortedIndices.sort((index1, index2) -> index2.getZeroBased() - index1.getZeroBased());
+        // Sort indices in descending order so the success message lists later indices first.
+        List<Index> sortedIndices = IndexCommandUtil.getIndicesInDescendingOrder(targetIndices);
+        List<Opportunity> opportunitiesToUnarchive =
+                IndexCommandUtil.getItemsAtIndices(
+                        sortedIndices, displayedArchivedOpportunities,
+                        Messages.MESSAGE_INVALID_OPPORTUNITY_DISPLAYED_INDEX);
 
         StringBuilder unarchivedOpportunities = new StringBuilder();
 
-        for (Index targetIndex : sortedIndices) {
-            Opportunity opportunityToUnarchive = displayedArchivedOpportunities.get(targetIndex.getZeroBased());
+        for (Opportunity opportunityToUnarchive : opportunitiesToUnarchive) {
             Opportunity unarchivedOpportunity = opportunityToUnarchive.unarchive();
 
             model.setOpportunity(opportunityToUnarchive, unarchivedOpportunity);

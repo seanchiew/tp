@@ -2,10 +2,6 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ArchiveCommand;
 import seedu.address.logic.commands.ArchiveCycleCommand;
 import seedu.address.logic.commands.Command;
@@ -53,14 +49,7 @@ public class ArchiveCommandParser implements Parser<Command> {
 
     private Command parseIndexArchiveCommand(String trimmedArgs) throws ParseException {
         try {
-            String[] indexStrings = trimmedArgs.split("\\s+");
-            List<Index> indices = new ArrayList<>();
-
-            for (String indexString : indexStrings) {
-                indices.add(ParserUtil.parseIndex(indexString));
-            }
-
-            return new ArchiveCommand(indices);
+            return new ArchiveCommand(ParserUtil.parseIndices(trimmedArgs));
         } catch (ParseException pe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ArchiveCommand.MESSAGE_USAGE), pe);
