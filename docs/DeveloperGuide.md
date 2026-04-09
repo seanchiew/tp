@@ -821,7 +821,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: Ensure there is at least one archived opportunity contact whose name contains `Jane` and whose company contains `Stripe`.
 
    1. Test case: `find a/ Jane c/Stripe`<br>
-      Expected: Only archived opportunity contacts whose name matches `Jane` AND company matches `Stripe` are shown. The `Archive` tab is highlighted.
+      Expected: Only archived opportunity contacts whose name matches `Jane` AND whose company matches `Stripe` are shown. The `Archive` tab is highlighted.
 
 1. Rejecting invalid find commands
 
