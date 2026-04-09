@@ -52,10 +52,10 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
   e.g. in `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE`, `NAME`, `EMAIL`, `CONTACT_ROLE`, `COMPANY`, `ROLE`, `STATUS` and `CYCLE` are parameters which can be used as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE_NUMBER]` can be used as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567` or as `n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
+* Parameters in square brackets are optional.<br>
+  e.g. `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [p/PHONE]` can be used as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026 p/91234567` or as `add n/Alicia Tan e/alicia.tan@stripe.com cr/recruiter c/Stripe r/SWE Intern s/SAVED cy/SUMMER 2026`.
 
-* Items with `...` after them can be used multiple times, including zero times for the repeated portion.<br>
+* Parameters with `...` after them can be used multiple times, including zero times for the repeated portion.<br>
   e.g. in `INDEX [MORE_INDICES]...`, the first `INDEX` is required, while `[MORE_INDICES]...` means zero or more additional indices. So valid inputs include `1`, `1 2`, `1 2 3` etc.
 
 * Parameters can be in any order.<br>
@@ -89,7 +89,7 @@ Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [
 
 * `NAME` can contain any characters except forward slash (`/`). Maximum length: 60 characters.
   * The forward slash is reserved for CLI command syntax (e.g., `n/`, `cr/`, `c/`).
-  * Examples: `John Smith`, `Mr. John Doe`, `Mary (Mei Ling)`, `Dr. O'Brien-Smith, Jr.`, `R&D Team`, `@John`, `???`
+  * Examples: `John Smith`, `Mr. John Doe`, `Mary (Mei Ling)`, `Dr. O'Brien-Smith, Jr.`, `R&D Team`, `@John`
   * Supports Unicode: `李明`, `Müller`
   * Placeholder examples: `...`, `(TBD)`, `---`, `???` (when name is unknown)
 * `EMAIL` must be a valid email address in the format `local@domain` (e.g. `jane@stripe.com`). Maximum length: 254 characters.
@@ -110,8 +110,9 @@ Format: `add n/NAME e/EMAIL cr/CONTACT_ROLE c/COMPANY r/ROLE s/STATUS cy/CYCLE [
 * **Tip:** If you don't yet know a contact's name or role, use a placeholder like `...` or `(TBD)` and update it later with the `edit` command.
 * `p/PHONE` is optional and can be omitted if the contact's phone number is not available. Phone numbers must contain 3 to 15 digits, and must either start with a digit or start with `+` immediately followed by a digit. They must end with a digit. Spaces, hyphens, and parentheses are allowed within the phone number (e.g. `+65 9123 4567`, `+1-800-555-0100`, `+1 (212) 555-0199`). Leading and trailing whitespace is trimmed before saving; otherwise, the entered phone-number formatting is preserved.
 * `STATUS` must be one of: `SAVED`, `APPLIED`, `OA`, `INTERVIEW`, `OFFER`, `REJECTED`, `WITHDRAWN`. Matching is case-insensitive, so inputs like `saved` or `interview` are also accepted and stored in uppercase.
-* `cy/CYCLE` is mandatory and must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025). CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
+* `cy/CYCLE` is mandatory and must be one of (SUMMER, WINTER, S1, S2) followed by a space and a 4-digit year (e.g. SUMMER 2025), where `S1` and `S2` refer to Semester 1 and Semester 2 respectively. CLI aliases like `SEM 1`, `semester 2`, and `SemESTer1` are also accepted and normalized to `S1`/`S2`.
 * Archived records still count toward duplicate detection. If you try to add a record with the same Email, Company, Role, and Cycle as an archived entry, the add will be rejected. Use `unarchive` to restore the existing entry instead.
+* **Note:** If multiple fields are invalid, all errors are shown at once as a numbered list, so you can fix all issues in one go.
 
 Examples:
 * `add n/Jane Lim e/jane@stripe.com cr/recruiter c/Stripe r/SWE Intern s/APPLIED cy/SUMMER 2026 p/98765432`
@@ -144,6 +145,7 @@ Format: `edit INDEX [n/NAME] [e/EMAIL] [cr/CONTACT_ROLE] [c/COMPANY] [r/ROLE] [s
 * Existing values will be updated to the input values.
 * An edit that results in the same Email, Company, Role, and Cycle as an existing record in the tracker will be rejected.
 * To clear an existing phone number, use `p/` with no value (e.g. `edit 1 p/`).
+* **Note:** If multiple fields are invalid, all errors are shown at once as a numbered list, so you can fix all issues in one go.
 
 Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st opportunity contact to be `91234567` and `johndoe@example.com` respectively.
@@ -306,9 +308,6 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 
 ## FAQ
 
-**Q: How do I transfer my data to another computer?**
-**A:** Install InternTrack on the other computer, then replace the `data/addressbook.json` file there with the one from your current computer.
-
 **Q: Where does InternTrack store my data?**
 **A:** InternTrack stores its data in `data/addressbook.json`, where the `data` folder is created in the same directory as the application JAR file. For example, if the JAR file is placed in Desktop, the data file will be stored in `Desktop/data/addressbook.json`.
 
@@ -338,7 +337,6 @@ Furthermore, certain edits can cause the InternTrack to behave in unexpected way
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 
 --------------------------------------------------------------------------------------------------------------------
 
