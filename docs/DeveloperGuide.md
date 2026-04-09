@@ -661,7 +661,7 @@ Preconditions: At least one opportunity contact exists in the archived list.
 5. **Response time:** With up to **500** opportunity contacts, all commands must complete within **500 ms**, excluding application startup.
 6. **Startup time:** With up to **500** opportunity contacts, the application must be ready to accept user input within **2 seconds** after launch on a typical modern laptop.
 7. **Autosave reliability:** The app must automatically save after every state-changing operation (e.g., add, delete, edit, archive, unarchive).
-8. **Graceful storage failure:** If reading or writing the storage file fails, the app must not crash and must show a clear error message.
+8. **Graceful storage failure:** If writing the storage file fails, the app must not crash and must show a clear error message. If the storage file is missing on startup, the app must not crash and must start with sample data. If the storage file exists but cannot be read or parsed, the app must not crash and must start with an empty data set without showing a user-facing error message.
 9. **CLI-first usability:** All commands must be executable using keyboard-only input; the GUI is for visualization and must not be required to complete core tasks.
 
 ### Glossary
