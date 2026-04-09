@@ -8,7 +8,7 @@
 [![CI Status](https://github.com/AY2526S2-CS2103T-W13-2/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2526S2-CS2103T-W13-2/tp/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/gh/AY2526S2-CS2103T-W13-2/tp/branch/master/graph/badge.svg)](https://codecov.io/gh/AY2526S2-CS2103T-W13-2/tp)
 
-![Ui](images/release_v1.3/Ui.png)
+![Ui](images/release_v1.5/Ui.png)
 
 **InternTrack is a desktop application for managing your opportunity contact details.** While it has a GUI, most of the user interactions happen using a CLI (Command Line Interface).
 

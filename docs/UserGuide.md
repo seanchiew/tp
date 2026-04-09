@@ -24,7 +24,7 @@ InternTrack is a **desktop app for managing application-related contacts**, opti
 
 1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar interntrack.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/release_v1.5/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
@@ -76,7 +76,7 @@ InternTrack displays a **Main** and **Archive** tab just above the opportunity l
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/release_v1.5/Help.png)
 
 Format: `help`
 
@@ -121,7 +121,7 @@ Examples:
 * `add n/@John e/john@example.com cr/C++ Developer c/Tech Corp r/Software Engineer s/SAVED cy/SUMMER 2026` (special characters allowed)
 * `add n/李明 e/liming@example.com cr/recruiter c/北京公司 r/软件工程师 s/APPLIED cy/WINTER 2026` (Unicode characters supported)
 
-![add](images/AddContact.png)
+![add](images/release_v1.5/Add.png)
 
 ### Listing all opportunities : `list`
 
@@ -131,7 +131,7 @@ Format: `list`
 
 * The **Main** tab in the view indicator will be highlighted when this command is run.
 
-![list](images/ListContacts.png)
+![list](images/release_v1.5/List.png)
 
 ### Editing an opportunity contact: `edit`
 
@@ -149,7 +149,7 @@ Examples:
 *  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st opportunity contact to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 1 p/` Clears the phone number of the 1st opportunity contact.
 
-![edit](images/EditContact.png)
+![edit](images/release_v1.5/Edit.png)
 
 ### Locating opportunity contacts: `find`
 
@@ -176,7 +176,7 @@ Examples:
 * `find a/ c/Visa` returns archived contacts whose company contains `Visa`
 * `find c/Visa` returns all contacts whose company contains `Visa`
 * `find jane lim` returns contacts whose names contain `jane` or `lim` (or both)
-![result for 'find Jane'](images/FindContact.png)
+![result for 'find Jane'](images/release_v1.5/Find.png)
 
 ### Deleting an opportunity contact : `delete`
 
@@ -194,7 +194,7 @@ Examples:
 * `list` followed by `delete 2` deletes the 2nd opportunity contact in the tracker.
 * `find c/Stripe` followed by `delete 1 2 3` deletes the 1st, 2nd, and 3rd opportunity contacts in the displayed results.
 
-![delete](images/DeleteContact.png)
+![delete](images/release_v1.5/Delete.png)
 
 ### Archiving an opportunity contact : `archive`
 
@@ -219,7 +219,7 @@ Examples:
 * `archive cycle S1 2026` archives all active opportunity contacts for `S1 2026`.
 * `archive cycle S2 2026` archives all active opportunity contacts for `S2 2026`.
 
-![archive](images/Archive.png)
+![archive](images/release_v1.5/Archive.png)
 
 ### Unarchiving an opportunity contact : `unarchive`
 
@@ -238,7 +238,7 @@ Examples:
 * `list archive` followed by `unarchive 2` unarchives the 2nd archived opportunity contact in the tracker.
 * `list archive` followed by `unarchive 1 2 3` unarchives the 1st, 2nd, and 3rd archived opportunity contacts in the displayed results.
 
-![unarchive](images/Unarchive.png)
+![unarchive](images/release_v1.5/Unarchive.png)
 
 ### Listing all archived opportunities : `list archive`
 
@@ -248,7 +248,7 @@ Format: `list archive`
 
 * The **Archive** tab in the view indicator will be highlighted when this command is run.
 
-![list archive](images/ListArchive.png)
+![list archive](images/release_v1.5/ListArchive.png)
 
 ### Undoing a command: `undo`
 
@@ -260,7 +260,7 @@ Format: `undo`
 * The `undo` command only works if there is a previous state to restore. If you have just launched the app or have already undone all recent commands, executing `undo` will fail with a "No more commands to undo!" error.
 * Read-only commands (like `list` or `find`) do not modify the tracker's state and cannot be undone.
 
-![undo](images/Undo.png)
+![undo](images/release_v1.5/Undo.png)
 
 ### Clearing all entries : `clear`
 
@@ -274,7 +274,7 @@ Clears **all** opportunity contacts from InternTrack, including archived ones, g
 
 Format: `clear`
 
-![clear](images/ClearContacts.png)
+![clear](images/release_v1.5/Clear.png)
 
 ### Exiting the program : `exit`
 
